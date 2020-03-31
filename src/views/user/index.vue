@@ -1,7 +1,19 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction" />
+            <search-form slot="body" :searchFunction="searchFunction">
+                <template slot="queryItem">
+                    <el-form-item label="名称">
+                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机">
+                        <el-select v-model="query.phone" placeholder="手机">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </template>
+            </search-form>
         </m-card>
         <el-row :gutter="20">
             <el-col :span="6">
@@ -12,10 +24,9 @@
             <el-col :span="18">
                 <m-card type="table" class="mt-2">
                     <div slot="body">
-                        <table-operate-bar title="推广数据">
+                        <table-operate-bar title="用户数据">
                             <template slot="functionButton">
-                                <el-button size="small" type="primary">操作按钮</el-button>
-                                <el-button size="small" type="primary">操作按钮</el-button>
+                                <el-button size="small" type="primary">新增</el-button>
                             </template>
                         </table-operate-bar>
                         <table-selected-bar selected="50" />
@@ -91,7 +102,11 @@ export default {
     },
     data() {
         return {
-            height: ""
+            height: "",
+            query: {
+                name: "",
+                phone: ""
+            }
         };
     },
     computed: {
