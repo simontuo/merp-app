@@ -9,8 +9,9 @@
         <div class="main-container">
             <div :class="{'fixed-header':fixedHeader}">
                 <navbar />
+                <tags-view v-if="needTagsView" />
             </div>
-            <app-main />
+            <app-main :class="needTagsView ? 'mt-3' : ''" />
             <back-top />
             <m-footer />
         </div>
@@ -18,10 +19,11 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from "./components";
+import { Navbar, Sidebar, AppMain, TagsView } from "./components";
 import MFooter from "./components/MFooter";
 import BackTop from "@/components/BackToTop";
 import ResizeMixin from "./mixin/ResizeHandler";
+import { mapState } from "vuex";
 
 export default {
     name: "Layout",
@@ -30,19 +32,17 @@ export default {
         Sidebar,
         AppMain,
         MFooter,
-        BackTop
+        BackTop,
+        TagsView
     },
     mixins: [ResizeMixin],
     computed: {
-        sidebar() {
-            return this.$store.state.app.sidebar;
-        },
-        device() {
-            return this.$store.state.app.device;
-        },
-        fixedHeader() {
-            return this.$store.state.settings.fixedHeader;
-        },
+        ...mapState({
+            sidebar: state => state.app.sidebar,
+            device: state => state.app.device,
+            fixedHeader: state => state.settings.fixedHeader,
+            needTagsView: state => state.settings.needTagsView
+        }),
         classObj() {
             return {
                 hideSidebar: !this.sidebar.opened,

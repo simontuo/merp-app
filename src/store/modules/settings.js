@@ -1,6 +1,6 @@
 import defaultSettings from '@/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, title, logo, openSidebar, tableSize, pagination, footerInfo } = defaultSettings
+const { showSettings, fixedHeader, sidebarLogo, title, logo, openSidebar, tableSize, pagination, footerInfo, needTagsView } = defaultSettings
 
 const state = {
 	showSettings: showSettings,
@@ -12,6 +12,7 @@ const state = {
 	tableSize: tableSize,
 	pagination: pagination,
 	footerInfo: footerInfo,
+	needTagsView: needTagsView,
 }
 
 const mutations = {

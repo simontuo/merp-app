@@ -50,5 +50,11 @@ module.exports = {
 	footerInfo: {
 		title: "Maguas Erp",
 		author: "大力加冰"
-	}
+	},
+
+	/**
+	 * @type {boolean}
+	 * @description need tags View
+	 */
+	needTagsView: false,
 }
