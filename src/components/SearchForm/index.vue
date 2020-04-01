@@ -23,11 +23,17 @@ export default {
     created() {
         this.search();
     },
+    mounted() {
+        bus.$on("search", response => {
+            this.search(response.page, response.pageSize);
+        });
+    },
     methods: {
         search(
             page = 1,
             pageSize = this.$store.state.settings.pagination.pageSize
         ) {
+            console.log(page, pageSize);
             this.$store.dispatch("search/loadingOn");
             this.searchFunction({
                 page: page,

@@ -2,7 +2,7 @@
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
+        :current-page="pagination.page"
         :page-sizes="pagination.pageSizes"
         :page-size="pagination.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
@@ -15,11 +15,6 @@
 <script>
 export default {
     name: "pagination",
-    data() {
-        return {
-            currentPage: 1
-        };
-    },
     computed: {
         pagination() {
             return this.$store.state.settings.pagination;
@@ -30,11 +25,16 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            bus.$emit("search", {
+                page: this.$store.state.settings.pagination.page,
+                pageSize: val
+            });
         },
         handleCurrentChange(val) {
-            console.log(this.$parent);
-            console.log(`当前页: ${val}`);
+            bus.$emit("search", {
+                page: val,
+                pageSize: this.$store.state.settings.pagination.pageSize
+            });
         }
     }
 };
