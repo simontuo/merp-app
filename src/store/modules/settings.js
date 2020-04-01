@@ -1,38 +1,37 @@
 import defaultSettings from '@/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, title, logo, openSidebar, tableSize, pagination, footerInfo, needTagsView } = defaultSettings
+const { showSettings, fixedHeader, sidebarLogo, title, logo, openSidebar, tableSize, footerInfo, needTagsView } = defaultSettings
 
 const state = {
-	showSettings: showSettings,
-	fixedHeader: fixedHeader,
-	sidebarLogo: sidebarLogo,
-	title: title,
-	logo: logo,
-	openSidebar: openSidebar,
-	tableSize: tableSize,
-	pagination: pagination,
-	footerInfo: footerInfo,
-	needTagsView: needTagsView,
+    showSettings: showSettings,
+    fixedHeader: fixedHeader,
+    sidebarLogo: sidebarLogo,
+    title: title,
+    logo: logo,
+    openSidebar: openSidebar,
+    tableSize: tableSize,
+    footerInfo: footerInfo,
+    needTagsView: needTagsView,
 }
 
 const mutations = {
-	CHANGE_SETTING: (state, { key, value }) => {
-		if (state.hasOwnProperty(key)) {
-			state[key] = value
-		}
-	}
+    CHANGE_SETTING: (state, { key, value }) => {
+        if (state.hasOwnProperty(key)) {
+            state[key] = value
+        }
+    }
 }
 
 const actions = {
-	changeSetting({ commit }, data) {
-		commit('CHANGE_SETTING', data)
-	}
+    changeSetting({ commit }, data) {
+        commit('CHANGE_SETTING', data)
+    }
 }
 
 export default {
-	namespaced: true,
-	state,
-	mutations,
-	actions
+    namespaced: true,
+    state,
+    mutations,
+    actions
 }
 

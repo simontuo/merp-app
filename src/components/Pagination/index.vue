@@ -17,7 +17,7 @@ export default {
     name: "pagination",
     computed: {
         pagination() {
-            return this.$store.state.settings.pagination;
+            return this.$store.state.pagination;
         },
         search() {
             return this.$store.state.search;
@@ -25,15 +25,16 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
+            this.$store.dispatch("pagination/changePageSize", { val });
             bus.$emit("search", {
-                page: this.$store.state.settings.pagination.page,
+                page: this.$store.state.pagination.page,
                 pageSize: val
             });
         },
         handleCurrentChange(val) {
             bus.$emit("search", {
                 page: val,
-                pageSize: this.$store.state.settings.pagination.pageSize
+                pageSize: this.$store.state.pagination.pageSize
             });
         }
     }

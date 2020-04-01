@@ -29,11 +29,7 @@ export default {
         });
     },
     methods: {
-        search(
-            page = 1,
-            pageSize = this.$store.state.settings.pagination.pageSize
-        ) {
-            console.log(page, pageSize);
+        search(page = 1, pageSize = this.$store.state.pagination.pageSize) {
             this.$store.dispatch("search/loadingOn");
             this.searchFunction({
                 page: page,
