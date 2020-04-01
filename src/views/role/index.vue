@@ -17,7 +17,7 @@
         </m-card>
         <m-card type="table" class="mt-2">
             <div slot="body" ref="tableData">
-                <table-operate-bar title="用户数据">
+                <table-operate-bar title="角色数据">
                     <template slot="functionButton">
                         <el-button size="small" type="primary">新增</el-button>
                     </template>
