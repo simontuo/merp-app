@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction">
+            <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
                         <el-input v-model="query.name" placeholder="名称"></el-input>
@@ -36,20 +36,20 @@
                                 <el-table-column align="center" label="ID" width="55">
                                     <template slot-scope="scope">{{ scope.$index }}</template>
                                 </el-table-column>
-                                <el-table-column label="Title">
-                                    <template slot-scope="scope">{{ scope.row.title }}</template>
+                                <el-table-column label="名称" width="110">
+                                    <template slot-scope="scope">{{ scope.row.name }}</template>
                                 </el-table-column>
-                                <el-table-column label="Author" width="110" align="center">
+                                <el-table-column label="手机" width="200" align="center">
                                     <template slot-scope="scope">
-                                        <span>{{ scope.row.author }}</span>
+                                        <span>{{ scope.row.phone }}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="Pageviews" width="110" align="center">
-                                    <template slot-scope="scope">{{ scope.row.pageviews }}</template>
+                                <el-table-column label="邮箱" align="center">
+                                    <template slot-scope="scope">{{ scope.row.email }}</template>
                                 </el-table-column>
-                                <el-table-column
+                                <!-- <el-table-column
                                     class-name="status-col"
-                                    label="Status"
+                                    label="状态"
                                     width="110"
                                     align="center"
                                 >
@@ -58,16 +58,16 @@
                                             :type="scope.row.status | statusFilter"
                                         >{{ scope.row.status }}</el-tag>
                                     </template>
-                                </el-table-column>
+                                </el-table-column>-->
                                 <el-table-column
                                     align="center"
                                     prop="created_at"
-                                    label="Display_time"
+                                    label="创建于"
                                     width="200"
                                 >
                                     <template slot-scope="scope">
                                         <i class="el-icon-time" />
-                                        <span>{{ scope.row.display_time }}</span>
+                                        <span>{{ scope.row.created_at }}</span>
                                     </template>
                                 </el-table-column>
                             </template>
@@ -87,8 +87,8 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { getList } from "@/api/promote";
 import DepartmemtTree from "./components/DeaprtmemtTree";
+import { fetchList } from "@/api/user";
 
 export default {
     components: {
@@ -110,7 +110,7 @@ export default {
     },
     computed: {
         searchFunction() {
-            return getList;
+            return fetchList;
         }
     },
     filters: {
