@@ -7,7 +7,7 @@ import search from './remote-search'
 import promote from './promote'
 import article from './article'
 import department from './department'
-
+import role from './role'
 
 const mocks = [
     ...user,
@@ -16,6 +16,7 @@ const mocks = [
     ...promote,
     ...article,
     ...department,
+    ...role,
 ]
 
 // for front mock
