@@ -29,13 +29,19 @@
                         <el-table-column label="订单号" width="200" align="center">
                             <template slot-scope="scope">{{ scope.row.no }}</template>
                         </el-table-column>
+                        <el-table-column label="收付" width="200" align="center">
+                            <template slot-scope="scope">{{ scope.row.type ? '应收' : '应付' }}</template>
+                        </el-table-column>
+                        <el-table-column label="费用项目" width="200" align="center">
+                            <template slot-scope="scope">{{ scope.row.cost_item_name }}</template>
+                        </el-table-column>
                         <el-table-column label="数量" width="200" align="center">
                             <template slot-scope="scope">{{ scope.row.amount }}</template>
                         </el-table-column>
                         <el-table-column label="价格" width="200" align="center">
                             <template slot-scope="scope">{{ scope.row.total_amount }}</template>
                         </el-table-column>
-                        <el-table-column align="center" prop="created_at" label="创建时间" width="200">
+                        <el-table-column align="center" prop="created_at" label="创建时间">
                             <template slot-scope="scope">
                                 <i class="el-icon-time" />
                                 <span>{{ scope.row.created_at }}</span>
