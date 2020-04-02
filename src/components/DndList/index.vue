@@ -1,13 +1,38 @@
 <template>
     <div class="dndList">
-        <div :style="{width:width1}" class="dndList-list">
-            <!-- <h3>{{ list1Title }}</h3> -->
+        <el-row :gutter="5">
+            <el-col :span="12">
+                <draggable :set-data="setData" :list="list1" group="article" class="dragArea">
+                    <div v-for="element in list1" :key="element.id" class="list-complete-item">
+                        <div class="list-complete-item-handle">{{ element.author }}</div>
+                        <div style="position:absolute;right:0px;">
+                            <span
+                                style="float: right ;margin-top: -20px;margin-right:5px;"
+                                @click="deleteEle(element)"
+                            >
+                                <i style="color:#ff4949" class="el-icon-delete" />
+                            </span>
+                        </div>
+                    </div>
+                </draggable>
+            </el-col>
+            <el-col :span="12">
+                <draggable :list="list2" group="article" class="dragArea">
+                    <div v-for="element in list2" :key="element.id" class="list-complete-item2">
+                        <div
+                            class="list-complete-item-handle2"
+                            @click="pushEle(element)"
+                        >{{ element.author }}</div>
+                    </div>
+                </draggable>
+            </el-col>
+        </el-row>
+
+        <!-- <div :style="{width:width1}" class="dndList-list">
+            <h3>{{ list1Title }}</h3>
             <draggable :set-data="setData" :list="list1" group="article" class="dragArea">
                 <div v-for="element in list1" :key="element.id" class="list-complete-item">
-                    <div class="list-complete-item-handle">
-                        <el-switch v-model="value" class="swich"></el-switch>
-                        {{ element.author }}
-                    </div>
+                    <div class="list-complete-item-handle">{{ element.author }}</div>
                     <div style="position:absolute;right:0px;">
                         <span
                             style="float: right ;margin-top: -20px;margin-right:5px;"
@@ -20,16 +45,16 @@
             </draggable>
         </div>
         <div :style="{width:width2}" class="dndList-list">
-            <!-- <h3>{{ list2Title }}</h3> -->
-            <!-- <draggable :list="list2" group="article" class="dragArea">
-                <div v-for="element in list2" :key="element.id" class="list-complete-item">
+            <h3>{{ list2Title }}</h3>
+            <draggable :list="list2" group="article" class="dragArea">
+                <div v-for="element in list2" :key="element.id" class="list-complete-item2">
                     <div
                         class="list-complete-item-handle2"
                         @click="pushEle(element)"
-                    >{{ element.id }} [{{ element.author }}] {{ element.title }}</div>
+                    >{{ element.author }}</div>
                 </div>
-            </draggable>-->
-        </div>
+            </draggable>
+        </div>-->
     </div>
 </template>
 
@@ -62,12 +87,12 @@ export default {
         },
         width1: {
             type: String,
-            // default: "48%"
-            default: "100%"
+            default: "49%"
+            // default: "100%"
         },
         width2: {
             type: String,
-            default: "48%"
+            default: "49%"
         }
     },
     data() {
@@ -141,13 +166,28 @@ export default {
 .list-complete-item {
     cursor: pointer;
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     color: #909399;
-    padding: 15px;
-    margin-top: 4px;
+    padding: 12px;
+    margin-top: 5px;
     transition: all 1s;
     background-color: #f2f6fc;
     border-radius: 4px;
+    margin-right: 10px;
+}
+
+.list-complete-item2 {
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    color: #909399;
+    padding: 12px;
+    margin-top: 5px;
+    transition: all 1s;
+    background-color: #fff;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    margin-left: 10px;
 }
 
 .list-complete-item-handle {
@@ -172,6 +212,14 @@ export default {
 }
 
 .list-complete-item.sortable-ghost {
+    background: rgb(233, 233, 235);
+}
+
+.list-complete-item2.sortable-chosen {
+    background: rgb(244, 244, 245);
+}
+
+.list-complete-item2.sortable-ghost {
     background: rgb(233, 233, 235);
 }
 

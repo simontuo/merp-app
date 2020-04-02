@@ -1,10 +1,12 @@
 <template>
     <el-drawer
         id="public-drawer"
+        ref="drawer"
         :title="title"
         :append-to-body="true"
         :visible.sync="drawer"
         :direction="direction"
+        :destroy-on-close="true"
     >
         <slot name="content"></slot>
     </el-drawer>
@@ -28,4 +30,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-drawer__wrapper >>> .el-drawer__header {
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding-bottom: 20px;
+    background-color: rgb(250, 250, 250);
+}
 </style>

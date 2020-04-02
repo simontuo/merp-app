@@ -35,9 +35,7 @@
             </el-tooltip>
         </div>
         <m-drawer ref="drawer">
-            <template slot="content">
-                <column-list />
-            </template>
+            <column-list slot="content" />
         </m-drawer>
     </div>
 </template>
@@ -48,6 +46,7 @@ import MDrawer from "@/components/MDrawer";
 import ColumnList from "./components/ColumnList";
 
 export default {
+    name: "TableOperateBar",
     props: ["title"],
     data() {
         return {

@@ -1,20 +1,17 @@
 <template>
-    <div class="body" :style="{height:height}">
+    <div class="body" ref="body">
         <slot name="body"></slot>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            height: ""
-        };
-    },
-    created() {
-        this.height =
-            document.body.clientHeight ||
-            document.documentElement.clientHeight + "px";
+    mounted() {
+        let height =
+            document.documentElement.clientHeight -
+            this.$refs.body.offsetHeight -
+            50;
+        this.$refs.body.style.height = height + "px";
     }
 };
 </script>
