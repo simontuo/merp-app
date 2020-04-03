@@ -21,7 +21,9 @@ export default {
         };
     },
     created() {
-        this.search();
+        if (this.searchFunction) {
+            this.search();
+        }
     },
     mounted() {
         bus.$on("search", response => {
