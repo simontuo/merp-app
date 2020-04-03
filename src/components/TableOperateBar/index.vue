@@ -4,37 +4,39 @@
         <div class="operate-button-bar">
             <!-- 功能按钮 -->
             <slot name="functionButton"></slot>
-            <el-divider direction="vertical"></el-divider>
-            <!-- 通用按钮 -->
-            <el-tooltip content="全屏" placement="top">
-                <el-button type="text" class="operate-button">
-                    <screenfull class="operate-button" />
-                </el-button>
-            </el-tooltip>
-            <el-tooltip content="密度" placement="top">
-                <el-dropdown class="operate-dropdown" trigger="click" @command="handleCommand">
+            <template v-if="defaultOperateButton">
+                <el-divider direction="vertical"></el-divider>
+                <!-- 通用按钮 -->
+                <el-tooltip content="全屏" placement="top">
                     <el-button type="text" class="operate-button">
-                        <svg-icon icon-class="column-height" />
+                        <screenfull class="operate-button" />
                     </el-button>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="medium">默认</el-dropdown-item>
-                        <el-dropdown-item command="small">中等</el-dropdown-item>
-                        <el-dropdown-item command="mini">紧凑</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </el-tooltip>
-            <el-tooltip content="刷新" placement="top">
-                <el-button type="text" class="operate-button" @click="refresh">
-                    <svg-icon icon-class="reload" />
-                </el-button>
-            </el-tooltip>
-            <el-tooltip content="列设置" placement="top">
-                <el-button type="text" class="operate-button" @click="toggleDrawer('列设置')">
-                    <svg-icon icon-class="seetings" />
-                </el-button>
-            </el-tooltip>
+                </el-tooltip>
+                <el-tooltip content="密度" placement="top">
+                    <el-dropdown class="operate-dropdown" trigger="click" @command="handleCommand">
+                        <el-button type="text" class="operate-button">
+                            <svg-icon icon-class="column-height" />
+                        </el-button>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="medium">默认</el-dropdown-item>
+                            <el-dropdown-item command="small">中等</el-dropdown-item>
+                            <el-dropdown-item command="mini">紧凑</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </el-tooltip>
+                <el-tooltip content="刷新" placement="top">
+                    <el-button type="text" class="operate-button" @click="refresh">
+                        <svg-icon icon-class="reload" />
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip content="列设置" placement="top">
+                    <el-button type="text" class="operate-button" @click="toggleDrawer('列设置')">
+                        <svg-icon icon-class="seetings" />
+                    </el-button>
+                </el-tooltip>
+            </template>
         </div>
-        <m-drawer ref="drawer">
+        <m-drawer ref="drawer" v-if="defaultOperateButton">
             <column-list slot="content" />
         </m-drawer>
     </div>
@@ -47,7 +49,16 @@ import ColumnList from "./components/ColumnList";
 
 export default {
     name: "TableOperateBar",
-    props: ["title"],
+    props: {
+        title: {
+            type: String,
+            default: ""
+        },
+        defaultOperateButton: {
+            type: Boolean,
+            default: true
+        }
+    },
     inject: ["reload"],
     data() {
         return {

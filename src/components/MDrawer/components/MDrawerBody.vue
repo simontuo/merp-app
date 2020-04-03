@@ -7,11 +7,11 @@
 <script>
 export default {
     mounted() {
-        let height =
-            document.documentElement.clientHeight -
-            this.$refs.body.offsetHeight -
-            50;
-        this.$refs.body.style.height = height + "px";
+        // let height =
+        //     document.documentElement.clientHeight -
+        //     this.$refs.body.offsetHeight -
+        //     50;
+        // this.$refs.body.style.height = height + "px";
     }
 };
 </script>

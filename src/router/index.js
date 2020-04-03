@@ -91,6 +91,7 @@ export const constantRoutes = [
             },
             {
                 path: 'profile',
+                name: 'customerProfile',
                 hidden: true,
                 component: () => import('@/views/customer/profile/index'),
                 meta: { title: '客户详情' }
@@ -122,6 +123,20 @@ export const constantRoutes = [
                 name: 'order',
                 component: () => import('@/views/order/index'),
                 meta: { title: '订单管理', icon: 'order' }
+            },
+            {
+                path: 'profile',
+                name: 'orderProfile',
+                hidden: true,
+                component: () => import('@/views/order/profile/index'),
+                meta: { title: '订单详情' }
+            },
+            {
+                path: 'create',
+                name: 'orderCreate',
+                hidden: true,
+                component: () => import('@/views/order/create/index'),
+                meta: { title: '订单新增' }
             }
         ]
     },

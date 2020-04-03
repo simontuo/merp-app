@@ -25,7 +25,7 @@
             <div slot="body">
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <el-button size="small" type="primary" @click="handelCreate('客户新增')">新增</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
@@ -63,11 +63,7 @@
                                 <router-link
                                     :to="{path: '/customer/profile', query: {id:scope.row.id}}"
                                 >
-                                    <el-button
-                                        @click="redirectTo(scope.row)"
-                                        type="text"
-                                        size="small"
-                                    >查看</el-button>
+                                    <el-button type="text" size="small">查看</el-button>
                                 </router-link>
                                 <el-button type="text" size="small">编辑</el-button>
                             </template>
@@ -77,6 +73,7 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer" />
     </div>
 </template>
 
@@ -88,6 +85,7 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/customer";
+import CreateDrawer from "./components/CreateDrawer";
 
 export default {
     components: {
@@ -96,7 +94,8 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer
     },
     data() {
         return {
@@ -112,7 +111,11 @@ export default {
         }
     },
     methods: {
-        redirectTo() {}
+        handelCreate(title) {
+            let drawer = this.$refs.createDrawer.$refs.drawer;
+            drawer.title = title;
+            drawer.show();
+        }
     }
 };
 </script>

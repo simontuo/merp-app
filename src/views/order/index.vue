@@ -13,7 +13,9 @@
             <div slot="body">
                 <table-operate-bar title="订单数据">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <router-link :to="{path: '/order/create'}">
+                            <el-button size="small" type="primary">新增</el-button>
+                        </router-link>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
@@ -35,6 +37,16 @@
                             <template slot-scope="scope">
                                 <i class="el-icon-time" />
                                 <span>{{ scope.row.created_at }}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <router-link
+                                    :to="{path: '/order/profile', query: {id:scope.row.id}}"
+                                >
+                                    <el-button type="text" size="small">查看</el-button>
+                                </router-link>
+                                <el-button type="text" size="small">编辑</el-button>
                             </template>
                         </el-table-column>
                     </template>

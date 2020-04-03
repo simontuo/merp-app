@@ -18,7 +18,7 @@
             </div>
             <div class="box-center">
                 <div class="user-name text-center">{{ user.name }}</div>
-                <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div>
+                <!-- <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div> -->
             </div>
         </div>
 
@@ -26,34 +26,33 @@
             <div class="user-education user-bio-section">
                 <div class="user-bio-section-header">
                     <svg-icon icon-class="education" />
-                    <span>Education</span>
+                    <span>客户类型</span>
                 </div>
                 <div class="user-bio-section-body">
-                    <div class="text-muted">JS in Computer Science from the University of Technology</div>
+                    <div class="text-muted">
+                        <el-tag size="small">工厂客户</el-tag>
+                        <el-tag size="small">贸易商</el-tag>
+                    </div>
                 </div>
             </div>
 
             <div class="user-skills user-bio-section">
                 <div class="user-bio-section-header">
                     <svg-icon icon-class="skill" />
-                    <span>Skills</span>
+                    <span>联系信息</span>
                 </div>
                 <div class="user-bio-section-body">
                     <div class="progress-item">
-                        <span>Vue</span>
-                        <el-progress :percentage="70" />
+                        <span>联系人：大力加冰</span>
+                        <!-- <el-progress :percentage="70" /> -->
                     </div>
                     <div class="progress-item">
-                        <span>JavaScript</span>
-                        <el-progress :percentage="18" />
+                        <span>联系电话：15915863547</span>
+                        <!-- <el-progress :percentage="18" /> -->
                     </div>
                     <div class="progress-item">
-                        <span>Css</span>
-                        <el-progress :percentage="12" />
-                    </div>
-                    <div class="progress-item">
-                        <span>ESLint</span>
-                        <el-progress :percentage="100" status="success" />
+                        <span>联系地址：广东省广州市南沙区XXX镇1号</span>
+                        <!-- <el-progress :percentage="12" /> -->
                     </div>
                 </div>
             </div>
@@ -139,5 +138,9 @@ export default {
             font-weight: bold;
         }
     }
+}
+
+.progress-item {
+    margin-top: 5px;
 }
 </style>
