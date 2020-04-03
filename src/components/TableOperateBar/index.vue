@@ -24,7 +24,7 @@
                 </el-dropdown>
             </el-tooltip>
             <el-tooltip content="刷新" placement="top">
-                <el-button type="text" class="operate-button">
+                <el-button type="text" class="operate-button" @click="refresh">
                     <svg-icon icon-class="reload" />
                 </el-button>
             </el-tooltip>
@@ -48,6 +48,7 @@ import ColumnList from "./components/ColumnList";
 export default {
     name: "TableOperateBar",
     props: ["title"],
+    inject: ["reload"],
     data() {
         return {
             settingDrawer: false
@@ -65,6 +66,9 @@ export default {
         toggleDrawer(title) {
             this.$refs.drawer.title = title;
             this.$refs.drawer.show();
+        },
+        refresh() {
+            this.reload();
         }
     }
 };
