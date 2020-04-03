@@ -58,6 +58,20 @@
                                 <span>{{ scope.row.created_at }}</span>
                             </template>
                         </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <router-link
+                                    :to="{path: '/customer/profile', query: {id:scope.row.id}}"
+                                >
+                                    <el-button
+                                        @click="redirectTo(scope.row)"
+                                        type="text"
+                                        size="small"
+                                    >查看</el-button>
+                                </router-link>
+                                <el-button type="text" size="small">编辑</el-button>
+                            </template>
+                        </el-table-column>
                     </template>
                 </m-table>
                 <pagination />
@@ -96,6 +110,9 @@ export default {
         searchFunction() {
             return fetchList;
         }
+    },
+    methods: {
+        redirectTo() {}
     }
 };
 </script>
