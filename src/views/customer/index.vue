@@ -28,7 +28,7 @@
                         <el-button size="small" type="primary" @click="handelCreate('客户新增')">新增</el-button>
                     </template>
                 </table-operate-bar>
-                <table-selected-bar selected="50" />
+                <table-selected-bar />
                 <m-table class="mt-1">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>

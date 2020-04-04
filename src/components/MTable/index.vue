@@ -1,5 +1,6 @@
 <template>
     <el-table
+        ref="mTable"
         v-loading="search.loading"
         :data="search.items"
         element-loading-text="Loading"
@@ -7,7 +8,7 @@
         highlight-current-row
         header-cell-class-name="table-header"
         :size="setting.size"
-        @select="handleSelect"
+        @selection-change="handleSelect"
     >
         <slot name="columns"></slot>
     </el-table>
@@ -23,9 +24,16 @@ export default {
             return this.$store.state.search;
         }
     },
+    mounted() {
+        bus.$on("clearSelectedStatus", () => {
+            this.$refs.mTable.clearSelection();
+        });
+    },
     methods: {
-        handleSelect(row) {
-            console.log(row);
+        handleSelect(rows) {
+            bus.$emit("selectionChange", {
+                rows: rows
+            });
         }
     }
 };

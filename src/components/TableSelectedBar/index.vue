@@ -5,13 +5,28 @@
             <span class="selected-number">{{selected}}</span>
             项 {{describe}}
         </span>
-        <el-button type="text" class="selected-button">清除</el-button>
+        <el-button type="text" class="selected-button" @click="handelClear">清除</el-button>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["selected", "describe"]
+    props: ["describe"],
+    data() {
+        return {
+            selected: 0
+        };
+    },
+    mounted() {
+        bus.$on("selectionChange", response => {
+            this.selected = response.rows.length;
+        });
+    },
+    methods: {
+        handelClear() {
+            bus.$emit("clearSelectedStatus");
+        }
+    }
 };
 </script>
 
