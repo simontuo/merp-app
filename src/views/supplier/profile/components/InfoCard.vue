@@ -25,11 +25,11 @@
             <div class="user-education user-bio-section">
                 <div class="user-bio-section-header">
                     <svg-icon icon-class="education" />
-                    <span>客户类型</span>
+                    <span>供应商类型</span>
                 </div>
                 <div class="user-bio-section-body">
                     <div class="text-muted">
-                        <el-tag size="small">工厂客户</el-tag>
+                        <el-tag size="small">车队</el-tag>
                         <el-tag size="small">贸易商</el-tag>
                     </div>
                 </div>

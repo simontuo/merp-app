@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction">
+            <search-form slot="body" :searchFunction="searchFunction" :query="query">
                 <template slot="queryItem">
                     <el-form-item label="名称">
                         <el-input v-model="query.name" placeholder="名称"></el-input>
@@ -50,7 +50,16 @@
                         >
                             <template slot-scope="scope">
                                 <i class="el-icon-time" />
-                                <span>{{ scope.row.display_time }}</span>
+                                <span>{{ scope.row.created_at }}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <router-link
+                                    :to="{path: '/supplier/profile', query: {id:scope.row.id}}"
+                                >
+                                    <el-button type="text" size="small">查看</el-button>
+                                </router-link>
                             </template>
                         </el-table-column>
                     </template>

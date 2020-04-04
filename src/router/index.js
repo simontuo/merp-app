@@ -109,6 +109,13 @@ export const constantRoutes = [
                 name: 'supplier',
                 component: () => import('@/views/supplier/index'),
                 meta: { title: '供应商管理', icon: 'supplier' }
+            },
+            {
+                path: 'profile',
+                name: 'supplierProfile',
+                hidden: true,
+                component: () => import('@/views/supplier/profile/index'),
+                meta: { title: '供应商详情' }
             }
         ]
     },

@@ -1,7 +1,12 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction">
+            <search-form
+                slot="body"
+                :searchFunction="searchFunction"
+                :query="query"
+                labelWidthHidden="100px"
+            >
                 <template slot="queryItem">
                     <el-form-item label="名称">
                         <el-input v-model="query.name" placeholder="名称"></el-input>
@@ -17,6 +22,24 @@
                     </el-form-item>
                     <el-form-item label="创建人">
                         <el-input v-model="query.creator" placeholder="创建人"></el-input>
+                    </el-form-item>
+                </template>
+                <template slot="hiddenQueryItem">
+                    <el-form-item label="活动性质：">
+                        <el-checkbox-group v-model="query.types">
+                            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+                            <el-checkbox label="地推活动" name="type"></el-checkbox>
+                            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+                            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="活动性质：">
+                        <el-checkbox-group v-model="query.types">
+                            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+                            <el-checkbox label="地推活动" name="type"></el-checkbox>
+                            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+                            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+                        </el-checkbox-group>
                     </el-form-item>
                 </template>
             </search-form>
@@ -65,7 +88,6 @@
                                 >
                                     <el-button type="text" size="small">查看</el-button>
                                 </router-link>
-                                <el-button type="text" size="small">编辑</el-button>
                             </template>
                         </el-table-column>
                     </template>
@@ -101,7 +123,8 @@ export default {
         return {
             query: {
                 name: "",
-                creator: ""
+                creator: "",
+                types: []
             }
         };
     },
