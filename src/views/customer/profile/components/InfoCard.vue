@@ -7,18 +7,17 @@
         <div class="user-profile">
             <div class="box-center">
                 <pan-thumb
-                    :image="user.avatar"
+                    :image="customer.avatar"
                     :height="'100px'"
                     :width="'100px'"
                     :hoverable="false"
                 >
                     <div>Hello</div>
-                    {{ user.role }}
+                    {{ customer.role }}
                 </pan-thumb>
             </div>
             <div class="box-center">
-                <div class="user-name text-center">{{ user.name }}</div>
-                <!-- <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div> -->
+                <div class="user-name text-center">{{ customer.name }}</div>
             </div>
         </div>
 
@@ -44,15 +43,12 @@
                 <div class="user-bio-section-body">
                     <div class="progress-item">
                         <span>联系人：大力加冰</span>
-                        <!-- <el-progress :percentage="70" /> -->
                     </div>
                     <div class="progress-item">
                         <span>联系电话：15915863547</span>
-                        <!-- <el-progress :percentage="18" /> -->
                     </div>
                     <div class="progress-item">
                         <span>联系地址：广东省广州市南沙区XXX镇1号</span>
-                        <!-- <el-progress :percentage="12" /> -->
                     </div>
                 </div>
             </div>
@@ -66,7 +62,7 @@ import PanThumb from "@/components/PanThumb";
 export default {
     components: { PanThumb },
     props: {
-        user: {
+        customer: {
             type: Object,
             default: () => {
                 return {

@@ -1,22 +1,22 @@
 <template>
     <div class="app-container">
-        <div v-if="user">
+        <div v-if="customer">
             <el-row :gutter="20">
                 <el-col :span="6" :xs="24">
-                    <info-card :user="user" />
+                    <info-card :customer="customer" />
                 </el-col>
 
                 <el-col :span="18" :xs="24">
                     <el-card>
                         <el-tabs v-model="activeTab">
-                            <el-tab-pane label="数据统计" name="activity">
-                                <activity />
+                            <el-tab-pane label="数据统计" name="statistics">
+                                <statistics />
                             </el-tab-pane>
-                            <el-tab-pane label="详情信息" name="account">
-                                <account :user="user" />
+                            <el-tab-pane label="详情信息" name="profile">
+                                <profile-form :customer="customer" />
                             </el-tab-pane>
-                            <el-tab-pane label="开票信息" name="timeline">
-                                <timeline />
+                            <el-tab-pane label="开票信息" name="invoice">
+                                <Invoice />
                             </el-tab-pane>
                             <el-tab-pane label="装卸地址" name="address">
                                 <customer-address />
@@ -32,33 +32,39 @@
 <script>
 import { mapGetters } from "vuex";
 import InfoCard from "./components/InfoCard";
-import Activity from "./components/Activity";
-import Timeline from "./components/Timeline";
-import Account from "./components/Account";
+import Invoice from "./components/Invoice";
+import ProfileForm from "./components/ProfileForm";
 import CustomerAddress from "./components/CustomerAddress";
+import Statistics from "./components/Statistics/index";
 import { profile } from "@/api/customer";
 
 export default {
     name: "Profile",
-    components: { InfoCard, Activity, Timeline, Account, CustomerAddress },
+    components: {
+        InfoCard,
+        Invoice,
+        ProfileForm,
+        CustomerAddress,
+        Statistics
+    },
     data() {
         return {
-            user: {},
-            activeTab: "activity"
+            customer: {},
+            activeTab: "statistics"
         };
     },
     computed: {
         ...mapGetters(["name", "avatar", "roles"])
     },
     created() {
-        this.getUser();
+        this.getCustomer();
         profile({ id: this.$route.query.id }).then(response => {
             console.log(response);
         });
     },
     methods: {
-        getUser() {
-            this.user = {
+        getCustomer() {
+            this.customer = {
                 name: this.name,
                 role: this.roles.join(" | "),
                 email: "admin@test.com",
