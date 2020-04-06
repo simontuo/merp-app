@@ -25,7 +25,13 @@ export default {
 }
 .card-profile {
     .el-card >>> .el-card__body {
-        padding: 10px 0;
+        padding: 10px 20px;
+    }
+}
+
+.card-cost {
+    .el-card >>> .el-card__body {
+        padding: 0;
     }
 }
 </style>

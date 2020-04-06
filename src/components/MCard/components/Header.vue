@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-operate-bar {
-    margin: 0 20px;
+    // margin: 0 20px;
     line-height: 45px;
     .card-title {
         font-size: 16px;

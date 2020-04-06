@@ -1,7 +1,12 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
+            <search-form
+                ref="searchForm"
+                slot="body"
+                :searchFunction="searchFunction"
+                :query="query"
+            >
                 <template slot="queryItem">
                     <el-form-item label="名称">
                         <el-input v-model="query.name" placeholder="名称"></el-input>
