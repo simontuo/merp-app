@@ -23,4 +23,9 @@ export default {
         padding: 10px 0;
     }
 }
+.card-profile {
+    .el-card >>> .el-card__body {
+        padding: 10px 0;
+    }
+}
 </style>
