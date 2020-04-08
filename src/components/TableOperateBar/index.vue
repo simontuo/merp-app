@@ -34,6 +34,15 @@
                         <svg-icon icon-class="seetings" />
                     </el-button>
                 </el-tooltip>
+                <el-dropdown class="operate-dropdown" trigger="click" @command="handleMoreCommand">
+                    <el-button type="text" class="operate-button">
+                        <svg-icon icon-class="more" />
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="exportExcel">导出Excel</el-dropdown-item>
+                        <el-dropdown-item command="exportSelectedExcel">导出已选择项</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </template>
         </div>
         <m-drawer ref="drawer" v-if="defaultOperateButton">
@@ -62,7 +71,8 @@ export default {
     inject: ["reload"],
     data() {
         return {
-            settingDrawer: false
+            settingDrawer: false,
+            downloadLoading: false
         };
     },
     components: {
@@ -73,6 +83,20 @@ export default {
     methods: {
         handleCommand(command) {
             this.$store.dispatch("app/changeTableSize", { command });
+        },
+        handleMoreCommand(command) {
+            switch (command) {
+                case "exportExcel":
+                    bus.$emit("exportExcel", {
+                        selected: false
+                    });
+                    break;
+                case "exportSelectedExcel":
+                    bus.$emit("exportExcel", {
+                        selected: true
+                    });
+                    break;
+            }
         },
         toggleDrawer(title) {
             this.$refs.drawer.title = title;
