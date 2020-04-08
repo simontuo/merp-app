@@ -24,7 +24,9 @@
             <div slot="body" ref="tableData">
                 <table-operate-bar title="角色数据">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <router-link :to="{name: 'roleCreate'}">
+                            <el-button size="small" type="primary">新增</el-button>
+                        </router-link>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />

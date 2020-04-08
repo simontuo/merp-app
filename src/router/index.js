@@ -213,8 +213,15 @@ export const constantRoutes = [
             {
                 path: 'role/index',
                 name: 'role',
-                component: () => import('@/views/role/index'),
                 meta: { title: '角色管理' },
+                component: () => import('@/views/role/index'),
+            },
+            {
+                path: 'role/create',
+                name: 'roleCreate',
+                meta: { title: '角色新增' },
+                hidden: true,
+                component: () => import('@/views/role/create/index'),
             },
             {
                 path: 'dictionary/index',
