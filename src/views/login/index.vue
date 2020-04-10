@@ -228,6 +228,10 @@ $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 
+// $bg: #1890ff;
+// $dark_gray: #f0f5ff;
+// $light_gray: #eee;
+
 .login-container {
     min-height: 100%;
     width: 100%;
