@@ -1,25 +1,25 @@
 <template>
     <div class="login-container">
-        <el-form
-            ref="loginForm"
-            :model="loginForm"
-            :rules="loginRules"
-            class="login-form"
-            auto-complete="on"
-            label-position="left"
-        >
-            <div class="login-card">
-                <el-row :gutter="60">
-                    <el-col :span="12">
-                        <div class="login-svg">
-                            <el-image fit="contain" src="./svg/login.svg"></el-image>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
+        <div class="login-card">
+            <el-row :gutter="60">
+                <el-col :span="12">
+                    <div class="login-svg">
+                        <!-- <el-image fit="contain" src="./svg/login.svg"></el-image> -->
+                        <img src="./svg/login.svg" width="400" height="350" />
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <el-form
+                        ref="loginForm"
+                        :model="loginForm"
+                        :rules="loginRules"
+                        auto-complete="on"
+                        label-position="left"
+                        v-if="!logined"
+                    >
                         <div class="title-container">
                             <h3 class="title">Login Form</h3>
                         </div>
-
                         <el-form-item prop="username">
                             <span class="svg-container">
                                 <svg-icon icon-class="user" />
@@ -34,7 +34,6 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-
                         <el-form-item prop="password">
                             <span class="svg-container">
                                 <svg-icon icon-class="password" />
@@ -67,23 +66,26 @@
                             @click.native.prevent="handleLogin"
                         >Login</el-button>
 
-                        <div class="tips">
-                            <span style="margin-right:20px;">username: admin</span>
+                        <!-- <div class="tips">
+                            <span style="margin-right:20px;">第三方登录</span>
                             <span>password: any</span>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-        </el-form>
+                        </div>-->
+                    </el-form>
+                    <tenant-list v-else :tenants="tenants"></tenant-list>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>
 
 <script>
 import { validUsername } from "@/utils/validate";
 import { login } from "@/api/user";
+import TenantList from "./components/TenantList";
 
 export default {
     name: "Login",
+    components: { TenantList },
     data() {
         const validateUsername = (rule, value, callback) => {
             if (!validUsername(value)) {
@@ -125,7 +127,22 @@ export default {
             },
             loading: false,
             passwordType: "password",
-            redirect: undefined
+            redirect: undefined,
+            logined: false,
+            tenants: [
+                {
+                    name: "大力出奇迹有限公司",
+                    default: false
+                },
+                {
+                    name: "保级利亚有限公司",
+                    default: false
+                },
+                {
+                    name: "金坷垃大力有限公司",
+                    default: false
+                }
+            ]
         };
     },
     watch: {
@@ -148,45 +165,28 @@ export default {
             });
         },
         handleLogin() {
-            // login(this.loginForm)
-            //     .then(response => {
-            //         this.$router.push({ path: this.redirect || "/" });
-            //         this.loading = false;
-            //     })
-            //     .catch(() => {
-            //         this.loading = false;
-            //     });
-            // this.loading = true;
-            // this.$store
-            //     .dispatch("user/login", {
-            //         username: "2850132787@qq.com",
-            //         email: "2850132787@qq.com",
-            //         password: "111111"
-            //     })
-            //     .then(() => {
-            //         this.$router.push({ path: this.redirect || "/" });
-            //         this.loading = false;
-            //     })
-            //     .catch(() => {
-            //         this.loading = false;
-            //     });
-            this.$refs.loginForm.validate(valid => {
-                if (valid) {
-                    this.loading = true;
-                    this.$store
-                        .dispatch("user/login", this.loginForm)
-                        .then(() => {
-                            this.$router.push({ path: this.redirect || "/" });
-                            this.loading = false;
-                        })
-                        .catch(() => {
-                            this.loading = false;
-                        });
-                } else {
-                    console.log("error submit!!");
-                    return false;
-                }
-            });
+            this.logined = true;
+            return false;
+            // todo
+            // 发送验证用户身份请求，返回token和对应的租户列表
+
+            // this.$refs.loginForm.validate(valid => {
+            //     if (valid) {
+            //         this.loading = true;
+            //         this.$store
+            //             .dispatch("user/login", this.loginForm)
+            //             .then(() => {
+            //                 this.$router.push({ path: this.redirect || "/" });
+            //                 this.loading = false;
+            //             })
+            //             .catch(() => {
+            //                 this.loading = false;
+            //             });
+            //     } else {
+            //         console.log("error submit!!");
+            //         return false;
+            //     }
+            // });
         }
     }
 };
@@ -258,24 +258,27 @@ $light_gray: #303133;
     width: 100%;
     background-color: $bg;
     overflow: hidden;
+    padding-top: 160px;
 
     .login-card {
         background-color: #fff;
         padding: 50px;
         border-radius: 10px;
-        .login-svg {
-        }
-    }
-
-    .login-form {
+        width: 1040px;
         position: relative;
-        width: 1140px;
-
         max-width: 100%;
-        padding: 160px 35px 0;
         margin: 0 auto;
         overflow: hidden;
     }
+
+    // .login-form {
+    //     width: 1040px;
+    //     position: relative;
+    //     max-width: 100%;
+    //     padding: 160px 35px 0;
+    //     margin: 0 auto;
+    //     overflow: hidden;
+    // }
 
     .forget-password {
         font-size: 14px;

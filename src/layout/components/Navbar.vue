@@ -9,12 +9,17 @@
         <breadcrumb class="breadcrumb-container" />
 
         <div class="right-menu">
+            <template>
+                <div class="right-menu-item">大力出奇迹有限公司</div>
+            </template>
+
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
                     <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar" />
                     <i class="el-icon-caret-bottom" />
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
+                    <el-dropdown-item>切换租户</el-dropdown-item>
                     <router-link to="/user/profile">
                         <el-dropdown-item>个人中心</el-dropdown-item>
                     </router-link>
@@ -102,6 +107,15 @@ export default {
                     background: rgba(0, 0, 0, 0.025);
                 }
             }
+        }
+
+        .right-menu-item {
+            display: inline-block;
+            padding: 0 8px;
+            height: 100%;
+            color: #5a5e66;
+            font-size: 14px;
+            vertical-align: text-bottom;
         }
 
         .avatar-container {
