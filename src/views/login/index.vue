@@ -8,55 +8,71 @@
             auto-complete="on"
             label-position="left"
         >
-            <div class="title-container">
-                <h3 class="title">Login Form</h3>
-            </div>
+            <div class="login-card">
+                <el-row :gutter="60">
+                    <el-col :span="12">
+                        <div class="login-svg">
+                            <el-image fit="contain" src="./svg/login.svg"></el-image>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="title-container">
+                            <h3 class="title">Login Form</h3>
+                        </div>
 
-            <el-form-item prop="username">
-                <span class="svg-container">
-                    <svg-icon icon-class="user" />
-                </span>
-                <el-input
-                    ref="username"
-                    v-model="loginForm.email"
-                    placeholder="Username"
-                    name="username"
-                    type="text"
-                    tabindex="1"
-                    auto-complete="on"
-                />
-            </el-form-item>
+                        <el-form-item prop="username">
+                            <span class="svg-container">
+                                <svg-icon icon-class="user" />
+                            </span>
+                            <el-input
+                                ref="username"
+                                v-model="loginForm.email"
+                                placeholder="Username"
+                                name="username"
+                                type="text"
+                                tabindex="1"
+                                auto-complete="on"
+                            />
+                        </el-form-item>
 
-            <el-form-item prop="password">
-                <span class="svg-container">
-                    <svg-icon icon-class="password" />
-                </span>
-                <el-input
-                    :key="passwordType"
-                    ref="password"
-                    v-model="loginForm.password"
-                    :type="passwordType"
-                    placeholder="Password"
-                    name="password"
-                    tabindex="2"
-                    auto-complete="on"
-                    @keyup.enter.native="handleLogin"
-                />
-                <span class="show-pwd" @click="showPwd">
-                    <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-                </span>
-            </el-form-item>
+                        <el-form-item prop="password">
+                            <span class="svg-container">
+                                <svg-icon icon-class="password" />
+                            </span>
+                            <el-input
+                                :key="passwordType"
+                                ref="password"
+                                v-model="loginForm.password"
+                                :type="passwordType"
+                                placeholder="Password"
+                                name="password"
+                                tabindex="2"
+                                auto-complete="on"
+                                @keyup.enter.native="handleLogin"
+                            />
+                            <span class="show-pwd" @click="showPwd">
+                                <svg-icon
+                                    :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                                />
+                            </span>
+                        </el-form-item>
+                        <div class="forget-password">
+                            <el-button type="text">验证码登陆</el-button>
+                            <el-button type="text" style="float:right;">忘记密码</el-button>
+                        </div>
+                        <el-button
+                            :loading="loading"
+                            type="primary"
+                            style="width:100%;margin-bottom:30px;"
+                            @click.native.prevent="handleLogin"
+                        >Login</el-button>
 
-            <el-button
-                :loading="loading"
-                type="primary"
-                style="width:100%;margin-bottom:30px;"
-                @click.native.prevent="handleLogin"
-            >Login</el-button>
-
-            <div class="tips">
-                <span style="margin-right:20px;">username: admin</span>
-                <span>password: any</span>
+                        <div class="tips">
+                            <span style="margin-right:20px;">username: admin</span>
+                            <span>password: any</span>
+                        </div>
+                    </el-col>
+                </el-row>
             </div>
         </el-form>
     </div>
@@ -180,9 +196,13 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
+// $bg: #283443;
+// $light_gray: #fff;
+// $cursor: #fff;
+
 $bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
+$light_gray: #303133;
+$cursor: #303133;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
     .login-container .el-input input {
@@ -216,7 +236,8 @@ $cursor: #fff;
 
     .el-form-item {
         border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.1);
+        // background: rgba(0, 0, 0, 0.1);
+        background: #f0f5ff;
         border-radius: 5px;
         color: #454545;
     }
@@ -224,13 +245,13 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg: #2d3a4b;
-$dark_gray: #889aa4;
-$light_gray: #eee;
-
-// $bg: #1890ff;
-// $dark_gray: #f0f5ff;
+// $bg: #2d3a4b;
+// $dark_gray: #889aa4;
 // $light_gray: #eee;
+
+$bg: #2d3a4b;
+$dark_gray: #409eff;
+$light_gray: #303133;
 
 .login-container {
     min-height: 100%;
@@ -238,18 +259,41 @@ $light_gray: #eee;
     background-color: $bg;
     overflow: hidden;
 
+    .login-card {
+        background-color: #fff;
+        padding: 50px;
+        border-radius: 10px;
+        .login-svg {
+        }
+    }
+
     .login-form {
         position: relative;
-        width: 520px;
+        width: 1140px;
+
         max-width: 100%;
         padding: 160px 35px 0;
         margin: 0 auto;
         overflow: hidden;
     }
 
+    .forget-password {
+        font-size: 14px;
+        // color: #fff;
+        color: $light_gray;
+        margin-bottom: 20px;
+
+        span {
+            &:first-of-type {
+                margin-right: 16px;
+            }
+        }
+    }
+
     .tips {
         font-size: 14px;
-        color: #fff;
+        // color: #fff;
+        color: $light_gray;
         margin-bottom: 10px;
 
         span {
