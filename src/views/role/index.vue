@@ -12,7 +12,7 @@
                         <el-input v-model="query.name" placeholder="名称"></el-input>
                     </el-form-item>
                     <el-form-item label="显示名称">
-                        <el-select v-model="query.display_name" placeholder="显示名称">
+                        <el-select v-model="query.label" placeholder="显示名称">
                             <el-option label="区域一" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
                         </el-select>
@@ -50,6 +50,13 @@
                                 <span>{{ scope.row.created_at }}</span>
                             </template>
                         </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <router-link :to="{name: 'roleProfile', query: {id:scope.row.id}}">
+                                    <el-button type="text" size="small">查看</el-button>
+                                </router-link>
+                            </template>
+                        </el-table-column>
                     </template>
                 </m-table>
                 <pagination />
@@ -80,7 +87,7 @@ export default {
         return {
             query: {
                 name: "",
-                display_name: ""
+                label: ""
             }
         };
     },

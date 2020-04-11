@@ -224,6 +224,13 @@ export const constantRoutes = [
                 component: () => import('@/views/role/create/index'),
             },
             {
+                path: 'role/profile',
+                name: 'roleProfile',
+                meta: { title: '角色详情' },
+                hidden: true,
+                component: () => import('@/views/role/profile/index'),
+            },
+            {
                 path: 'dictionary/index',
                 name: 'dictionary',
                 component: () => import('@/views/dictionary/index'),

@@ -2,25 +2,31 @@
     <div class="app-container">
         <m-card>
             <template slot="body">
-                <el-page-header @back="goBack" content="角色新增"></el-page-header>
+                <el-page-header @back="goBack" content="角色详情"></el-page-header>
             </template>
         </m-card>
         <el-row :gutter="20" class="mt-1">
             <el-col :span="12">
                 <m-card>
                     <template slot="body">
-                        <el-form ref="form" :model="form" label-width="80px" size="small">
+                        <el-form
+                            ref="form"
+                            :model="form"
+                            label-width="80px"
+                            size="small"
+                            v-loading="roleLoading"
+                        >
                             <el-form-item label="名称">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
                             <el-form-item label="显示名称">
-                                <el-input v-model="form.display_name"></el-input>
+                                <el-input v-model="form.label"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">
                                 <el-input type="textarea" v-model="form.desc"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                                <el-button type="primary" @click="onSubmit">保存</el-button>
                             </el-form-item>
                         </el-form>
                     </template>
@@ -35,11 +41,13 @@
                             v-loading="treeLoading"
                             class="mt-1"
                             show-checkbox
-                            :data="permissions"
-                            :props="defaultProps"
                             default-expand-all
-                            :filter-node-method="filterNode"
                             ref="tree"
+                            node-key="id"
+                            :data="permissions"
+                            :default-checked-keys="form.permissionIds"
+                            :props="defaultProps"
+                            :filter-node-method="filterNode"
                         ></el-tree>
                     </template>
                 </m-card>
@@ -51,6 +59,7 @@
 <script>
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/permission";
+import { roleProfile } from "@/api/role";
 
 export default {
     components: {
@@ -58,10 +67,12 @@ export default {
     },
     data() {
         return {
+            roleLoading: false,
             form: {
                 name: "",
                 label: "",
-                desc: ""
+                desc: "",
+                permissionIds: []
             },
             treeLoading: false,
             filterText: "",
@@ -72,15 +83,9 @@ export default {
             }
         };
     },
-    created() {
-        this.treeLoading = true;
-        fetchList()
-            .then(response => {
-                this.permissions = response.data.items;
-            })
-            .finally(() => {
-                this.treeLoading = false;
-            });
+    mounted() {
+        this.fetchRole();
+        this.fetchPermissions();
     },
     watch: {
         filterText(val) {
@@ -97,6 +102,27 @@ export default {
         filterNode(value, data) {
             if (!value) return true;
             return data.label.indexOf(value) !== -1;
+        },
+        fetchRole() {
+            this.roleLoading = true;
+            roleProfile({ id: 123 })
+                .then(response => {
+                    this.form = response.data;
+                    console.log(this.$refs);
+                })
+                .finally(() => {
+                    this.roleLoading = false;
+                });
+        },
+        fetchPermissions() {
+            this.treeLoading = true;
+            fetchList()
+                .then(response => {
+                    this.permissions = response.data.items;
+                })
+                .finally(() => {
+                    this.treeLoading = false;
+                });
         }
     }
 };
