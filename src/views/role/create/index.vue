@@ -51,6 +51,7 @@
 <script>
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/permission";
+import { roleStore } from "@/api/role";
 
 export default {
     components: {
@@ -92,7 +93,14 @@ export default {
             this.$router.push({ name: "role" });
         },
         onSubmit() {
-            console.log("submit!");
+            roleStore(this.form)
+                .then(response => {
+                    this.$message.success(response.message);
+                    this.$router.push({ name: "role" });
+                })
+                .catch(response => {
+                    this.$message.error(response.message);
+                });
         },
         filterNode(value, data) {
             if (!value) return true;

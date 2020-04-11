@@ -7,6 +7,7 @@
         :visible.sync="drawer"
         :direction="direction"
         :destroy-on-close="true"
+        :size="size"
     >
         <slot name="content"></slot>
     </el-drawer>
@@ -14,6 +15,12 @@
 
 <script>
 export default {
+    props: {
+        size: {
+            type: String,
+            default: "30%"
+        }
+    },
     data() {
         return {
             drawer: false,

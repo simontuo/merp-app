@@ -53,7 +53,8 @@ export default {
     },
     data() {
         return {
-            toggleIcon: "el-icon-arrow-down"
+            toggleIcon: "el-icon-arrow-down",
+            page: 1
         };
     },
     computed: {
@@ -68,7 +69,11 @@ export default {
     },
     mounted() {
         bus.$on("search", response => {
-            this.search(response.page, response.pageSize);
+            if (response) {
+                this.search(response.page, response.pageSize);
+            } else {
+                this.search(this.page, this.$store.state.pagination.pageSize);
+            }
         });
     },
     methods: {
@@ -81,6 +86,7 @@ export default {
                 : "el-icon-arrow-up";
         },
         search(page = 1, pageSize = this.$store.state.pagination.pageSize) {
+            this.page = page;
             this.$store.dispatch("search/loadingOn");
             this.searchFunction({
                 page: page,

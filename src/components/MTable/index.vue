@@ -82,6 +82,13 @@ export default {
                     }
                 })
             );
+        },
+        selectedIds() {
+            let ids = [];
+            for (let index in this.$refs.mTable.selection) {
+                ids.push(this.$refs.mTable.selection[index]["id"]);
+            }
+            return ids;
         }
     }
 };

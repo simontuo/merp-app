@@ -59,7 +59,7 @@
 <script>
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/permission";
-import { roleProfile } from "@/api/role";
+import { roleProfile, roleUpdate } from "@/api/role";
 
 export default {
     components: {
@@ -97,7 +97,13 @@ export default {
             this.$router.push({ name: "role" });
         },
         onSubmit() {
-            console.log("submit!");
+            roleUpdate(this.form)
+                .then(response => {
+                    this.$message.success(response.message);
+                })
+                .catch(response => {
+                    this.$message.error(response.message);
+                });
         },
         filterNode(value, data) {
             if (!value) return true;
@@ -105,10 +111,9 @@ export default {
         },
         fetchRole() {
             this.roleLoading = true;
-            roleProfile({ id: 123 })
+            roleProfile({ id: this.$route.query.id })
                 .then(response => {
                     this.form = response.data;
-                    console.log(this.$refs);
                 })
                 .finally(() => {
                     this.roleLoading = false;
