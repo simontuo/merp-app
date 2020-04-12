@@ -30,7 +30,10 @@ export default {
     },
     methods: {
         show() {
-            this.drawer = !this.drawer;
+            this.drawer = true;
+        },
+        close() {
+            this.drawer = false;
         }
     }
 };

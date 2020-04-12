@@ -13,7 +13,8 @@
             <div slot="body">
                 <table-operate-bar :title="title">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <el-button size="small" type="primary" @click="create">新增</el-button>
+                        <el-button size="small" type="danger">删除</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
@@ -35,11 +36,26 @@
                                 <span>{{ scope.row.created_at }}</span>
                             </template>
                         </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <el-button
+                                    type="text"
+                                    size="small"
+                                    @click="showProfile('货物详情', scope.row.id)"
+                                >查看</el-button>
+                            </template>
+                        </el-table-column>
                     </template>
                 </m-table>
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer" :storeFunction="storeFunction"></create-drawer>
+        <edit-drawer
+            ref="editDrawer"
+            :profileFunction="profileFunction"
+            :updateFunction="updateFunction"
+        ></edit-drawer>
     </div>
 </template>
 
@@ -50,7 +66,14 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { fetchList } from "@/api/goods";
+import {
+    goodsPageList,
+    goodsProfile,
+    goodsStore,
+    goodsUpdate
+} from "@/api/goods";
+import CreateDrawer from "./CreateDrawer";
+import EditDrawer from "./EditDrawer";
 
 export default {
     components: {
@@ -59,7 +82,9 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer,
+        EditDrawer
     },
     data() {
         return {
@@ -71,7 +96,25 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return goodsPageList;
+        },
+        profileFunction() {
+            return goodsProfile;
+        },
+        storeFunction() {
+            return goodsStore;
+        },
+        updateFunction() {
+            return goodsUpdate;
+        }
+    },
+    methods: {
+        create() {
+            this.$refs.createDrawer.show("货物新增");
+        },
+        showProfile(title, id) {
+            this.$refs.editDrawer.id = id;
+            this.$refs.editDrawer.show(title);
         }
     }
 };

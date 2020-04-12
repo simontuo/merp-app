@@ -35,6 +35,15 @@
                                 <span>{{ scope.row.created_at }}</span>
                             </template>
                         </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="100" align="center">
+                            <template slot-scope="scope">
+                                <el-button
+                                    type="text"
+                                    size="small"
+                                    @click="showProfile(scope.row.id)"
+                                >查看</el-button>
+                            </template>
+                        </el-table-column>
                     </template>
                 </m-table>
                 <pagination />
@@ -73,6 +82,9 @@ export default {
         searchFunction() {
             return fetchList;
         }
+    },
+    methods: {
+        showProfile(id) {}
     }
 };
 </script>
