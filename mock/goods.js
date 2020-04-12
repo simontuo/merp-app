@@ -46,6 +46,18 @@ export default [
     },
 
     {
+        url: '/goods/delete',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 20000,
+                message: "删除成功"
+            }
+
+        }
+    },
+
+    {
         url: '/goods',
         type: 'get',
         response: config => {

@@ -14,11 +14,11 @@
                 <table-operate-bar :title="title">
                     <template slot="functionButton">
                         <el-button size="small" type="primary" @click="create">新增</el-button>
-                        <el-button size="small" type="danger">删除</el-button>
+                        <el-button size="small" type="danger" @click="deleteRow">删除</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
-                <m-table class="mt-1">
+                <m-table class="mt-1" ref="table">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>
                         <el-table-column align="center" label="ID" width="55">
@@ -41,7 +41,7 @@
                                 <el-button
                                     type="text"
                                     size="small"
-                                    @click="showProfile('货物详情', scope.row.id)"
+                                    @click="showProfile('货物名称详情', scope.row.id)"
                                 >查看</el-button>
                             </template>
                         </el-table-column>
@@ -70,7 +70,8 @@ import {
     goodsPageList,
     goodsProfile,
     goodsStore,
-    goodsUpdate
+    goodsUpdate,
+    goodsBatchDelete
 } from "@/api/goods";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
@@ -106,15 +107,34 @@ export default {
         },
         updateFunction() {
             return goodsUpdate;
+        },
+        selectedIds() {
+            return this.$refs.table.selectedIds();
         }
     },
     methods: {
         create() {
-            this.$refs.createDrawer.show("货物新增");
+            this.$refs.createDrawer.show("货物名称新增");
         },
         showProfile(title, id) {
             this.$refs.editDrawer.id = id;
             this.$refs.editDrawer.show(title);
+        },
+        deleteRow() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要删除的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            goodsBatchDelete(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
         }
     }
 };

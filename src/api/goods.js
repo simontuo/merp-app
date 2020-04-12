@@ -31,3 +31,11 @@ export function goodsUpdate(params) {
         params: params
     })
 }
+
+export function goodsBatchDelete(params) {
+    return request({
+        url: '/goods/delete',
+        method: 'delete',
+        params: params
+    })
+}

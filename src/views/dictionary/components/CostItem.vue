@@ -13,11 +13,12 @@
             <div slot="body">
                 <table-operate-bar :title="title">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <el-button size="small" type="primary" @click="create">新增</el-button>
+                        <el-button size="small" type="danger" @click="deleteRow">删除</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
-                <m-table class="mt-1">
+                <m-table class="mt-1" ref="table">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>
                         <el-table-column align="center" label="ID" width="55">
@@ -40,7 +41,7 @@
                                 <el-button
                                     type="text"
                                     size="small"
-                                    @click="showProfile(scope.row.id)"
+                                    @click="showProfile('费用项目详情', scope.row.id)"
                                 >查看</el-button>
                             </template>
                         </el-table-column>
@@ -49,6 +50,12 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer" :storeFunction="storeFunction"></create-drawer>
+        <edit-drawer
+            ref="editDrawer"
+            :profileFunction="profileFunction"
+            :updateFunction="updateFunction"
+        ></edit-drawer>
     </div>
 </template>
 
@@ -59,7 +66,15 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { fetchList } from "@/api/cost-item";
+import {
+    cosItemPageList,
+    costItemProfile,
+    costItemStore,
+    costItemUpdate,
+    costItemBatchDelete
+} from "@/api/cost-item";
+import CreateDrawer from "./CreateDrawer";
+import EditDrawer from "./EditDrawer";
 
 export default {
     components: {
@@ -68,7 +83,9 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer,
+        EditDrawer
     },
     data() {
         return {
@@ -80,11 +97,45 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return cosItemPageList;
+        },
+        profileFunction() {
+            return costItemProfile;
+        },
+        storeFunction() {
+            return costItemStore;
+        },
+        updateFunction() {
+            return costItemUpdate;
+        },
+        selectedIds() {
+            return this.$refs.table.selectedIds();
         }
     },
     methods: {
-        showProfile(id) {}
+        create() {
+            this.$refs.createDrawer.show("费用项目新增");
+        },
+        showProfile(title, id) {
+            this.$refs.editDrawer.id = id;
+            this.$refs.editDrawer.show(title);
+        },
+        deleteRow() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要删除的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            costItemBatchDelete(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
+        }
     }
 };
 </script>
