@@ -72,6 +72,27 @@ export default [
         }
     },
 
+    {
+        url: '/users/[0-9]*',
+        type: 'get',
+        response: config => {
+            const { id } = config.query
+
+            const data = {
+                id: id,
+                name: '大力加冰',
+                phone: "15915863547",
+                email: '1838919027@qq.com'
+            }
+
+            return {
+                code: 20000,
+                data: data
+            }
+
+        }
+    },
+
     // user logout
     {
         url: '/vue-admin-template/user/logout',
@@ -106,6 +127,42 @@ export default [
                     items: list.items
                 }
             }
+        }
+    },
+
+    // user store
+    {
+        url: '/users',
+        type: 'post',
+        response: _ => {
+            return {
+                code: 20000,
+                message: '用户新增成功'
+            }
+        }
+    },
+
+    {
+        url: '/users/ban',
+        type: 'put',
+        response: config => {
+            return {
+                code: 20000,
+                message: '禁用成功'
+            }
+
+        }
+    },
+
+    {
+        url: '/users/[0-9]*',
+        type: 'put',
+        response: config => {
+            return {
+                code: 20000,
+                message: '保存成功'
+            }
+
         }
     },
 

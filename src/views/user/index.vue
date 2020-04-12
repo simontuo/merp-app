@@ -31,12 +31,12 @@
                     <div slot="body">
                         <table-operate-bar title="用户数据">
                             <template slot="functionButton">
-                                <el-button size="small" type="primary">新增</el-button>
-                                <el-button size="small" type="warning">禁用</el-button>
+                                <el-button size="small" type="primary" @click="create">新增</el-button>
+                                <el-button size="small" type="warning" @click="ban">禁用</el-button>
                             </template>
                         </table-operate-bar>
                         <table-selected-bar selected="50" />
-                        <m-table class="mt-1">
+                        <m-table class="mt-1" ref="table">
                             <template slot="columns">
                                 <el-table-column align="center" type="selection" width="55"></el-table-column>
                                 <el-table-column align="center" label="ID" width="55">
@@ -86,7 +86,7 @@
                                         <el-button
                                             type="text"
                                             size="small"
-                                            @click="showProfile(scope.row.id)"
+                                            @click="showProfile('用户详情', scope.row.id)"
                                         >查看</el-button>
                                     </template>
                                 </el-table-column>
@@ -97,6 +97,8 @@
                 </m-card>
             </el-col>
         </el-row>
+        <create-drawer ref="createDrawer"></create-drawer>
+        <edit-drawer ref="editDrawer"></edit-drawer>
     </div>
 </template>
 
@@ -108,7 +110,9 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import DepartmemtTree from "./components/DeaprtmemtTree";
-import { fetchList } from "@/api/user";
+import { userPageList, useuserBan, userBan } from "@/api/user";
+import CreateDrawer from "./components/CreateDrawer";
+import EditDrawer from "./components/EditDrawer";
 
 export default {
     components: {
@@ -118,7 +122,9 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        DepartmemtTree
+        DepartmemtTree,
+        CreateDrawer,
+        EditDrawer
     },
     data() {
         return {
@@ -130,7 +136,10 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return userPageList;
+        },
+        selectedIds() {
+            return this.$refs.table.selectedIds();
         }
     },
     filters: {
@@ -144,7 +153,29 @@ export default {
         }
     },
     methods: {
-        showProfile(id) {}
+        create() {
+            this.$refs.createDrawer.show("用户新增");
+        },
+        showProfile(title, id) {
+            this.$refs.editDrawer.id = id;
+            this.$refs.editDrawer.show(title);
+        },
+        ban() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要禁用的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            userBan(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
+        }
     }
 };
 </script>

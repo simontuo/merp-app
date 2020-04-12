@@ -24,7 +24,7 @@ export function logout() {
     })
 }
 
-export function fetchList(query) {
+export function userPageList(query) {
     return request({
         url: '/users',
         method: 'get',
@@ -37,5 +37,37 @@ export function userList(query) {
         url: '/users/list',
         method: 'get',
         params: query
+    })
+}
+
+export function userStore(params) {
+    return request({
+        url: '/users',
+        method: 'post',
+        params: params
+    })
+}
+
+export function userProfile(params) {
+    return request({
+        url: '/users/' + params.id,
+        method: 'get',
+        params: params
+    })
+}
+
+export function userUpdate(params) {
+    return request({
+        url: '/users/' + params.id,
+        method: 'put',
+        params: params
+    })
+}
+
+export function userBan(params) {
+    return request({
+        url: '/users/ban',
+        method: 'put',
+        params: params
     })
 }
