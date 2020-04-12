@@ -1,9 +1,17 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function departmentList(params) {
     return request({
         url: '/departments',
         method: 'get',
-        params: query
+        params: params
+    })
+}
+
+export function departmentStore(params) {
+    return request({
+        url: '/departments',
+        method: 'post',
+        params: params
     })
 }

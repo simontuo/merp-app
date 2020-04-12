@@ -19,21 +19,26 @@
                             <svg-icon icon-class="more" />
                         </el-button>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="medium">新增</el-dropdown-item>
-                            <el-dropdown-item command="small">编辑</el-dropdown-item>
-                            <el-dropdown-item command="mini">删除</el-dropdown-item>
+                            <el-dropdown-item command="create">新增</el-dropdown-item>
+                            <el-dropdown-item command="edit">编辑</el-dropdown-item>
+                            <el-dropdown-item command="delete">删除</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </span>
             </span>
         </el-tree>
+        <create-department-drawer ref="createDepartmentDrawer"></create-department-drawer>
     </div>
 </template>
 
 <script>
-import { fetchList } from "@/api/department";
+import { departmentList } from "@/api/department";
+import CreateDepartmentDrawer from "./CreateDepartmentDrawer";
 
 export default {
+    components: {
+        CreateDepartmentDrawer
+    },
     created() {
         this.fetchData();
     },
@@ -45,7 +50,7 @@ export default {
 
     methods: {
         fetchData() {
-            fetchList().then(response => {
+            departmentList().then(response => {
                 this.list = response.data.items;
             });
         },
@@ -53,7 +58,28 @@ export default {
             if (!value) return true;
             return data.label.indexOf(value) !== -1;
         },
-        handleCommand() {}
+        handleCommand(id, command) {
+            switch (command) {
+                case "create":
+                    this.create();
+                    break;
+                case "edit":
+                    console.log(e);
+                    this.edit();
+                    break;
+                case "delete":
+                    this.delete();
+                    break;
+                default:
+                    this.$message.error("不存在的操作");
+                    break;
+            }
+        },
+        create() {
+            this.$refs.createDepartmentDrawer.show("部门新增");
+        },
+        edit() {},
+        delete() {}
     },
 
     data() {

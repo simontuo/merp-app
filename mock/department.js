@@ -10,6 +10,18 @@ const data = Mock.mock({
 export default [
     {
         url: '/departments',
+        type: 'post',
+        response: config => {
+
+            return {
+                code: 20000,
+                message: '保存成功'
+            }
+        }
+    },
+
+    {
+        url: '/departments',
         type: 'get',
         response: config => {
 
