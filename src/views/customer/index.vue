@@ -48,7 +48,7 @@
             <div slot="body">
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary" @click="handelCreate('客户新增')">新增</el-button>
+                        <el-button size="small" type="primary" @click="create">新增</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar />
@@ -106,7 +106,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { fetchList } from "@/api/customer";
+import { customerPageList } from "@/api/customer";
 import CreateDrawer from "./components/CreateDrawer";
 
 export default {
@@ -130,14 +130,12 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return customerPageList;
         }
     },
     methods: {
-        handelCreate(title) {
-            let drawer = this.$refs.createDrawer.$refs.drawer;
-            drawer.title = title;
-            drawer.show();
+        create() {
+            this.$refs.createDrawer.show("客户新增");
         }
     }
 };

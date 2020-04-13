@@ -36,7 +36,7 @@ import Invoice from "./components/Invoice";
 import ProfileForm from "./components/ProfileForm";
 import CustomerAddress from "./components/CustomerAddress";
 import Statistics from "./components/Statistics/index";
-import { profile } from "@/api/customer";
+import { customerProfile } from "@/api/customer";
 
 export default {
     name: "Profile",
@@ -58,13 +58,14 @@ export default {
     },
     created() {
         this.getCustomer();
-        profile({ id: this.$route.query.id }).then(response => {
+        customerProfile({ id: this.$route.query.id }).then(response => {
             console.log(response);
         });
     },
     methods: {
         getCustomer() {
             this.customer = {
+                id: "1",
                 name: this.name,
                 role: this.roles.join(" | "),
                 email: "admin@test.com",

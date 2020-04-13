@@ -8,7 +8,7 @@
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
                         <el-form-item label="手机">
-                            <el-input v-model="form.phohne"></el-input>
+                            <el-input v-model="form.phone"></el-input>
                         </el-form-item>
                         <el-form-item label="邮箱">
                             <el-input v-model="form.email"></el-input>

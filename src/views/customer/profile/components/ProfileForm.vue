@@ -1,5 +1,5 @@
 <template>
-    <el-form size="small">
+    <el-form size="small" v-loading="loading">
         <el-form-item label="名称">
             <el-input v-model.trim="customer.name" />
         </el-form-item>
@@ -19,25 +19,36 @@
 </template>
 
 <script>
+import { customerUpdate } from "@/api/customer";
+
 export default {
     props: {
         customer: {
             type: Object,
             default: () => {
                 return {
+                    id: "",
                     name: "",
                     email: ""
                 };
             }
         }
     },
+    data() {
+        return {
+            loading: false
+        };
+    },
     methods: {
         submit() {
-            this.$message({
-                message: "User information has been updated successfully",
-                type: "success",
-                duration: 5 * 1000
-            });
+            this.loading = true;
+            customerUpdate(this.customer)
+                .then(response => {
+                    this.$message.success(response.message);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         }
     }
 };

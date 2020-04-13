@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search-form slot="body" :searchFunction="searchFunction">
+        <search-form slot="body" :searchFunction="searchFunction" :query="query">
             <template slot="queryItem">
                 <el-form-item label="联系人">
                     <el-input v-model="query.contacts" placeholder="联系人"></el-input>
@@ -57,7 +57,7 @@ import TableOperateBar from "@/components/TableOperateBar";
 import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
-import { fetchList } from "@/api/customer";
+import { customerPageList } from "@/api/customer";
 
 export default {
     name: "customerAddress",
@@ -79,7 +79,7 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return customerPageList;
         }
     },
     methods: {
