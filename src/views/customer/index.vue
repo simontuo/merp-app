@@ -49,10 +49,11 @@
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
                         <el-button size="small" type="primary" @click="create">新增</el-button>
+                        <el-button size="small" type="warning" @click="ban">禁用</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar />
-                <m-table class="mt-1">
+                <m-table class="mt-1" ref="table">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>
                         <el-table-column align="center" label="ID" width="55">
@@ -106,7 +107,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { customerPageList } from "@/api/customer";
+import { customerPageList, customerBan } from "@/api/customer";
 import CreateDrawer from "./components/CreateDrawer";
 
 export default {
@@ -131,11 +132,30 @@ export default {
     computed: {
         searchFunction() {
             return customerPageList;
+        },
+        selectedIds() {
+            return this.$refs.table.selectedIds();
         }
     },
     methods: {
         create() {
             this.$refs.createDrawer.show("客户新增");
+        },
+        ban() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要禁用的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            customerBan(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
         }
     }
 };

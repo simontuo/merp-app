@@ -9,17 +9,17 @@
                 <el-col :span="18" :xs="24">
                     <el-card>
                         <el-tabs v-model="activeTab">
-                            <el-tab-pane label="数据统计" name="statistics">
-                                <statistics />
-                            </el-tab-pane>
                             <el-tab-pane label="详情信息" name="profile">
-                                <profile-form :customer="customer" />
+                                <profile-form :id="id" v-if="activeTab === 'profile'" />
+                            </el-tab-pane>
+                            <el-tab-pane label="数据统计" name="statistics">
+                                <statistics v-if="activeTab === 'statistics'" />
                             </el-tab-pane>
                             <el-tab-pane label="开票信息" name="invoice">
-                                <Invoice />
+                                <Invoice v-if="activeTab === 'invoice'" />
                             </el-tab-pane>
                             <el-tab-pane label="装卸地址" name="address">
-                                <customer-address />
+                                <customer-address v-if="activeTab === 'address'" />
                             </el-tab-pane>
                         </el-tabs>
                     </el-card>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import InfoCard from "./components/InfoCard";
 import Invoice from "./components/Invoice";
 import ProfileForm from "./components/ProfileForm";
@@ -50,27 +49,12 @@ export default {
     data() {
         return {
             customer: {},
-            activeTab: "statistics"
+            activeTab: "profile"
         };
     },
     computed: {
-        ...mapGetters(["name", "avatar", "roles"])
-    },
-    created() {
-        this.getCustomer();
-        customerProfile({ id: this.$route.query.id }).then(response => {
-            console.log(response);
-        });
-    },
-    methods: {
-        getCustomer() {
-            this.customer = {
-                id: "1",
-                name: this.name,
-                role: this.roles.join(" | "),
-                email: "admin@test.com",
-                avatar: this.avatar
-            };
+        id() {
+            return parseInt(this.$route.query.id);
         }
     }
 };
