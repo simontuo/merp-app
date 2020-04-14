@@ -33,7 +33,7 @@
 import InfoCard from "./components/InfoCard";
 import Invoice from "./components/Invoice";
 import ProfileForm from "./components/ProfileForm";
-import CustomerAddress from "./components/CustomerAddress";
+import CustomerAddress from "./components/Adress";
 import Statistics from "./components/Statistics/index";
 import { customerProfile } from "@/api/customer";
 

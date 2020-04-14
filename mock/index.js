@@ -16,6 +16,7 @@ import invoice from './invoice'
 import goods from './goods'
 import costItem from './cost-item'
 import permission from './permission'
+import address from './address'
 
 const mocks = [
     ...user,
@@ -33,6 +34,7 @@ const mocks = [
     ...goods,
     ...costItem,
     ...permission,
+    ...address,
 ]
 
 // for front mock
