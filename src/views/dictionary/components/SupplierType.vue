@@ -41,7 +41,7 @@
                                 <el-button
                                     type="text"
                                     size="small"
-                                    @click="showProfile('费用项目详情', scope.row.id)"
+                                    @click="showProfile('货物名称详情', scope.row.id)"
                                 >查看</el-button>
                             </template>
                         </el-table-column>
@@ -67,14 +67,15 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import {
-    cosItemPageList,
-    costItemProfile,
-    costItemStore,
-    costItemUpdate,
-    costItemBatchDelete
-} from "@/api/cost-item";
+    supplierTypePageList,
+    supplierTypeProfile,
+    supplierTypeStore,
+    supplierTypeUpdate,
+    supplierTypeBatchDelete
+} from "@/api/supplier-type";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
+import { supplierUpdate } from "../../../api/supplier";
 
 export default {
     components: {
@@ -89,7 +90,7 @@ export default {
     },
     data() {
         return {
-            title: "费用项目数据",
+            title: "服务商类型数据",
             query: {
                 name: ""
             }
@@ -97,16 +98,16 @@ export default {
     },
     computed: {
         searchFunction() {
-            return cosItemPageList;
+            return supplierTypePageList;
         },
         profileFunction() {
-            return costItemProfile;
+            return supplierTypeProfile;
         },
         storeFunction() {
-            return costItemStore;
+            return supplierTypeStore;
         },
         updateFunction() {
-            return costItemUpdate;
+            return supplierUpdate;
         },
         selectedIds() {
             return this.$refs.table.selectedIds();
@@ -114,7 +115,7 @@ export default {
     },
     methods: {
         create() {
-            this.$refs.createDrawer.show("费用项目新增");
+            this.$refs.createDrawer.show("货物名称新增");
         },
         showProfile(title, id) {
             this.$refs.editDrawer.id = id;
@@ -128,12 +129,16 @@ export default {
                 });
                 return false;
             }
-            costItemBatchDelete(this.selectedIds).then(response => {
+            supplierTypeBatchDelete(this.selectedIds).then(response => {
                 this.$message({
                     message: response.message,
                     type: "success"
                 });
-                bus.$emit("search");
+                if (
+                    this.$parent.$parent.$parent.activeName === "supplierType"
+                ) {
+                    bus.$emit("search");
+                }
             });
         }
     }

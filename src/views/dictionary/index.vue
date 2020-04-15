@@ -7,6 +7,9 @@
             <el-tab-pane label="费用项目" name="costItem">
                 <cost-item ref="costItem" v-if="activeName === 'costItem'" />
             </el-tab-pane>
+            <el-tab-pane label="服务商类型" name="supplierType">
+                <supplier-type ref="costItem" v-if="activeName === 'supplierType'" />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -14,11 +17,13 @@
 <script>
 import Goods from "./components/Goods";
 import CostItem from "./components/CostItem";
+import SupplierType from "./components/SupplierType";
 
 export default {
     components: {
         Goods,
-        CostItem
+        CostItem,
+        SupplierType
     },
     data() {
         return {

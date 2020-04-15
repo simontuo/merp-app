@@ -13,7 +13,7 @@
             <div slot="body">
                 <table-operate-bar :title="title">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary" @click="create">新增</el-button>
+                        <el-button size="small" @click="create">新增</el-button>
                         <el-button size="small" type="danger" @click="deleteRow">删除</el-button>
                     </template>
                 </table-operate-bar>
