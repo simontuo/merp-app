@@ -25,36 +25,57 @@
                                 <svg-icon icon-class="user" />
                             </span>
                             <el-input
-                                ref="username"
-                                v-model="loginForm.email"
-                                placeholder="Username"
-                                name="username"
+                                ref="phone"
+                                v-model="loginForm.phone"
+                                placeholder="手机号码"
+                                name="phone"
                                 type="text"
                                 tabindex="1"
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <el-form-item prop="password">
-                            <span class="svg-container">
-                                <svg-icon icon-class="password" />
-                            </span>
-                            <el-input
-                                :key="passwordType"
-                                ref="password"
-                                v-model="loginForm.password"
-                                :type="passwordType"
-                                placeholder="Password"
-                                name="password"
-                                tabindex="2"
-                                auto-complete="on"
-                                @keyup.enter.native="handleLogin"
-                            />
-                            <span class="show-pwd" @click="showPwd">
-                                <svg-icon
-                                    :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                        <template v-if="verifyType === 'password'">
+                            <el-form-item prop="password">
+                                <span class="svg-container">
+                                    <svg-icon icon-class="password" />
+                                </span>
+                                <el-input
+                                    :key="passwordType"
+                                    ref="password"
+                                    v-model="loginForm.password"
+                                    :type="passwordType"
+                                    placeholder="Password"
+                                    name="password"
+                                    tabindex="2"
+                                    auto-complete="on"
+                                    @keyup.enter.native="handleLogin"
                                 />
-                            </span>
-                        </el-form-item>
+                                <span class="show-pwd" @click="showPwd">
+                                    <svg-icon
+                                        :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                                    />
+                                </span>
+                            </el-form-item>
+                        </template>
+                        <template v-else>
+                            <el-form-item prop="password">
+                                <span class="svg-container">
+                                    <svg-icon icon-class="password" />
+                                </span>
+                                <el-input
+                                    ref="password"
+                                    v-model="loginForm.verify_code"
+                                    placeholder="验证码"
+                                    name="verify_code"
+                                    tabindex="2"
+                                    auto-complete="on"
+                                    @keyup.enter.native="handleLogin"
+                                />
+                                <span class="show-pwd" @click="showPwd">
+                                    <verification-button type="text"></verification-button>
+                                </span>
+                            </el-form-item>
+                        </template>
                         <div class="forget-password">
                             <el-button type="text">验证码登陆</el-button>
                             <el-button type="text" style="float:right;">忘记密码</el-button>
@@ -64,12 +85,7 @@
                             type="primary"
                             style="width:100%;margin-bottom:30px;"
                             @click.native.prevent="handleLogin"
-                        >Login</el-button>
-
-                        <!-- <div class="tips">
-                            <span style="margin-right:20px;">第三方登录</span>
-                            <span>password: any</span>
-                        </div>-->
+                        >登录</el-button>
                     </el-form>
                     <tenant-list v-else :tenants="tenants"></tenant-list>
                 </el-col>
@@ -82,10 +98,11 @@
 import { validUsername } from "@/utils/validate";
 import { login } from "@/api/user";
 import TenantList from "./components/TenantList";
+import VerificationButton from "./components/VerificationCodeButton";
 
 export default {
     name: "Login",
-    components: { TenantList },
+    components: { TenantList, VerificationButton },
     data() {
         const validateUsername = (rule, value, callback) => {
             if (!validUsername(value)) {
@@ -104,6 +121,7 @@ export default {
             }
         };
         return {
+            verifyType: "password1",
             loginForm: {
                 username: "admin",
                 // email: "2850132787@qq.com",
