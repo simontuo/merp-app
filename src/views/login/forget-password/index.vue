@@ -5,7 +5,7 @@
                 <el-col :span="12">
                     <div class="login-svg">
                         <!-- <el-image fit="contain" src="./svg/login.svg"></el-image> -->
-                        <img src="./svg/login.svg" width="400" height="350" />
+                        <img src="../svg/login.svg" width="400" height="350" />
                     </div>
                 </el-col>
                 <el-col :span="12">
@@ -18,7 +18,7 @@
                         v-if="!logined"
                     >
                         <div class="title-container">
-                            <h3 class="title">登录 MERP</h3>
+                            <h3 class="title">忘记密码</h3>
                         </div>
                         <el-form-item prop="username">
                             <span class="svg-container">
@@ -78,8 +78,7 @@
                         </template>
                         <div class="forget-password">
                             <el-button type="text" @click="swtichVerifyType">{{ verifyTypeText }}</el-button>
-
-                            <el-button type="text" style="float:right;" @click="forget">忘记密码</el-button>
+                            <el-button type="text" style="float:right;">忘记密码</el-button>
                         </div>
                         <el-button
                             :loading="loading"
@@ -99,8 +98,8 @@
 import { validUsername } from "@/utils/validate";
 import { login } from "@/api/user";
 import { tenantUserList } from "@/api/tenant";
-import TenantList from "./components/TenantList";
-import VerificationButton from "./components/VerificationCodeButton";
+import TenantList from "../components/TenantList";
+import VerificationButton from "../components/VerificationCodeButton";
 
 export default {
     name: "Login",
@@ -145,7 +144,7 @@ export default {
             },
             loading: false,
             passwordType: "password",
-            // redirect: undefined,
+            redirect: undefined,
             logined: false,
             tenants: []
         };
@@ -190,9 +189,6 @@ export default {
                 this.verifyType = "password";
                 this.verifyTypeText = "验证码登录";
             }
-        },
-        forget() {
-            this.$router.push({ path: "/forget_password" || "/404" });
         }
     }
 };
