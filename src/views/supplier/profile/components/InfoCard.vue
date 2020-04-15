@@ -6,18 +6,17 @@
 
         <div class="user-profile">
             <div class="box-center">
-                <pan-thumb
-                    :image="customer.avatar"
+                <!-- <pan-thumb
+                    :image="supplier.avatar"
                     :height="'100px'"
                     :width="'100px'"
                     :hoverable="false"
                 >
                     <div>Hello</div>
-                    {{ customer.role }}
-                </pan-thumb>
+                </pan-thumb>-->
             </div>
             <div class="box-center">
-                <div class="user-name text-center">{{ customer.name }}</div>
+                <div class="user-name text-center">{{ supplier.name }}</div>
             </div>
         </div>
 
@@ -42,13 +41,13 @@
                 </div>
                 <div class="user-bio-section-body">
                     <div class="progress-item">
-                        <span>联系人：大力加冰</span>
+                        <span>联系人：{{ supplier.contact }}</span>
                     </div>
                     <div class="progress-item">
-                        <span>联系电话：15915863547</span>
+                        <span>联系电话：{{ supplier.contact_phone }}</span>
                     </div>
                     <div class="progress-item">
-                        <span>联系地址：广东省广州市南沙区XXX镇1号</span>
+                        <span>联系地址：{{ supplier.contact_address }}</span>
                     </div>
                 </div>
             </div>
@@ -62,14 +61,16 @@ import PanThumb from "@/components/PanThumb";
 export default {
     components: { PanThumb },
     props: {
-        customer: {
+        supplier: {
             type: Object,
             default: () => {
                 return {
+                    id: "",
                     name: "",
-                    email: "",
-                    avatar: "",
-                    roles: ""
+                    mnemonic_code: "",
+                    contact: "",
+                    contact_phone: "",
+                    contact_address: ""
                 };
             }
         }

@@ -13,11 +13,12 @@
             <div slot="body">
                 <table-operate-bar title="服务商数据">
                     <template slot="functionButton">
-                        <el-button size="small" type="primary">新增</el-button>
+                        <el-button size="small" @click="create">新增</el-button>
+                        <el-button size="small" type="warning" @click="ban">禁用</el-button>
                     </template>
                 </table-operate-bar>
                 <table-selected-bar selected="50" />
-                <m-table class="mt-1">
+                <m-table class="mt-1" ref="table">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>
                         <el-table-column align="center" label="ID" width="55">
@@ -28,16 +29,16 @@
                         </el-table-column>
                         <el-table-column label="联系人" width="200" align="center">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.contacts }}</span>
+                                <span>{{ scope.row.contact }}</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="联系电话" width="200" align="center">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.phone }}</span>
+                                <span>{{ scope.row.contact_phone }}</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="联系地址" align="center">
-                            <template slot-scope="scope">{{ scope.row.address }}</template>
+                            <template slot-scope="scope">{{ scope.row.contact_address }}</template>
                         </el-table-column>
                         <el-table-column label="类型" align="center">
                             <template slot-scope="scope">{{ scope.row.type }}</template>
@@ -67,6 +68,7 @@
                 <pagination />
             </div>
         </m-card>
+        <create-drawer ref="createDrawer"></create-drawer>
     </div>
 </template>
 
@@ -77,7 +79,8 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { fetchList } from "@/api/supplier";
+import CreateDrawer from "./components/CreateDrawer";
+import { supplierPageList, supplierBatchBan } from "@/api/supplier";
 
 export default {
     components: {
@@ -86,7 +89,8 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        CreateDrawer
     },
     data() {
         return {
@@ -97,7 +101,31 @@ export default {
     },
     computed: {
         searchFunction() {
-            return fetchList;
+            return supplierPageList;
+        },
+        selectedIds() {
+            return this.$refs.table.selectedIds();
+        }
+    },
+    methods: {
+        create() {
+            this.$refs.createDrawer.show("服务商新增");
+        },
+        ban() {
+            if (this.selectedIds.length < 1) {
+                this.$message({
+                    message: "请选择需要禁用的数据",
+                    type: "warning"
+                });
+                return false;
+            }
+            supplierBatchBan(this.selectedIds).then(response => {
+                this.$message({
+                    message: response.message,
+                    type: "success"
+                });
+                bus.$emit("search");
+            });
         }
     }
 };

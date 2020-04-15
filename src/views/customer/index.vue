@@ -63,13 +63,13 @@
                             <template slot-scope="scope">{{ scope.row.name }}</template>
                         </el-table-column>
                         <el-table-column label="联系人" width="200" align="center">
-                            <template slot-scope="scope">{{ scope.row.contacts }}</template>
+                            <template slot-scope="scope">{{ scope.row.contact }}</template>
                         </el-table-column>
                         <el-table-column label="联系电话" align="center" width="200">
-                            <template slot-scope="scope">{{ scope.row.phone }}</template>
+                            <template slot-scope="scope">{{ scope.row.contact_phone }}</template>
                         </el-table-column>
                         <el-table-column label="联系地址" align="center">
-                            <template slot-scope="scope">{{ scope.row.address }}</template>
+                            <template slot-scope="scope">{{ scope.row.contact_address }}</template>
                         </el-table-column>
                         <el-table-column label="创建人" width="110" align="center">
                             <template slot-scope="scope">

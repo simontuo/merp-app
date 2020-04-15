@@ -5,12 +5,11 @@
                 <el-col :span="6" :xs="24">
                     <info-card :customer="customer" />
                 </el-col>
-
                 <el-col :span="18" :xs="24">
                     <el-card>
                         <el-tabs v-model="activeTab">
                             <el-tab-pane label="详情信息" name="profile">
-                                <profile-form :id="id" v-if="activeTab === 'profile'" />
+                                <profile-form :customer="customer" v-if="activeTab === 'profile'" />
                             </el-tab-pane>
                             <el-tab-pane label="数据统计" name="statistics">
                                 <statistics v-if="activeTab === 'statistics'" />
@@ -56,6 +55,11 @@ export default {
         id() {
             return parseInt(this.$route.query.id);
         }
+    },
+    created() {
+        customerProfile({ id: this.$route.query.id }).then(response => {
+            this.customer = response.data;
+        });
     }
 };
 </script>

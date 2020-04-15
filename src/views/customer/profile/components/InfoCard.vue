@@ -6,14 +6,13 @@
 
         <div class="user-profile">
             <div class="box-center">
-                <pan-thumb
+                <!-- <pan-thumb
                     :image="customer.avatar"
                     :height="'100px'"
                     :width="'100px'"
                     :hoverable="false"
                 >
-                    <div>Hello</div>
-                    {{ customer.role }}
+                    <div>Hello</div> -->
                 </pan-thumb>
             </div>
             <div class="box-center">
@@ -42,13 +41,13 @@
                 </div>
                 <div class="user-bio-section-body">
                     <div class="progress-item">
-                        <span>联系人：大力加冰</span>
+                        <span>联系人：{{ customer.contact }}</span>
                     </div>
                     <div class="progress-item">
-                        <span>联系电话：15915863547</span>
+                        <span>联系电话：{{ customer.contact_phone }}</span>
                     </div>
                     <div class="progress-item">
-                        <span>联系地址：广东省广州市南沙区XXX镇1号</span>
+                        <span>联系地址：{{ customer.contact_address }}</span>
                     </div>
                 </div>
             </div>
@@ -67,9 +66,10 @@ export default {
             default: () => {
                 return {
                     name: "",
-                    email: "",
-                    avatar: "",
-                    roles: ""
+                    mnemonic_code: "",
+                    contact: "",
+                    contact_phone: "",
+                    contact_address: ""
                 };
             }
         }

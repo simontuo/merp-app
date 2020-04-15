@@ -1,19 +1,19 @@
 <template>
-    <el-form size="small" v-loading="loading" v-model="form">
+    <el-form size="small" v-loading="loading" v-model="customer">
         <el-form-item label="名称">
-            <el-input v-model.trim="form.name" />
+            <el-input v-model.trim="customer.name" />
         </el-form-item>
         <el-form-item label="助记码">
-            <el-input v-model.trim="form.mnemonic_code" />
+            <el-input v-model.trim="customer.mnemonic_code" />
         </el-form-item>
         <el-form-item label="联系人">
-            <el-input v-model.trim="form.contact" />
+            <el-input v-model.trim="customer.contact" />
         </el-form-item>
         <el-form-item label="联系电话">
-            <el-input v-model.trim="form.contact_phone" />
+            <el-input v-model.trim="customer.contact_phone" />
         </el-form-item>
         <el-form-item label="联系地址">
-            <el-input v-model.trim="form.contact_address" />
+            <el-input v-model.trim="customer.contact_address" />
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submit" :disabled="loading">更新</el-button>
@@ -26,38 +26,29 @@ import { customerUpdate, customerProfile } from "@/api/customer";
 
 export default {
     props: {
-        id: {
-            type: Number,
-            default: ""
+        customer: {
+            type: Object,
+            default: () => {
+                return {
+                    id: "",
+                    name: "",
+                    mnemonic_code: "",
+                    contact: "",
+                    contact_phone: "",
+                    contact_address: ""
+                };
+            }
         }
     },
     data() {
         return {
-            loading: false,
-            form: {
-                id: "",
-                name: "",
-                mnemonic_code: "",
-                contact: "",
-                contact_phone: "",
-                contact_address: ""
-            }
+            loading: false
         };
-    },
-    created() {
-        this.loading = true;
-        customerProfile({ id: this.id })
-            .then(response => {
-                this.form = response.data;
-            })
-            .finally(() => {
-                this.loading = false;
-            });
     },
     methods: {
         submit() {
             this.loading = true;
-            customerUpdate(this.form)
+            customerUpdate(this.customer)
                 .then(response => {
                     this.$message.success(response.message);
                 })

@@ -66,6 +66,8 @@ export default {
             customerStore(this.form)
                 .then(response => {
                     this.$message.success(response.message);
+                    this.$refs.drawer.close();
+                    bus.$emit("search");
                 })
                 .finally(() => {
                     this.loading = false;
