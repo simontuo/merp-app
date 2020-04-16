@@ -4,8 +4,8 @@
             <el-row :gutter="60">
                 <el-col :span="12">
                     <div class="login-svg">
-                        <!-- <el-image fit="contain" src="./svg/login.svg"></el-image> -->
-                        <img src="@/views/login/svg/login.svg" width="400" height="350" />
+                        <!-- <el-image fit="contain" src="@/views/login/svg/login.svg"></el-image> -->
+                        <img src="@/views/login/svg/login.svg" width="450" height="400" />
                     </div>
                 </el-col>
                 <el-col :span="12">
