@@ -10,6 +10,9 @@
             <el-tab-pane label="服务商类型" name="supplierType">
                 <supplier-type ref="costItem" v-if="activeName === 'supplierType'" />
             </el-tab-pane>
+            <el-tab-pane label="集装箱类型" name="containerType">
+                <container-type ref="costItem" v-if="activeName === 'containerType'" />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -18,12 +21,14 @@
 import Goods from "./components/Goods";
 import CostItem from "./components/CostItem";
 import SupplierType from "./components/SupplierType";
+import ContainerType from "./components/ContainerType";
 
 export default {
     components: {
         Goods,
         CostItem,
-        SupplierType
+        SupplierType,
+        ContainerType
     },
     data() {
         return {
