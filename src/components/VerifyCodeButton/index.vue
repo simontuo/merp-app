@@ -4,9 +4,12 @@
 
 <script>
 export default {
-    name: "verificationButton",
     props: {
         type: {
+            type: String,
+            default: ""
+        },
+        phone: {
             type: String,
             default: ""
         }

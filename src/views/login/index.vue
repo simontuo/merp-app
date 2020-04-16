@@ -22,7 +22,7 @@
                         </div>
                         <el-form-item prop="username">
                             <span class="svg-container">
-                                <svg-icon icon-class="user" />
+                                <svg-icon icon-class="mobile" />
                             </span>
                             <el-input
                                 ref="phone"
@@ -60,7 +60,7 @@
                         <template v-else>
                             <el-form-item prop="password">
                                 <span class="svg-container">
-                                    <svg-icon icon-class="password" />
+                                    <svg-icon icon-class="verify-code" />
                                 </span>
                                 <el-input
                                     ref="password"
@@ -71,8 +71,8 @@
                                     auto-complete="on"
                                     @keyup.enter.native="handleLogin"
                                 />
-                                <span class="show-pwd" @click="showPwd">
-                                    <verification-button type="text"></verification-button>
+                                <span class="show-pwd">
+                                    <verify-code-button type="text" :phone="form.phone"></verify-code-button>
                                 </span>
                             </el-form-item>
                         </template>
@@ -87,14 +87,11 @@
                             style="width:100%;margin-bottom:30px;"
                             @click.native.prevent="handleLogin"
                         >登录</el-button>
-<<<<<<< HEAD
 
                         <!-- <div class="tips">
                             <span style="margin-right:20px;">第三方登录</span>
                             <span>password: any</span>
                         </div>-->
-=======
->>>>>>> 6d58d014526e1118c7598704ea3e702b14baf6be
                     </el-form>
                     <tenant-list v-else :tenants="tenants"></tenant-list>
                 </el-col>
@@ -108,11 +105,11 @@ import { validUsername } from "@/utils/validate";
 import { login } from "@/api/user";
 import { tenantUserList } from "@/api/tenant";
 import TenantList from "./components/TenantList";
-import VerificationButton from "./components/VerificationCodeButton";
+import VerifyCodeButton from "@/components/VerifyCodeButton";
 
 export default {
     name: "Login",
-    components: { TenantList, VerificationButton },
+    components: { TenantList, VerifyCodeButton },
     data() {
         const validateUsername = (rule, value, callback) => {
             if (!validUsername(value)) {
@@ -200,7 +197,7 @@ export default {
             }
         },
         forget() {
-            this.$router.push({ path: "/forget_password" || "/404" });
+            this.$router.push({ name: "forgetPassword" || "/404" });
         }
     }
 };
@@ -321,7 +318,7 @@ $light_gray: #303133;
     }
 
     .svg-container {
-        padding: 6px 5px 6px 15px;
+        padding: 2px 5px 6px 15px;
         color: $dark_gray;
         vertical-align: middle;
         width: 30px;

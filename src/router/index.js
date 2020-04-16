@@ -31,237 +31,237 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-    {
-        path: '/login',
-        component: () => import('@/views/login/index'),
-        hidden: true
-    },
+	{
+		path: '/login',
+		component: () => import('@/views/login/index'),
+		hidden: true
+	},
 
-    {
-        path: '/forget_password',
-        name: 'forgetPassword',
-        component: () => import('@/views/login/forget-password/index'),
-        hidden: true
-    },
+	{
+		path: '/forget_password',
+		name: 'forgetPassword',
+		component: () => import('@/views/forget-password/index'),
+		hidden: true
+	},
 
-    {
-        path: '/404',
-        component: () => import('@/views/error/404'),
-        hidden: true
-    },
+	{
+		path: '/404',
+		component: () => import('@/views/error/404'),
+		hidden: true
+	},
 
-    {
-        path: '/',
-        component: Layout,
-        redirect: 'dashboard',
-    },
+	{
+		path: '/',
+		component: Layout,
+		redirect: 'dashboard',
+	},
 
-    {
-        path: '/dashboard',
-        component: Layout,
-        redirect: '/dashboard/index',
-        children: [
-            {
-                path: 'index',
-                name: 'dashboard',
-                component: () => import('@/views/dashboard/index'),
-                meta: { title: '数据概览', icon: 'dashboard', affix: true }
-            }
-        ]
-    },
+	{
+		path: '/dashboard',
+		component: Layout,
+		redirect: '/dashboard/index',
+		children: [
+			{
+				path: 'index',
+				name: 'dashboard',
+				component: () => import('@/views/dashboard/index'),
+				meta: { title: '数据概览', icon: 'dashboard', affix: true }
+			}
+		]
+	},
 
-    {
-        path: '/user',
-        component: Layout,
-        redirect: '/user/profile',
-        hidden: true,
-        children: [
-            {
-                path: 'profile',
-                name: 'profile',
-                component: () => import('@/views/profile/index'),
-                meta: { title: '个人中心', }
-            }
-        ]
-    },
+	{
+		path: '/user',
+		component: Layout,
+		redirect: '/user/profile',
+		hidden: true,
+		children: [
+			{
+				path: 'profile',
+				name: 'profile',
+				component: () => import('@/views/profile/index'),
+				meta: { title: '个人中心', }
+			}
+		]
+	},
 
-    {
-        path: '/customer',
-        component: Layout,
-        redirect: '/customer/index',
-        children: [
-            {
-                path: 'index',
-                name: 'customer',
-                component: () => import('@/views/customer/index'),
-                meta: { title: '客户管理', icon: 'customer' },
-            },
-            {
-                path: 'profile',
-                name: 'customerProfile',
-                hidden: true,
-                component: () => import('@/views/customer/profile/index'),
-                meta: { title: '客户详情' }
-            }
-        ]
-    },
+	{
+		path: '/customer',
+		component: Layout,
+		redirect: '/customer/index',
+		children: [
+			{
+				path: 'index',
+				name: 'customer',
+				component: () => import('@/views/customer/index'),
+				meta: { title: '客户管理', icon: 'customer' },
+			},
+			{
+				path: 'profile',
+				name: 'customerProfile',
+				hidden: true,
+				component: () => import('@/views/customer/profile/index'),
+				meta: { title: '客户详情' }
+			}
+		]
+	},
 
-    {
-        path: '/supplier',
-        component: Layout,
-        redirect: '/supplier/index',
-        children: [
-            {
-                path: 'index',
-                name: 'supplier',
-                component: () => import('@/views/supplier/index'),
-                meta: { title: '服务商管理', icon: 'supplier' }
-            },
-            {
-                path: 'profile',
-                name: 'supplierProfile',
-                hidden: true,
-                component: () => import('@/views/supplier/profile/index'),
-                meta: { title: '服务商管理' }
-            }
-        ]
-    },
+	{
+		path: '/supplier',
+		component: Layout,
+		redirect: '/supplier/index',
+		children: [
+			{
+				path: 'index',
+				name: 'supplier',
+				component: () => import('@/views/supplier/index'),
+				meta: { title: '服务商管理', icon: 'supplier' }
+			},
+			{
+				path: 'profile',
+				name: 'supplierProfile',
+				hidden: true,
+				component: () => import('@/views/supplier/profile/index'),
+				meta: { title: '服务商管理' }
+			}
+		]
+	},
 
-    {
-        path: '/order',
-        component: Layout,
-        redirect: '/order/index',
-        children: [
-            {
-                path: 'index',
-                name: 'order',
-                component: () => import('@/views/order/index'),
-                meta: { title: '订单管理', icon: 'order' }
-            },
-            {
-                path: 'profile',
-                name: 'orderProfile',
-                hidden: true,
-                component: () => import('@/views/order/profile/index'),
-                meta: { title: '订单详情' }
-            },
-            {
-                path: 'create',
-                name: 'orderCreate',
-                hidden: true,
-                component: () => import('@/views/order/create/index'),
-                meta: { title: '订单新增' }
-            }
-        ]
-    },
+	{
+		path: '/order',
+		component: Layout,
+		redirect: '/order/index',
+		children: [
+			{
+				path: 'index',
+				name: 'order',
+				component: () => import('@/views/order/index'),
+				meta: { title: '订单管理', icon: 'order' }
+			},
+			{
+				path: 'profile',
+				name: 'orderProfile',
+				hidden: true,
+				component: () => import('@/views/order/profile/index'),
+				meta: { title: '订单详情' }
+			},
+			{
+				path: 'create',
+				name: 'orderCreate',
+				hidden: true,
+				component: () => import('@/views/order/create/index'),
+				meta: { title: '订单新增' }
+			}
+		]
+	},
 
-    {
-        path: '/business',
-        component: Layout,
-        redirect: '/business/index',
-        children: [
-            {
-                path: 'index',
-                name: 'business',
-                component: () => import('@/views/business/index'),
-                meta: { title: '商务管理', icon: 'business' }
-            }
-        ]
-    },
+	{
+		path: '/business',
+		component: Layout,
+		redirect: '/business/index',
+		children: [
+			{
+				path: 'index',
+				name: 'business',
+				component: () => import('@/views/business/index'),
+				meta: { title: '商务管理', icon: 'business' }
+			}
+		]
+	},
 
-    {
-        path: '/financial',
-        component: Layout,
-        redirect: '/financial/cost/index',
-        meta: { title: '财务管理', icon: 'financial' },
-        children: [
-            {
-                path: '/cost/index',
-                name: 'cost',
-                component: () => import('@/views/cost/index'),
-                meta: { title: '费用管理' }
-            },
-            {
-                path: '/invoice',
-                name: 'invoice',
-                component: () => import('@/views/invoice/index'),
-                meta: { title: '发票管理' }
-            }
-        ]
-    },
+	{
+		path: '/financial',
+		component: Layout,
+		redirect: '/financial/cost/index',
+		meta: { title: '财务管理', icon: 'financial' },
+		children: [
+			{
+				path: '/cost/index',
+				name: 'cost',
+				component: () => import('@/views/cost/index'),
+				meta: { title: '费用管理' }
+			},
+			{
+				path: '/invoice',
+				name: 'invoice',
+				component: () => import('@/views/invoice/index'),
+				meta: { title: '发票管理' }
+			}
+		]
+	},
 
-    {
-        path: '/statistics',
-        component: Layout,
-        redirect: '/statistics/index',
-        children: [
-            {
-                path: '/index',
-                name: 'statistics',
-                component: () => import('@/views/statistics/index'),
-                meta: { title: '数据统计', icon: 'statistics' }
-            }
-        ]
-    },
+	{
+		path: '/statistics',
+		component: Layout,
+		redirect: '/statistics/index',
+		children: [
+			{
+				path: '/index',
+				name: 'statistics',
+				component: () => import('@/views/statistics/index'),
+				meta: { title: '数据统计', icon: 'statistics' }
+			}
+		]
+	},
 
-    {
-        path: '/system',
-        component: Layout,
-        redirect: '/system/user/index',
-        name: 'system',
-        meta: { title: '系统管理', icon: 'system' },
-        children: [
-            {
-                path: 'user/index',
-                name: 'user',
-                component: () => import('@/views/user/index'),
-                meta: { title: '用户管理' },
-            },
-            {
-                path: 'role/index',
-                name: 'role',
-                meta: { title: '角色管理' },
-                component: () => import('@/views/role/index'),
-            },
-            {
-                path: 'role/create',
-                name: 'roleCreate',
-                meta: { title: '角色新增' },
-                hidden: true,
-                component: () => import('@/views/role/create/index'),
-            },
-            {
-                path: 'role/profile',
-                name: 'roleProfile',
-                meta: { title: '角色详情' },
-                hidden: true,
-                component: () => import('@/views/role/profile/index'),
-            },
-            {
-                path: 'dictionary/index',
-                name: 'dictionary',
-                component: () => import('@/views/dictionary/index'),
-                meta: { title: '数据字典' },
-            }
-        ]
-    },
+	{
+		path: '/system',
+		component: Layout,
+		redirect: '/system/user/index',
+		name: 'system',
+		meta: { title: '系统管理', icon: 'system' },
+		children: [
+			{
+				path: 'user/index',
+				name: 'user',
+				component: () => import('@/views/user/index'),
+				meta: { title: '用户管理' },
+			},
+			{
+				path: 'role/index',
+				name: 'role',
+				meta: { title: '角色管理' },
+				component: () => import('@/views/role/index'),
+			},
+			{
+				path: 'role/create',
+				name: 'roleCreate',
+				meta: { title: '角色新增' },
+				hidden: true,
+				component: () => import('@/views/role/create/index'),
+			},
+			{
+				path: 'role/profile',
+				name: 'roleProfile',
+				meta: { title: '角色详情' },
+				hidden: true,
+				component: () => import('@/views/role/profile/index'),
+			},
+			{
+				path: 'dictionary/index',
+				name: 'dictionary',
+				component: () => import('@/views/dictionary/index'),
+				meta: { title: '数据字典' },
+			}
+		]
+	},
 
-    // 404 page must be placed at the end !!!
-    { path: '*', redirect: '/404', hidden: true }
+	// 404 page must be placed at the end !!!
+	{ path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-    // mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
+	// mode: 'history', // require service support
+	scrollBehavior: () => ({ y: 0 }),
+	routes: constantRoutes
 })
 
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-    const newRouter = createRouter()
-    router.matcher = newRouter.matcher // reset router
+	const newRouter = createRouter()
+	router.matcher = newRouter.matcher // reset router
 }
 
 export default router

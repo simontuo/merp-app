@@ -5,7 +5,7 @@
                 <el-col :span="12">
                     <div class="login-svg">
                         <!-- <el-image fit="contain" src="./svg/login.svg"></el-image> -->
-                        <img src="../svg/login.svg" width="400" height="350" />
+                        <img src="@/views/login/svg/login.svg" width="400" height="350" />
                     </div>
                 </el-col>
                 <el-col :span="12">
@@ -15,14 +15,14 @@
                         :rules="loginRules"
                         auto-complete="on"
                         label-position="left"
-                        v-if="!logined"
                     >
                         <div class="title-container">
                             <h3 class="title">忘记密码</h3>
                         </div>
                         <el-form-item prop="username">
                             <span class="svg-container">
-                                <svg-icon icon-class="user" />
+                                <!-- <svg-icon icon-class="user" /> -->
+                                <svg-icon icon-class="mobile" />
                             </span>
                             <el-input
                                 ref="phone"
@@ -34,60 +34,80 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <template v-if="verifyType === 'password'">
-                            <el-form-item prop="password">
-                                <span class="svg-container">
-                                    <svg-icon icon-class="password" />
-                                </span>
-                                <el-input
-                                    :key="passwordType"
-                                    ref="password"
-                                    v-model="form.password"
-                                    :type="passwordType"
-                                    placeholder="密码"
-                                    name="password"
-                                    tabindex="2"
-                                    auto-complete="on"
-                                    @keyup.enter.native="handleLogin"
+                        <el-form-item prop="password">
+                            <span class="svg-container">
+                                <svg-icon icon-class="verify-code" />
+                            </span>
+                            <el-input
+                                ref="password"
+                                v-model="form.verify_code"
+                                placeholder="验证码"
+                                name="verify_code"
+                                tabindex="2"
+                                auto-complete="on"
+                            />
+                            <span class="show-pwd">
+                                <verify-code-button type="text" :phone="form.phone"></verify-code-button>
+                            </span>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <span class="svg-container">
+                                <svg-icon icon-class="password" />
+                            </span>
+                            <el-input
+                                :key="passwordType"
+                                ref="password"
+                                v-model="form.password"
+                                :type="passwordType"
+                                placeholder="新密码"
+                                name="password"
+                                tabindex="2"
+                                auto-complete="on"
+                            />
+                            <span class="show-pwd" @click="showPwd">
+                                <svg-icon
+                                    :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
                                 />
-                                <span class="show-pwd" @click="showPwd">
-                                    <svg-icon
-                                        :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-                                    />
-                                </span>
-                            </el-form-item>
-                        </template>
-                        <template v-else>
-                            <el-form-item prop="password">
-                                <span class="svg-container">
-                                    <svg-icon icon-class="password" />
-                                </span>
-                                <el-input
-                                    ref="password"
-                                    v-model="form.verify_code"
-                                    placeholder="验证码"
-                                    name="verify_code"
-                                    tabindex="2"
-                                    auto-complete="on"
-                                    @keyup.enter.native="handleLogin"
+                            </span>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <span class="svg-container">
+                                <svg-icon icon-class="password" />
+                            </span>
+                            <el-input
+                                :key="passwordType"
+                                ref="password"
+                                v-model="form.password"
+                                :type="passwordType"
+                                placeholder="确认密码"
+                                name="password"
+                                tabindex="2"
+                                auto-complete="on"
+                                @keyup.enter.native="submit"
+                            />
+                            <span class="show-pwd" @click="showPwd">
+                                <svg-icon
+                                    :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
                                 />
-                                <span class="show-pwd" @click="showPwd">
-                                    <verification-button type="text"></verification-button>
-                                </span>
-                            </el-form-item>
-                        </template>
-                        <div class="forget-password">
-                            <el-button type="text" @click="swtichVerifyType">{{ verifyTypeText }}</el-button>
-                            <el-button type="text" style="float:right;">忘记密码</el-button>
-                        </div>
+                            </span>
+                        </el-form-item>
+                        <!-- <div class="forget-password clearfix">
+                            <router-link :to="{path: '/login'}">
+                                <el-button type="text" style="float:right;">登录</el-button>
+                            </router-link>
+                        </div>-->
                         <el-button
                             :loading="loading"
                             type="primary"
                             style="width:100%;margin-bottom:30px;"
-                            @click.native.prevent="handleLogin"
-                        >登录</el-button>
+                            @click.native.prevent="submit"
+                        >提交</el-button>
+                        <div class="tips">
+                            <router-link :to="{path: '/login'}">
+                                <el-button type="text">登录</el-button>
+                            </router-link>
+                        </div>
                     </el-form>
-                    <tenant-list v-else :tenants="tenants"></tenant-list>
                 </el-col>
             </el-row>
         </div>
@@ -96,14 +116,11 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
-import { login } from "@/api/user";
-import { tenantUserList } from "@/api/tenant";
-import TenantList from "../components/TenantList";
-import VerificationButton from "../components/VerificationCodeButton";
+import VerifyCodeButton from "@/components/VerifyCodeButton";
 
 export default {
     name: "Login",
-    components: { TenantList, VerificationButton },
+    components: { VerifyCodeButton },
     data() {
         const validateUsername = (rule, value, callback) => {
             if (!validUsername(value)) {
@@ -120,7 +137,6 @@ export default {
             }
         };
         return {
-            verifyType: "password",
             verifyTypeText: "验证码登陆",
             form: {
                 phone: "",
@@ -168,28 +184,7 @@ export default {
                 this.$refs.password.focus();
             });
         },
-        handleLogin() {
-            // todo
-            // 发送验证用户身份请求，返回token和对应的租户列表
-            this.loading = true;
-            tenantUserList(this.form)
-                .then(response => {
-                    this.tenants = response.data;
-                    this.logined = true;
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
-        },
-        swtichVerifyType() {
-            if (this.verifyType == "password") {
-                this.verifyType = "verify_code";
-                this.verifyTypeText = "密码登录";
-            } else {
-                this.verifyType = "password";
-                this.verifyTypeText = "验证码登录";
-            }
-        }
+        submit() {}
     }
 };
 </script>
@@ -309,7 +304,7 @@ $light_gray: #303133;
     }
 
     .svg-container {
-        padding: 6px 5px 6px 15px;
+        padding: 2px 5px 6px 15px;
         color: $dark_gray;
         vertical-align: middle;
         width: 30px;
