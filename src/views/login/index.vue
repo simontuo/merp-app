@@ -34,7 +34,7 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <template v-if="verifyType === 'password'">
+                        <template v-if="form.verify_type === 'password'">
                             <el-form-item prop="password">
                                 <span class="svg-container">
                                     <svg-icon icon-class="password" />
@@ -119,11 +119,12 @@ export default {
             }
         };
         return {
-            verifyType: "password",
+            // verifyType: "password",
             verifyTypeText: "验证码登陆",
             form: {
                 phone: "",
-                password: ""
+                password: "",
+                verify_type: "password"
             },
             loginRules: {
                 phone: [
@@ -196,11 +197,11 @@ export default {
             });
         },
         swtichVerifyType() {
-            if (this.verifyType == "password") {
-                this.verifyType = "verify_code";
+            if (this.form.verify_type == "password") {
+                this.form.verify_type = "verify_code";
                 this.verifyTypeText = "密码登录";
             } else {
-                this.verifyType = "password";
+                this.form.verify_type = "password";
                 this.verifyTypeText = "验证码登录";
             }
         },
