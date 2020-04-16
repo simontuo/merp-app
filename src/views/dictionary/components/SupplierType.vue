@@ -134,11 +134,7 @@ export default {
                     message: response.message,
                     type: "success"
                 });
-                if (
-                    this.$parent.$parent.$parent.activeName === "supplierType"
-                ) {
-                    bus.$emit("search");
-                }
+                bus.$emit("search");
             });
         }
     }
