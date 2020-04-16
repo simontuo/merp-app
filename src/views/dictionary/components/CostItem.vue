@@ -72,7 +72,7 @@ import {
     costItemStore,
     costItemUpdate,
     costItemBatchDelete
-} from "@/api/cost-item";
+} from "@/api/dictionary";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
 

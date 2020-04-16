@@ -72,7 +72,7 @@ import {
     goodsStore,
     goodsUpdate,
     goodsBatchDelete
-} from "@/api/goods";
+} from "@/api/dictionary";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
 

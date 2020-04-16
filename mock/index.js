@@ -13,11 +13,8 @@ import supplier from './supplier'
 import order from './order'
 import cost from './cost'
 import invoice from './invoice'
-import goods from './goods'
-import costItem from './cost-item'
 import permission from './permission'
 import address from './address'
-import supplierType from './supplier-type'
 import tenant from './tenant'
 import dictionary from './dictionary'
 
@@ -34,11 +31,8 @@ const mocks = [
 	...order,
 	...cost,
 	...invoice,
-	...goods,
-	...costItem,
 	...permission,
 	...address,
-	...supplierType,
 	...tenant,
 	...dictionary,
 ]

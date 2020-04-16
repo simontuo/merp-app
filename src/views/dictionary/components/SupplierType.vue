@@ -72,7 +72,7 @@ import {
     supplierTypeStore,
     supplierTypeUpdate,
     supplierTypeBatchDelete
-} from "@/api/supplier-type";
+} from "@/api/dictionary";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
 import { supplierUpdate } from "../../../api/supplier";
