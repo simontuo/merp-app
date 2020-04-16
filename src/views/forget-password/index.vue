@@ -10,7 +10,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form
-                        ref="loginForm"
+                        ref="forgetPasswordForm"
                         :model="form"
                         :rules="loginRules"
                         auto-complete="on"
@@ -19,9 +19,8 @@
                         <div class="title-container">
                             <h3 class="title">忘记密码</h3>
                         </div>
-                        <el-form-item prop="username">
+                        <el-form-item prop="phone">
                             <span class="svg-container">
-                                <!-- <svg-icon icon-class="user" /> -->
                                 <svg-icon icon-class="mobile" />
                             </span>
                             <el-input
@@ -34,12 +33,12 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <el-form-item prop="password">
+                        <el-form-item prop="verify_code">
                             <span class="svg-container">
                                 <svg-icon icon-class="verify-code" />
                             </span>
                             <el-input
-                                ref="password"
+                                ref="verifyCode"
                                 v-model="form.verify_code"
                                 placeholder="验证码"
                                 name="verify_code"
@@ -59,7 +58,7 @@
                                 ref="password"
                                 v-model="form.password"
                                 :type="passwordType"
-                                placeholder="新密码"
+                                placeholder="密码"
                                 name="password"
                                 tabindex="2"
                                 auto-complete="on"
@@ -70,36 +69,31 @@
                                 />
                             </span>
                         </el-form-item>
-                        <el-form-item prop="password">
+                        <el-form-item prop="confirm_password">
                             <span class="svg-container">
                                 <svg-icon icon-class="password" />
                             </span>
                             <el-input
-                                :key="passwordType"
-                                ref="password"
-                                v-model="form.password"
-                                :type="passwordType"
+                                :key="confirmPasswordType"
+                                ref="confirmPasswordType"
+                                v-model="form.confirm_password"
+                                :type="confirmPasswordType"
                                 placeholder="确认密码"
-                                name="password"
+                                name="confirm_password"
                                 tabindex="2"
                                 auto-complete="on"
                                 @keyup.enter.native="submit"
                             />
-                            <span class="show-pwd" @click="showPwd">
+                            <span class="show-pwd" @click="showConfirmPwd">
                                 <svg-icon
-                                    :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                                    :icon-class="confirmPasswordType === 'password' ? 'eye' : 'eye-open'"
                                 />
                             </span>
                         </el-form-item>
-                        <!-- <div class="forget-password clearfix">
-                            <router-link :to="{path: '/login'}">
-                                <el-button type="text" style="float:right;">登录</el-button>
-                            </router-link>
-                        </div>-->
                         <el-button
                             :loading="loading"
                             type="primary"
-                            style="width:100%;margin-bottom:30px;"
+                            class="submit-button"
                             @click.native.prevent="submit"
                         >提交</el-button>
                         <div class="tips">
@@ -115,23 +109,17 @@
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
+import { phone } from "@/utils/validate";
+import { userResetPassword } from "@/api/user";
 import VerifyCodeButton from "@/components/VerifyCodeButton";
 
 export default {
     name: "Login",
     components: { VerifyCodeButton },
     data() {
-        const validateUsername = (rule, value, callback) => {
-            if (!validUsername(value)) {
-                callback(new Error("Please enter the correct user name"));
-            } else {
-                callback();
-            }
-        };
-        const validatePassword = (rule, value, callback) => {
-            if (value.length < 6) {
-                callback(new Error("密码不能为空"));
+        const validatePhone = (rule, value, callback) => {
+            if (!phone(value)) {
+                callback(new Error("请输入正确的手机号码"));
             } else {
                 callback();
             }
@@ -140,26 +128,46 @@ export default {
             verifyTypeText: "验证码登陆",
             form: {
                 phone: "",
-                password: ""
+                verify_code: "",
+                password: "",
+                confirm_password: ""
             },
             loginRules: {
                 phone: [
                     {
                         required: true,
                         trigger: "blur",
-                        validator: validateUsername
+                        message: "手机号码不能为空"
+                    },
+                    {
+                        validator: validatePhone
+                    }
+                ],
+                verify_code: [
+                    {
+                        required: true,
+                        message: "验证码不能空",
+                        trigger: "blur"
                     }
                 ],
                 password: [
                     {
                         required: true,
-                        trigger: "blur",
-                        validator: validatePassword
+                        message: "密码不能空",
+                        trigger: "blur"
+                    }
+                ],
+                confirm_password: [
+                    {
+                        required: true,
+                        message: "确认密码不能空",
+                        trigger: "blur"
                     }
                 ]
             },
             loading: false,
             passwordType: "password",
+            confirmPasswordType: "password",
             redirect: undefined,
             logined: false,
             tenants: []
@@ -184,7 +192,28 @@ export default {
                 this.$refs.password.focus();
             });
         },
-        submit() {}
+        showConfirmPwd() {
+            if (this.confirmPasswordType === "password") {
+                this.confirmPasswordType = "";
+            } else {
+                this.confirmPasswordType = "password";
+            }
+            this.$nextTick(() => {
+                this.$refs.confirmPasswordType.focus();
+            });
+        },
+        submit() {
+            this.$refs.forgetPasswordForm.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+
+                userResetPassword(this.form).then(response => {
+                    this.$message.success(response.message);
+                    this.$router.push({ path: "/login" });
+                });
+            });
+        }
     }
 };
 </script>
@@ -225,7 +254,7 @@ $cursor: #303133;
             caret-color: $cursor;
 
             &:-webkit-autofill {
-                box-shadow: 0 0 0px 1000px $bg inset !important;
+                box-shadow: 0 0 0px 1000px #f0f5ff inset !important;
                 -webkit-text-fill-color: $cursor !important;
             }
         }
@@ -331,6 +360,11 @@ $light_gray: #303133;
         color: $dark_gray;
         cursor: pointer;
         user-select: none;
+    }
+
+    .submit-button {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
 </style>

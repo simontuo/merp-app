@@ -18,3 +18,14 @@ export function validUsername(str) {
 	const valid_map = ['admin', 'editor']
 	return valid_map.indexOf(str.trim()) >= 0
 }
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function phone(str) {
+	var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+
+	return !myreg.test(str) ? false : true;
+}
+
