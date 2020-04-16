@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function fetchList(params) {
+export function tenantUserList(params) {
     return request({
-        url: '/tenants',
+        url: '/tenants/list',
         method: 'get',
         params: params
     })
