@@ -6,17 +6,18 @@
                     <el-form
                         ref="form"
                         :model="form"
+                        :rules="rules"
                         label-width="80px"
                         size="small"
                         label-position="left"
                     >
-                        <el-form-item label="名称" required>
+                        <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="手机" required>
+                        <el-form-item label="手机" required prop="phone">
                             <el-input v-model="form.phone"></el-input>
                         </el-form-item>
-                        <el-form-item label="邮箱">
+                        <el-form-item label="邮箱" prop="email">
                             <el-input v-model="form.email"></el-input>
                         </el-form-item>
                     </el-form>
@@ -37,6 +38,7 @@ import MDrawer from "@/components/MDrawer";
 import MDrawerFooter from "@/components/MDrawer/components/MDrawerFooter";
 import MDrawerBody from "@/components/MDrawer/components/MDrawerBody";
 import { userStore } from "@/api/user";
+import { phone, email } from "@/utils/validate";
 
 export default {
     components: {
@@ -51,6 +53,42 @@ export default {
                 name: "",
                 phone: "",
                 email: ""
+            },
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "名称不能为空"
+                    }
+                ],
+                phone: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "手机号码不能为空"
+                    },
+                    {
+                        validator: (rule, value, callback) => {
+                            if (!phone(value)) {
+                                callback(new Error("请输入正确的手机号码"));
+                            } else {
+                                callback();
+                            }
+                        }
+                    }
+                ],
+                email: [
+                    {
+                        validator: (rule, value, callback) => {
+                            if (!email(value)) {
+                                callback(new Error("请输入正确的邮箱"));
+                            } else {
+                                callback();
+                            }
+                        }
+                    }
+                ]
             }
         };
     },
@@ -60,6 +98,14 @@ export default {
             this.$refs.drawer.show();
         },
         submit() {
+            this.$refs.form.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+                this.store();
+            });
+        },
+        store() {
             this.loading = true;
             userStore(this.form)
                 .then(response => {

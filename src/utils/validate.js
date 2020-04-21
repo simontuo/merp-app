@@ -29,3 +29,12 @@ export function phone(str) {
 	return !myreg.test(str) ? false : true;
 }
 
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function email(str) {
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+	return !myreg.test(str) ? false : true;
+}

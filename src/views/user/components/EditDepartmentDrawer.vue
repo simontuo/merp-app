@@ -3,11 +3,18 @@
         <template slot="content">
             <m-drawer-body v-loading="loading">
                 <div slot="body" class="body">
-                    <el-form ref="form" :model="form" label-width="60px" size="small">
-                        <el-form-item label="名称">
+                    <el-form
+                        ref="form"
+                        :model="form"
+                        :rules="rules"
+                        label-width="80px"
+                        size="small"
+                        label-position="left"
+                    >
+                        <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="助记码">
+                        <el-form-item label="助记码" required prop="mnemonic_code">
                             <el-input v-model="form.mnemonic_code"></el-input>
                         </el-form-item>
                     </el-form>
@@ -43,6 +50,20 @@ export default {
                 id: "",
                 name: "",
                 mnemonic_code: ""
+            },
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "名称不能为空"
+                    }
+                ],
+                mnemonic_code: {
+                    required: true,
+                    trigger: "blur",
+                    message: "验证码不能为空"
+                }
             }
         };
     },
@@ -60,6 +81,14 @@ export default {
                 });
         },
         submit() {
+            this.$refs.form.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+                this.update();
+            });
+        },
+        update() {
             this.loading = true;
             departmentUpdate(this.form)
                 .then(response => {
