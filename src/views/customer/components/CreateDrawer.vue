@@ -3,20 +3,23 @@
         <template slot="content">
             <m-drawer-body v-loading="loading">
                 <div class="mt-2" slot="body">
-                    <el-form ref="form" :model="form" label-width="80px" size="small">
-                        <el-form-item label="名称">
+                    <el-form
+                        ref="form"
+                        :model="form"
+                        label-width="80px"
+                        size="small"
+                        label-position="left"
+                    >
+                        <el-form-item label="名称" required>
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="助记码">
-                            <el-input v-model="form.mnemonic_code"></el-input>
-                        </el-form-item>
-                        <el-form-item label="联系人">
+                        <el-form-item label="联系人" required>
                             <el-input v-model="form.contact"></el-input>
                         </el-form-item>
-                        <el-form-item label="联系电话">
+                        <el-form-item label="联系电话" required>
                             <el-input v-model="form.contact_phone"></el-input>
                         </el-form-item>
-                        <el-form-item label="联系地址">
+                        <el-form-item label="联系地址" required>
                             <el-input type="textarea" v-model="form.contact_address"></el-input>
                         </el-form-item>
                     </el-form>
@@ -49,7 +52,6 @@ export default {
             loading: false,
             form: {
                 name: "",
-                mnemonic_code: "",
                 contact: "",
                 contact_phone: "",
                 contact_address: ""

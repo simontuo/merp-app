@@ -9,14 +9,20 @@
             <el-col :span="12">
                 <m-card>
                     <template slot="body">
-                        <el-form ref="form" :model="form" label-width="80px" size="small">
-                            <el-form-item label="名称">
+                        <el-form
+                            ref="form"
+                            :model="form"
+                            label-width="80px"
+                            size="small"
+                            label-position="left"
+                        >
+                            <el-form-item label="名称" required>
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="显示名称">
+                            <el-form-item label="显示名称" required>
                                 <el-input v-model="form.display_name"></el-input>
                             </el-form-item>
-                            <el-form-item label="描述">
+                            <el-form-item label="描述" required>
                                 <el-input type="textarea" v-model="form.desc"></el-input>
                             </el-form-item>
                             <el-form-item>

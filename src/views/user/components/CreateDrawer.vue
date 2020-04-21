@@ -3,11 +3,17 @@
         <template slot="content">
             <m-drawer-body v-loading="loading">
                 <div slot="body" class="body">
-                    <el-form ref="form" :model="form" label-width="60px" size="small">
-                        <el-form-item label="名称">
+                    <el-form
+                        ref="form"
+                        :model="form"
+                        label-width="80px"
+                        size="small"
+                        label-position="left"
+                    >
+                        <el-form-item label="名称" required>
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="手机">
+                        <el-form-item label="手机" required>
                             <el-input v-model="form.phone"></el-input>
                         </el-form-item>
                         <el-form-item label="邮箱">

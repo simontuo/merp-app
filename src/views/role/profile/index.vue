@@ -15,11 +15,12 @@
                             label-width="80px"
                             size="small"
                             v-loading="roleLoading"
+                            label-position="left"
                         >
-                            <el-form-item label="名称">
+                            <el-form-item label="名称" required>
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="显示名称">
+                            <el-form-item label="显示名称" required>
                                 <el-input v-model="form.label"></el-input>
                             </el-form-item>
                             <el-form-item label="描述">

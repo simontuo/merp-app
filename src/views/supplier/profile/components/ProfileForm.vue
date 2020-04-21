@@ -1,18 +1,18 @@
 <template>
-    <el-form size="small" v-loading="loading">
-        <el-form-item label="名称">
+    <el-form size="small" v-loading="loading" label-width="80px" label-position="left">
+        <el-form-item label="名称" required>
             <el-input v-model.trim="supplier.name" />
         </el-form-item>
-        <el-form-item label="助记码">
+        <el-form-item label="助记码" required>
             <el-input v-model.trim="supplier.mnemonic_code" />
         </el-form-item>
-        <el-form-item label="联系人">
+        <el-form-item label="联系人" required>
             <el-input v-model.trim="supplier.contact" />
         </el-form-item>
-        <el-form-item label="联系电话">
+        <el-form-item label="联系电话" required>
             <el-input v-model.trim="supplier.contact_phone" />
         </el-form-item>
-        <el-form-item label="联系地址">
+        <el-form-item label="联系地址" required>
             <el-input v-model.trim="supplier.contact_address" />
         </el-form-item>
         <el-form-item>
