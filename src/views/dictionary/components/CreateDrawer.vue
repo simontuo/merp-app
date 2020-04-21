@@ -6,11 +6,12 @@
                     <el-form
                         ref="form"
                         :model="form"
+                        :rules="rules"
                         label-width="80px"
                         size="small"
                         label-position="left"
                     >
-                        <el-form-item label="名称" required>
+                        <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
                     </el-form>
@@ -48,6 +49,15 @@ export default {
             loading: false,
             form: {
                 name: ""
+            },
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "名称不能为空"
+                    }
+                ]
             }
         };
     },
@@ -57,6 +67,14 @@ export default {
             this.$refs.drawer.show();
         },
         submit() {
+            this.$refs.form.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+                this.store();
+            });
+        },
+        store() {
             this.loading = true;
             this.storeFunction(this.form)
                 .then(response => {

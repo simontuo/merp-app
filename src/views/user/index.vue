@@ -31,7 +31,7 @@
                     <div slot="body">
                         <table-operate-bar title="用户数据">
                             <template slot="functionButton">
-                                <el-button size="small" type="primary" @click="create">新增</el-button>
+                                <el-button size="small" @click="create">新增</el-button>
                                 <el-button size="small" type="warning" @click="ban">禁用</el-button>
                             </template>
                         </table-operate-bar>

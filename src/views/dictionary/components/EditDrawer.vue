@@ -6,14 +6,15 @@
                     <el-form
                         ref="form"
                         :model="form"
+                        :rules="rules"
                         label-width="80px"
                         size="small"
                         label-position="left"
                     >
-                        <el-form-item label="名称" required>
+                        <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="助记码" required>
+                        <el-form-item label="助记码" required prop="mnemonic_code">
                             <el-input v-model="form.mnemonic_code"></el-input>
                         </el-form-item>
                     </el-form>
@@ -58,6 +59,22 @@ export default {
                 id: "",
                 name: "",
                 mnemonic_code: ""
+            },
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "名称不能为空"
+                    }
+                ],
+                mnemonic_code: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "验证码不能为空"
+                    }
+                ]
             }
         };
     },
@@ -74,6 +91,14 @@ export default {
                 });
         },
         submit() {
+            this.$refs.form.validate(valid => {
+                if (!valid) {
+                    return false;
+                }
+                this.update();
+            });
+        },
+        update() {
             this.loading = true;
             this.updateFunction(this.form)
                 .then(response => {
