@@ -22,7 +22,7 @@
                             <el-form-item label="显示名称" required>
                                 <el-input v-model="form.display_name"></el-input>
                             </el-form-item>
-                            <el-form-item label="描述" required>
+                            <el-form-item label="描述">
                                 <el-input type="textarea" v-model="form.desc"></el-input>
                             </el-form-item>
                             <el-form-item>
