@@ -14,7 +14,7 @@
                 <table-operate-bar title="订单数据">
                     <template slot="functionButton">
                         <router-link :to="{path: '/order/create'}">
-                            <el-button size="small" type="primary">新增</el-button>
+                            <el-button size="small">新增</el-button>
                         </router-link>
                     </template>
                 </table-operate-bar>

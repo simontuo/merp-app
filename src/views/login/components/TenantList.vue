@@ -5,12 +5,12 @@
         </div>
         <ul class="tenant-list">
             <li class="item" v-for="(item, index) in tenants" :key="index">
-                <el-link :underline="false" @click="handelRedirect">{{ item.name }}</el-link>
+                <el-link :underline="false" @click="handelRedirect(item)">{{ item.name }}</el-link>
                 <el-link :underline="false" class="default-button" @click="handelDefault">默认</el-link>
             </li>
         </ul>
         <div class="footer clearfix">
-            <el-button type="text" class="footer-button" @click="logout">退出登录</el-button>
+            <el-button type="text" class="footer-button" @click.native="logout">退出登录</el-button>
         </div>
     </div>
 </template>
@@ -33,20 +33,23 @@ export default {
         };
     },
     methods: {
-        handelRedirect() {
+        handelRedirect(tenant) {
             // todo
             // 跳转到首页
             // 暂时用默认登录跳转
-            this.loading = true;
-            this.$store
-                .dispatch("user/login", this.loginForm)
-                .then(() => {
-                    this.$router.push({ path: this.redirect || "/" });
-                    this.loading = false;
-                })
-                .catch(() => {
-                    this.loading = false;
-                });
+            // this.loading = true;
+            // this.$store
+            //     .dispatch("user/login", this.loginForm)
+            //     .then(() => {
+            //         this.$router.push({ path: this.redirect || "/" });
+            //         this.loading = false;
+            //     })
+            //     .catch(() => {
+            //         this.loading = false;
+            //     });
+            this.$store.dispatch("user/setTenant", tenant).then(() => {
+                this.$router.push({ path: this.redirect || "/" });
+            });
         },
         handelDefault() {
             this.$confirm("此操作将默认选择该租户登录, 是否继续?", "提示", {
@@ -69,8 +72,10 @@ export default {
                     });
                 });
         },
-        logout() {
-            // todo
+        async logout() {
+            await this.$store.dispatch("user/logout").then(() => {
+                this.$router.go(0);
+            });
         }
     }
 };

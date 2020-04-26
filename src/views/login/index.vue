@@ -34,7 +34,7 @@
                                 auto-complete="on"
                             />
                         </el-form-item>
-                        <template v-if="form.verify_type === 'password'">
+                        <template v-if="form.verifyType === 'password'">
                             <el-form-item prop="password">
                                 <span class="svg-container">
                                     <svg-icon icon-class="password" />
@@ -48,7 +48,7 @@
                                     name="password"
                                     tabindex="2"
                                     auto-complete="on"
-                                    @keyup.enter.native="handleLogin"
+                                    @keyup.enter.native="login"
                                 />
                                 <span class="show-pwd" @click="showPwd">
                                     <svg-icon
@@ -58,18 +58,18 @@
                             </el-form-item>
                         </template>
                         <template v-else>
-                            <el-form-item prop="verify_code">
+                            <el-form-item prop="verifyCode">
                                 <span class="svg-container">
                                     <svg-icon icon-class="verify-code" />
                                 </span>
                                 <el-input
-                                    ref="password"
-                                    v-model="form.verify_code"
+                                    ref="verifyCode"
+                                    v-model="form.verifyCode"
                                     placeholder="验证码"
-                                    name="verify_code"
+                                    name="verifyCode"
                                     tabindex="2"
                                     auto-complete="on"
-                                    @keyup.enter.native="handleLogin"
+                                    @keyup.enter.native="login"
                                 />
                                 <span class="show-pwd">
                                     <verify-code-button type="text" :phone="form.phone"></verify-code-button>
@@ -85,7 +85,7 @@
                             :loading="loading"
                             type="primary"
                             style="width:100%;margin-bottom:30px;"
-                            @click.native.prevent="handleLogin"
+                            @click.native.prevent="login"
                         >登录</el-button>
 
                         <!-- <div class="tips">
@@ -101,8 +101,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { phone } from "@/utils/validate";
-import { login } from "@/api/user";
+import { login, userTenantList } from "@/api/user";
 import { tenantUserList } from "@/api/tenant";
 import TenantList from "./components/TenantList";
 import VerifyCodeButton from "@/components/VerifyCodeButton";
@@ -110,6 +111,9 @@ import VerifyCodeButton from "@/components/VerifyCodeButton";
 export default {
     name: "Login",
     components: { TenantList, VerifyCodeButton },
+    computed: {
+        ...mapGetters(["token"])
+    },
     data() {
         const validatePhone = (rule, value, callback) => {
             if (!phone(value)) {
@@ -119,12 +123,11 @@ export default {
             }
         };
         return {
-            // verifyType: "password",
             verifyTypeText: "验证码登陆",
             form: {
                 phone: "",
                 password: "",
-                verify_type: "password"
+                verifyType: "password"
             },
             loginRules: {
                 phone: [
@@ -144,7 +147,7 @@ export default {
                         trigger: "blur"
                     }
                 ],
-                verify_code: [
+                verifyCode: [
                     {
                         required: true,
                         message: "验证码不能空",
@@ -177,31 +180,40 @@ export default {
                 this.$refs.password.focus();
             });
         },
-        handleLogin() {
+        login() {
             // todo
             // 发送验证用户身份请求，返回token和对应的租户列表
             this.$refs.loginForm.validate(valid => {
                 if (!valid) {
                     return false;
                 }
-
                 this.loading = true;
-                tenantUserList(this.form)
-                    .then(response => {
-                        this.tenants = response.data;
-                        this.logined = true;
+                this.$store
+                    .dispatch("user/login", this.form)
+                    .then(() => {
+                        this.fectchUserTenantList();
                     })
                     .finally(() => {
                         this.loading = false;
                     });
             });
         },
+        fectchUserTenantList() {
+            userTenantList({ token: this.token })
+                .then(response => {
+                    this.tenants = response.data.items;
+                    this.logined = true;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
         swtichVerifyType() {
-            if (this.form.verify_type == "password") {
-                this.form.verify_type = "verify_code";
+            if (this.form.verifyType == "password") {
+                this.form.verifyType = "verify_code";
                 this.verifyTypeText = "密码登录";
             } else {
-                this.form.verify_type = "password";
+                this.form.verifyType = "password";
                 this.verifyTypeText = "验证码登录";
             }
         },

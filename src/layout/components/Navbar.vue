@@ -10,7 +10,7 @@
 
         <div class="right-menu">
             <template>
-                <div class="right-menu-item">大力出奇迹有限公司</div>
+                <div class="right-menu-item">{{ tenant.name }}</div>
             </template>
 
             <el-dropdown class="avatar-container" trigger="click">
@@ -43,7 +43,7 @@ export default {
         Hamburger
     },
     computed: {
-        ...mapGetters(["sidebar", "avatar"])
+        ...mapGetters(["sidebar", "avatar", "tenant"])
     },
     methods: {
         toggleSideBar() {
