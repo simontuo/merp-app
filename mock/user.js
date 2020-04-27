@@ -87,6 +87,38 @@ export default [
     },
 
     {
+        url: '/users/tenants',
+        type: 'get',
+        response: config => {
+            let data = {
+                items: [
+                    {
+                        id: 1,
+                        name: "大力出奇迹有限公司",
+                        default: false
+                    },
+                    {
+                        id: 2,
+                        name: "保级利亚有限公司",
+                        default: false
+                    },
+                    {
+                        id: 3,
+                        name: "金坷垃大力有限公司",
+                        default: false
+                    }
+                ]
+            };
+
+            return {
+                code: 20000,
+                data: data
+            }
+
+        }
+    },
+
+    {
         url: '/users/[0-9]*',
         type: 'get',
         response: config => {

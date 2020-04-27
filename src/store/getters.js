@@ -8,5 +8,6 @@ const getters = {
     table: state => state.app.table,
     roles: state => state.user.roles,
     tenant: state => state.user.tenant,
+    permission_routes: state => state.permission.routes,
 }
 export default getters

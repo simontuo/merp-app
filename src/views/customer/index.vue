@@ -48,7 +48,7 @@
             <div slot="body">
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
-                        <el-button size="small" @click="create">新增</el-button>
+                        <el-button size="small" @click="create" v-if="checkPermission(['admin'])">新增</el-button>
                         <el-button size="small" type="warning" @click="ban">禁用</el-button>
                     </template>
                 </table-operate-bar>
@@ -109,6 +109,7 @@ import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { customerPageList, customerBan } from "@/api/customer";
 import CreateDrawer from "./components/CreateDrawer";
+import checkPermission from "@/utils/permission";
 
 export default {
     components: {
@@ -156,7 +157,8 @@ export default {
                 });
                 bus.$emit("search");
             });
-        }
+        },
+        checkPermission
     }
 };
 </script>
