@@ -8,8 +8,9 @@ export function getToken() {
 }
 
 export function getTenant() {
-    let teant = Cookies.get(TenantKey)
-    return JSON.parse(teant)
+    let tenant = Cookies.get(TenantKey)
+
+    return tenant ? JSON.parse(tenant) : ''
 }
 
 export function setToken(token) {

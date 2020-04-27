@@ -5,11 +5,17 @@
                 <el-page-header @back="goBack" content="订单新增"></el-page-header>
             </template>
         </m-card>
-        <el-row :gutter="20" class="mt-1">
-            <el-col :span="14">
-                <m-card>
-                    <template slot="body">
-                        <el-form ref="form" :model="form" label-width="80px" size="small">
+        <div class="components-container">
+            <split-pane split="vertical" :default-percent="40">
+                <template slot="paneL">
+                    <div class="left-container">
+                        <el-form
+                            ref="form"
+                            :model="form"
+                            label-width="80px"
+                            size="small"
+                            label-position="left"
+                        >
                             <el-form-item label="活动名称">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
@@ -58,54 +64,117 @@
                                 <el-input type="textarea" v-model="form.desc"></el-input>
                             </el-form-item>
                         </el-form>
-                    </template>
-                </m-card>
-            </el-col>
-            <el-col :span="10">
-                <m-card type="cost" class="cost-card">
-                    <template slot="body">
-                        <div class="content">
-                            <el-table
-                                :data="form.costs"
-                                header-cell-class-name="table-header"
-                                size="small"
-                            >
-                                <el-table-column type="index" label="#" width="50" align="center"></el-table-column>
-                                <el-table-column prop="date" label="日期" width="180"></el-table-column>
-                                <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-                                <el-table-column prop="address" label="地址" width="200"></el-table-column>
-                                <el-table-column
-                                    fixed="right"
-                                    label="操作"
-                                    width="100"
-                                    align="center"
-                                >
-                                    <template slot-scope="scope">
-                                        <el-button
-                                            type="text"
+                    </div>
+                </template>
+                <template slot="paneR">
+                    <split-pane split="horizontal" :default-percent="30">
+                        <template slot="paneL">
+                            <div class="top-container">
+                                <div class="bottom-container container-card">
+                                    <div class="content">
+                                        <el-table
+                                            :data="form.containers"
+                                            header-cell-class-name="table-header"
                                             size="small"
-                                            @click="handelDelete(scope.row.id)"
-                                        >删除</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </div>
-                        <div class="total">
-                            <span class="receivable">应收：5000</span>
-                            <span class="pay">应付：4500</span>
-                            <span>毛利：500</span>
-                        </div>
-                        <div class="footer clearfix">
-                            <el-button type="text" size="small">新增费用</el-button>
-                            <div class="submit">
-                                <el-button type="text" size="small">取消</el-button>
-                                <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
+                                        >
+                                            <el-table-column
+                                                type="index"
+                                                label="#"
+                                                width="50"
+                                                align="center"
+                                            ></el-table-column>
+                                            <el-table-column
+                                                prop="waybillNumber"
+                                                label="运单号"
+                                                width="180"
+                                            ></el-table-column>
+                                            <el-table-column
+                                                prop="containerNumber"
+                                                label="箱号"
+                                                width="180"
+                                            ></el-table-column>
+                                            <el-table-column
+                                                prop="sealNumber"
+                                                label="封号"
+                                                width="200"
+                                            ></el-table-column>
+                                            <el-table-column
+                                                fixed="right"
+                                                label="操作"
+                                                width="100"
+                                                align="center"
+                                            >
+                                                <template slot-scope="scope">
+                                                    <el-button
+                                                        type="text"
+                                                        size="small"
+                                                        @click="handelDelete(scope.row.id)"
+                                                    >删除</el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                </m-card>
-            </el-col>
-        </el-row>
+                        </template>
+                        <template slot="paneR">
+                            <div class="bottom-container cost-card">
+                                <div class="content">
+                                    <el-table
+                                        :data="form.costs"
+                                        header-cell-class-name="table-header"
+                                        size="small"
+                                    >
+                                        <el-table-column
+                                            type="index"
+                                            label="#"
+                                            width="50"
+                                            align="center"
+                                        ></el-table-column>
+                                        <el-table-column prop="object" label="核算对象"></el-table-column>
+                                        <el-table-column prop="type" label="收/付" width="50"></el-table-column>
+                                        <el-table-column prop="costItem" label="费用项目" width="80"></el-table-column>
+                                        <el-table-column prop="amount" label="数量" width="50"></el-table-column>
+                                        <el-table-column prop="totalAmount" label="单价" width="80"></el-table-column>
+                                        <el-table-column prop="totalAmount" label="总价" width="80"></el-table-column>
+                                        <el-table-column
+                                            fixed="right"
+                                            label="操作"
+                                            width="100"
+                                            align="center"
+                                        >
+                                            <template slot-scope="scope">
+                                                <el-button
+                                                    type="text"
+                                                    size="small"
+                                                    @click="handelDelete(scope.row.id)"
+                                                >删除</el-button>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
+                                <div class="total">
+                                    <span class="receivable">应收：5000</span>
+                                    <span class="pay">应付：4500</span>
+                                    <span>毛利：500</span>
+                                </div>
+                                <div class="footer clearfix">
+                                    <el-button type="text" size="small">新增费用</el-button>
+                                    <div class="submit">
+                                        <el-button type="text" size="small">取消</el-button>
+                                        <el-button
+                                            type="primary"
+                                            @click="onSubmit"
+                                            size="small"
+                                        >创建订单</el-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </split-pane>
+                </template>
+            </split-pane>
+        </div>
     </div>
 </template>
 
@@ -113,12 +182,14 @@
 import MCard from "@/components/MCard";
 import MTable from "@/components/MTable";
 import CardHeader from "@/components/MCard/components/Header";
+import splitPane from "vue-splitpane";
 
 export default {
     components: {
         MCard,
         CardHeader,
-        MTable
+        MTable,
+        splitPane
     },
     data() {
         return {
@@ -131,26 +202,34 @@ export default {
                 type: [],
                 resource: "",
                 desc: "",
+                containers: [
+                    {
+                        waybillNumber: "12334234",
+                        containerNumber: "THSB1133244",
+                        sealNumber: "1333"
+                    }
+                ],
                 costs: [
                     {
-                        date: "2016-05-02",
-                        name: "王小虎",
-                        address: "上海市普陀区金沙江路 1518 弄"
+                        object: "大力有限公司",
+                        type: "应收",
+                        costItem: "运费",
+                        amount: 1,
+                        totalAmount: 15000
                     },
                     {
-                        date: "2016-05-04",
-                        name: "王小虎",
-                        address: "上海市普陀区金沙江路 1517 弄"
+                        object: "大力车队有限公司",
+                        type: "应付",
+                        costItem: "拖车费",
+                        amount: 1,
+                        totalAmount: 5000
                     },
                     {
-                        date: "2016-05-01",
-                        name: "王小虎",
-                        address: "上海市普陀区金沙江路 1519 弄"
-                    },
-                    {
-                        date: "2016-05-03",
-                        name: "王小虎",
-                        address: "上海市普陀区金沙江路 1516 弄"
+                        object: "大力货代有限公司",
+                        type: "应付",
+                        costItem: "代理费",
+                        amount: 1,
+                        totalAmount: 4000
                     }
                 ]
             }
@@ -168,6 +247,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container-card {
+    .header {
+        margin: 0 20px;
+    }
+    .total {
+        padding: 10px 20px;
+        font-size: 12px;
+        background-color: #fafafa;
+        span {
+            margin-right: 20px;
+        }
+        .receivable {
+            color: #67c23a;
+        }
+        .pay {
+            color: #f56c6c;
+        }
+    }
+    .footer {
+        margin: 10px 20px;
+        .submit {
+            float: right;
+        }
+    }
+}
+
 .cost-card {
     .header {
         margin: 0 20px;
@@ -192,5 +297,33 @@ export default {
             float: right;
         }
     }
+}
+
+.components-container {
+    position: relative;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    margin-top: 10px;
+}
+
+.left-container {
+    height: 100%;
+    padding: 20px;
+}
+
+.right-container {
+    height: 200px;
+}
+
+.top-container {
+    width: 100%;
+    height: 100%;
+}
+
+.bottom-container {
+    width: 100%;
+    height: 100%;
 }
 </style>

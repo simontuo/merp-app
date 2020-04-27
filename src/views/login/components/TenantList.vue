@@ -3,7 +3,7 @@
         <div class="title-container">
             <p class="title">选择租户:</p>
         </div>
-        <ul class="tenant-list">
+        <ul class="tenant-list" v-loading="loading">
             <li class="item" v-for="(item, index) in tenants" :key="index">
                 <el-link :underline="false" @click="handelRedirect(item)">{{ item.name }}</el-link>
                 <el-link :underline="false" class="default-button" @click="handelDefault">默认</el-link>
@@ -25,11 +25,7 @@ export default {
     },
     data() {
         return {
-            loginForm: {
-                username: "admin",
-                // email: "2850132787@qq.com",
-                password: "111111"
-            }
+            loading: false
         };
     },
     methods: {
@@ -47,7 +43,9 @@ export default {
             //     .catch(() => {
             //         this.loading = false;
             //     });
+            this.loading = true;
             this.$store.dispatch("user/setTenant", tenant).then(() => {
+                this.loading = false;
                 this.$router.push({ path: this.redirect || "/" });
             });
         },
