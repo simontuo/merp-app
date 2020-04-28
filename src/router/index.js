@@ -154,14 +154,22 @@ export const asyncRoutes = [
                 component: () => import('@/views/order/profile/index'),
                 meta: { title: '订单详情', roles: ['admin'] }
             },
-            {
-                path: 'create',
-                name: 'orderCreate',
-                hidden: true,
-                component: () => import('@/views/order/create/index'),
-                meta: { title: '订单新增', roles: ['admin'] }
-            }
+            // {
+            //     path: 'create',
+            //     name: 'orderCreate',
+            //     hidden: true,
+            //     component: () => import('@/views/order/create/index'),
+            //     meta: { title: '订单新增', roles: ['admin'] }
+            // }
         ]
+    },
+
+    {
+        path: '/order/create',
+        name: 'orderCreate',
+        hidden: true,
+        component: () => import('@/views/order/create/index'),
+        meta: { title: '订单新增', roles: ['admin'] }
     },
 
     {
