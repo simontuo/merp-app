@@ -1,15 +1,17 @@
 <template>
-    <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="pagination.page"
-        :page-sizes="pagination.pageSizes"
-        :page-size="pagination.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="search.total"
-        background
-        class="pagination"
-    ></el-pagination>
+    <div class="clearfix">
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pagination.page"
+            :page-sizes="pagination.pageSizes"
+            :page-size="pagination.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="search.total"
+            background
+            class="pagination"
+        ></el-pagination>
+    </div>
 </template>
 
 <script>
@@ -44,5 +46,6 @@ export default {
 <style lang="scss" scoped>
 .pagination {
     margin: 20px 20px 10px 20px;
+    float: right;
 }
 </style>

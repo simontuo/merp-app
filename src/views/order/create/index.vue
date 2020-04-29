@@ -1,21 +1,24 @@
 <template>
     <div class="app-container">
-        <m-card type="profile">
-            <template slot="body">
-                <el-row>
-                    <el-col :span="18">
-                        <el-page-header @back="goBack" content="订单新增"></el-page-header>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="header-button">
-                            <el-button type="text" size="small">导入模板</el-button>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
-                        </div>
-                    </el-col>
-                </el-row>
-            </template>
-        </m-card>
+        <sticky :sticky-top="0">
+            <m-card type="profile">
+                <template slot="body">
+                    <el-row>
+                        <el-col :span="18">
+                            <el-page-header @back="goBack" content="订单新增"></el-page-header>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="header-button">
+                                <el-button type="text" size="small">导入模板</el-button>
+                                <el-divider direction="vertical"></el-divider>
+                                <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </template>
+            </m-card>
+        </sticky>
+
         <el-row :gutter="20" class="mt-1">
             <el-col :span="12">
                 <m-card type="cost">
@@ -43,7 +46,10 @@
                                 </el-form-item>
                             </el-row>
                             <el-row>
-                                <el-form-item label="订单类型" required>
+                                <el-form-item label="应收费用" required class="form-item">
+                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                </el-form-item>
+                                <el-form-item label="订单类型" required class="form-item">
                                     <el-radio-group v-model="form.type" size="small">
                                         <el-radio label="0">进口</el-radio>
                                         <el-radio label="1">出口</el-radio>
@@ -175,119 +181,19 @@
                                     ></el-input>
                                 </el-form-item>
                             </el-row>
-                        </el-form>
-                    </template>
-                </m-card>
-            </el-col>
-            <el-col :span="12">
-                <m-card type="cost">
-                    <template slot="body">
-                        <el-alert title="货物信息基本情况" :closable="false" class="create-alert"></el-alert>
-                        <el-form
-                            class="create-form"
-                            ref="form"
-                            :model="form"
-                            label-width="130px"
-                            size="small"
-                            label-position="left"
-                            :inline="true"
-                        >
                             <el-row>
-                                <el-form-item label="经营单位" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="社会信用代码" required class="form-item">
-                                    <el-input
-                                        v-model="tenant.name"
-                                        disabled
-                                        class="form-item-width"
-                                    ></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="消费使用单位" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="社会信用代码" required class="form-item">
-                                    <el-input
-                                        v-model="tenant.name"
-                                        disabled
-                                        class="form-item-width"
-                                    ></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="贸易方式" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="备案号" required>
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="货物存放地" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="贸易国" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="包装种类" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="境内目的地" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="入境口岸" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="特殊关系确认" required class="form-item">
+                                <el-form-item label="运输模式" required>
                                     <el-radio-group v-model="form.type" size="small">
-                                        <el-radio label="0">是</el-radio>
-                                        <el-radio label="1">否</el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
-                                <el-form-item label="价格影响确认" required class="form-item">
-                                    <el-radio-group v-model="form.type" size="small">
-                                        <el-radio label="0">是</el-radio>
-                                        <el-radio label="1">否</el-radio>
+                                        <el-radio label="0">陆路运输</el-radio>
+                                        <el-radio label="1">海运运输</el-radio>
                                     </el-radio-group>
                                 </el-form-item>
                             </el-row>
                             <el-row>
-                                <el-form-item label="支付特许权使用费确认" required class="form-item">
-                                    <el-radio-group v-model="form.type" size="small">
-                                        <el-radio label="0">是</el-radio>
-                                        <el-radio label="1">否</el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="海关编码" required class="form-item">
+                                <el-form-item label="运输服务商" required>
                                     <el-input v-model="form.customerId" class="form-item-width"></el-input>
                                 </el-form-item>
-                                <el-form-item label="中文品名" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="申报要素" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="数量及单位" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item label="总价/币制" required class="form-item">
-                                    <el-input v-model="form.customerId" class="form-item-width"></el-input>
-                                </el-form-item>
-                                <el-form-item label="单价" required class="form-item">
+                                <el-form-item label="费用" required>
                                     <el-input v-model="form.customerId" class="form-item-width"></el-input>
                                 </el-form-item>
                             </el-row>
@@ -295,48 +201,172 @@
                     </template>
                 </m-card>
             </el-col>
-        </el-row>
-        <el-row class="mt-1">
-            <m-card type="cost" class="cost-card">
-                <template slot="body">
-                    <div class="content">
-                        <el-table
-                            :data="form.costs"
-                            header-cell-class-name="table-header"
-                            size="small"
-                        >
-                            <el-table-column type="index" label="#" width="50" align="center"></el-table-column>
-                            <el-table-column prop="object" label="核算对象"></el-table-column>
-                            <el-table-column prop="type" label="收/付" width="50"></el-table-column>
-                            <el-table-column prop="costItem" label="费用项目" width="80"></el-table-column>
-                            <el-table-column prop="amount" label="数量" width="50"></el-table-column>
-                            <el-table-column prop="totalAmount" label="单价" width="80"></el-table-column>
-                            <el-table-column prop="totalAmount" label="总价" width="80"></el-table-column>
-                            <el-table-column fixed="right" label="操作" width="100" align="center">
-                                <template slot-scope="scope">
-                                    <el-button
-                                        type="text"
-                                        size="small"
-                                        @click="handelDelete(scope.row.id)"
-                                    >删除</el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </div>
-                    <div class="total">
-                        <span class="receivable">应收：5000</span>
-                        <span class="pay">应付：4500</span>
-                        <span>毛利：500</span>
-                    </div>
-                    <div class="footer clearfix">
-                        <el-button type="text" size="small">新增费用</el-button>
-                        <!-- <div class="submit">
-                            <el-button type="text" size="small">取消</el-button>
-                            <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
-                        </div>-->
-                    </div>
-                </template>
-            </m-card>
+            <el-col :span="12">
+                <el-row>
+                    <m-card type="cost">
+                        <template slot="body">
+                            <el-alert title="货物信息基本情况" :closable="false" class="create-alert"></el-alert>
+                            <el-form
+                                class="create-form"
+                                ref="form"
+                                :model="form"
+                                label-width="130px"
+                                size="small"
+                                label-position="left"
+                                :inline="true"
+                            >
+                                <el-row>
+                                    <el-form-item label="经营单位" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="社会信用代码" required class="form-item">
+                                        <el-input
+                                            v-model="tenant.name"
+                                            disabled
+                                            class="form-item-width"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="消费使用单位" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="社会信用代码" required class="form-item">
+                                        <el-input
+                                            v-model="tenant.name"
+                                            disabled
+                                            class="form-item-width"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="贸易方式" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="备案号" required>
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="货物存放地" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="贸易国" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="包装种类" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="境内目的地" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="入境口岸" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="特殊关系确认" required class="form-item">
+                                        <el-radio-group v-model="form.type" size="small">
+                                            <el-radio label="0">是</el-radio>
+                                            <el-radio label="1">否</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                    <el-form-item label="价格影响确认" required class="form-item">
+                                        <el-radio-group v-model="form.type" size="small">
+                                            <el-radio label="0">是</el-radio>
+                                            <el-radio label="1">否</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="支付特许权使用费确认" required class="form-item">
+                                        <el-radio-group v-model="form.type" size="small">
+                                            <el-radio label="0">是</el-radio>
+                                            <el-radio label="1">否</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="海关编码" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="中文品名" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="申报要素" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="数量及单位" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item label="总价/币制" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="单价" required class="form-item">
+                                        <el-input v-model="form.customerId" class="form-item-width"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                            </el-form>
+                        </template>
+                    </m-card>
+                </el-row>
+                <el-row class="mt-1">
+                    <m-card type="cost" class="cost-card">
+                        <template slot="body">
+                            <div class="content">
+                                <el-table
+                                    :data="form.costs"
+                                    header-cell-class-name="table-header"
+                                    size="small"
+                                >
+                                    <el-table-column
+                                        type="index"
+                                        label="#"
+                                        width="50"
+                                        align="center"
+                                    ></el-table-column>
+                                    <el-table-column prop="object" label="核算对象"></el-table-column>
+                                    <el-table-column prop="type" label="收/付" width="80"></el-table-column>
+                                    <el-table-column prop="costItem" label="费用项目" width="80"></el-table-column>
+                                    <el-table-column prop="amount" label="数量" width="50"></el-table-column>
+                                    <el-table-column prop="totalAmount" label="单价" width="80"></el-table-column>
+                                    <el-table-column prop="totalAmount" label="总价" width="80"></el-table-column>
+                                    <el-table-column
+                                        fixed="right"
+                                        label="操作"
+                                        width="100"
+                                        align="center"
+                                    >
+                                        <template slot-scope="scope">
+                                            <el-button
+                                                type="text"
+                                                size="small"
+                                                @click="handelDelete(scope.row.id)"
+                                            >删除</el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                            <div class="total">
+                                <span class="receivable">应收：5000</span>
+                                <span class="pay">应付：4500</span>
+                                <span>毛利：500</span>
+                            </div>
+                            <div class="footer clearfix">
+                                <el-button type="text" size="small">新增费用</el-button>
+                            </div>
+                        </template>
+                    </m-card>
+                </el-row>
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -346,12 +376,14 @@ import { mapGetters } from "vuex";
 import MCard from "@/components/MCard";
 import MTable from "@/components/MTable";
 import CardHeader from "@/components/MCard/components/Header";
+import Sticky from "@/components/Sticky";
 
 export default {
     components: {
         MCard,
         CardHeader,
-        MTable
+        MTable,
+        Sticky
     },
     data() {
         return {

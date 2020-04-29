@@ -1,21 +1,13 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form
-                ref="searchForm"
-                slot="body"
-                :searchFunction="searchFunction"
-                :query="query"
-            >
+            <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                        <s-input ref="name" placeholder="名称"></s-input>
                     </el-form-item>
-                    <el-form-item label="显示名称">
-                        <el-select v-model="query.label" placeholder="显示名称">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
+                    <el-form-item label="标签">
+                        <s-input ref="label" placeholder="标签"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -86,6 +78,7 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MCard from "@/components/MCard";
 import MTable from "@/components/MTable";
 import BindUser from "./components/BindDrawer";
+import { SInput } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -95,15 +88,11 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        BindUser
+        BindUser,
+        SInput
     },
     data() {
-        return {
-            query: {
-                name: "",
-                label: ""
-            }
-        };
+        return {};
     },
     computed: {
         searchFunction() {

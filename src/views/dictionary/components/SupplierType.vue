@@ -1,10 +1,10 @@
 <template>
     <div>
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction" :query="query">
+            <search-form slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                        <s-input res="name" placeholder="名称"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -76,6 +76,7 @@ import {
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
 import { supplierUpdate } from "../../../api/supplier";
+import { SInput } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -86,7 +87,8 @@ export default {
         SearchForm,
         MCard,
         CreateDrawer,
-        EditDrawer
+        EditDrawer,
+        SInput
     },
     data() {
         return {

@@ -41,3 +41,11 @@ export function customerPageList(params) {
         params: params
     })
 }
+
+export function customerRemote(params) {
+    return request({
+        url: '/customers/remote',
+        method: 'get',
+        params: params
+    })
+}

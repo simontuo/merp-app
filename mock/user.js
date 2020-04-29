@@ -95,17 +95,20 @@ export default [
                     {
                         id: 1,
                         name: "大力出奇迹有限公司",
-                        default: false
+                        default: false,
+                        enable: true
                     },
                     {
                         id: 2,
                         name: "保级利亚有限公司",
-                        default: false
+                        default: false,
+                        enable: true
                     },
                     {
                         id: 3,
                         name: "金坷垃大力有限公司",
-                        default: false
+                        default: false,
+                        enable: true
                     }
                 ]
             };

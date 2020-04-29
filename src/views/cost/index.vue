@@ -1,13 +1,10 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction" :query="query">
+            <search-form slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="收付">
-                        <el-select v-model="query.type" placeholder="收付">
-                            <el-option label="应收" value="true"></el-option>
-                            <el-option label="应付" value="false"></el-option>
-                        </el-select>
+                        <s-select :options="types" ref="type"></s-select>
                     </el-form-item>
                 </template>
             </search-form>
@@ -63,6 +60,7 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/cost";
+import { SSelect } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -71,13 +69,21 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        SSelect
     },
     data() {
         return {
-            query: {
-                type: ""
-            }
+            types: [
+                {
+                    value: 0,
+                    label: "应收"
+                },
+                {
+                    value: 1,
+                    label: "应付"
+                }
+            ]
         };
     },
     computed: {

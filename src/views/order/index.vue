@@ -1,10 +1,10 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form slot="body" :searchFunction="searchFunction" :query="query">
+            <search-form slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="订单号">
-                        <el-input v-model="query.no" placeholder="订单号"></el-input>
+                        <s-input ref="no" placeholder="订单号"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -64,6 +64,7 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/order";
+import { SInput } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -72,7 +73,8 @@ export default {
         TableSelectedBar,
         MTable,
         SearchForm,
-        MCard
+        MCard,
+        SInput
     },
     data() {
         return {

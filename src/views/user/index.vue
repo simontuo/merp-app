@@ -1,21 +1,13 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form
-                ref="searchForm"
-                slot="body"
-                :searchFunction="searchFunction"
-                :query="query"
-            >
+            <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                        <s-input ref="name" placeholder="名称"></s-input>
                     </el-form-item>
                     <el-form-item label="手机">
-                        <el-select v-model="query.phone" placeholder="手机">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
+                        <s-input ref="phone" placeholder="手机"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -113,6 +105,7 @@ import DepartmemtTree from "./components/DeaprtmemtTree";
 import { userPageList, useuserBan, userBan } from "@/api/user";
 import CreateDrawer from "./components/CreateDrawer";
 import EditDrawer from "./components/EditDrawer";
+import { SelectRemote, SInput } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -124,15 +117,12 @@ export default {
         MCard,
         DepartmemtTree,
         CreateDrawer,
-        EditDrawer
+        EditDrawer,
+        SelectRemote,
+        SInput
     },
     data() {
-        return {
-            query: {
-                name: "",
-                phone: ""
-            }
-        };
+        return {};
     },
     computed: {
         searchFunction() {

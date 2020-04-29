@@ -1,45 +1,27 @@
 <template>
     <div class="app-container">
         <m-card type="search">
-            <search-form
-                slot="body"
-                :searchFunction="searchFunction"
-                :query="query"
-                labelWidthHidden="100px"
-            >
+            <search-form slot="body" :searchFunction="searchFunction" labelWidthHidden="100px">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <el-input v-model="query.name" placeholder="名称"></el-input>
+                        <select-remote :remoteFunction="remoteFunction" ref="name"></select-remote>
+                    </el-form-item>
+                    <el-form-item label="创建时间">
+                        <date ref="createdAt"></date>
                     </el-form-item>
                     <el-form-item label="联系人">
-                        <el-input v-model="query.contacts" placeholder="联系人"></el-input>
+                        <s-input ref="contact" placeholder="联系人"></s-input>
                     </el-form-item>
                     <el-form-item label="联系电话">
-                        <el-input v-model="query.phone" placeholder="联系电话"></el-input>
+                        <s-input ref="contactPhone" placeholder="联系电话"></s-input>
                     </el-form-item>
                     <el-form-item label="联系地址">
-                        <el-input v-model="query.adress" placeholder="联系地址"></el-input>
-                    </el-form-item>
-                    <el-form-item label="创建人">
-                        <el-input v-model="query.creator" placeholder="创建人"></el-input>
+                        <s-input ref="contactAddress" placeholder="联系地址"></s-input>
                     </el-form-item>
                 </template>
                 <template slot="hiddenQueryItem">
-                    <el-form-item label="活动性质：">
-                        <el-checkbox-group v-model="query.types">
-                            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                            <el-checkbox label="地推活动" name="type"></el-checkbox>
-                            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-form-item label="活动性质：">
-                        <el-checkbox-group v-model="query.types">
-                            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                            <el-checkbox label="地推活动" name="type"></el-checkbox>
-                            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                        </el-checkbox-group>
+                    <el-form-item label="创建人">
+                        <select-remote :remoteFunction="remoteFunction" ref="creatorId"></select-remote>
                     </el-form-item>
                 </template>
             </search-form>
@@ -107,9 +89,10 @@ import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { customerPageList, customerBan } from "@/api/customer";
+import { customerPageList, customerBan, customerRemote } from "@/api/customer";
 import CreateDrawer from "./components/CreateDrawer";
 import checkPermission from "@/utils/permission";
+import { SelectRemote, Date, SInput } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -119,20 +102,20 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        CreateDrawer
+        CreateDrawer,
+        SelectRemote,
+        Date,
+        SInput
     },
     data() {
-        return {
-            query: {
-                name: "",
-                creator: "",
-                types: []
-            }
-        };
+        return {};
     },
     computed: {
         searchFunction() {
             return customerPageList;
+        },
+        remoteFunction() {
+            return customerRemote;
         },
         selectedIds() {
             return this.$refs.table.selectedIds();
