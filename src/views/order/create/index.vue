@@ -117,7 +117,7 @@ import {
     GoodsInfo,
     ImportDrawer,
     CostCard
-} from "./components";
+} from "../components";
 
 export default {
     components: {
