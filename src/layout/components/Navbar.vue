@@ -10,7 +10,8 @@
 
         <div class="right-menu">
             <template>
-                <div class="right-menu-item">{{ tenant.name }}</div>
+                <calendar class="right-menu-item hover-effect" />
+                <div class="right-menu-item hover-effect">{{ tenant.name }}</div>
             </template>
 
             <el-dropdown class="avatar-container" trigger="click">
@@ -36,11 +37,13 @@
 import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
+import Calendar from "@/components/Calendar";
 
 export default {
     components: {
         Breadcrumb,
-        Hamburger
+        Hamburger,
+        Calendar
     },
     computed: {
         ...mapGetters(["sidebar", "avatar", "tenant"])

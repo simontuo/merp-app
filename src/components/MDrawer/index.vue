@@ -19,12 +19,15 @@ export default {
         size: {
             type: String,
             default: "30%"
+        },
+        direction: {
+            type: String,
+            default: "rtl"
         }
     },
     data() {
         return {
             drawer: false,
-            direction: "rtl",
             title: ""
         };
     },
