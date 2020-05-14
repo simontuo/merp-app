@@ -24,7 +24,7 @@ export function logout() {
 
 export function userPageList(query) {
     return request({
-        url: '/users',
+        url: '/dev/user-services/user/usersPage',
         method: 'get',
         params: query
     })
