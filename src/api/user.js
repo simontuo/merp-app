@@ -2,18 +2,16 @@ import request from '@/utils/request'
 
 export function login(data) {
     return request({
-        url: '/api/login',
-        // url: '/user-services/user/login',
+        url: '/dev/user-services/user/login',
         method: 'post',
         data
     })
 }
 
-export function getInfo(token) {
+export function getInfo(params) {
     return request({
-        url: '/users/info',
+        url: '/dev/user-services/user/getUser/' + params.id,
         method: 'get',
-        params: { token }
     })
 }
 
@@ -82,7 +80,7 @@ export function userResetPassword(params) {
 
 export function userTenantList(params) {
     return request({
-        url: '/users/tenants',
+        url: '/dev/user-services/company/getUserCompanys',
         method: 'get',
         params: params
     })

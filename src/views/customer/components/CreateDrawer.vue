@@ -13,6 +13,16 @@
                         <el-form-item label="名称" required>
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
+                        <el-form-item label="类型" required>
+                            <el-select v-model="form.crmTypeIds" multiple placeholder="请选择">
+                                <el-option
+                                    v-for="item in crmTypes"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                                ></el-option>
+                            </el-select>
+                        </el-form-item>
                         <el-form-item label="联系人" required>
                             <el-input v-model="form.contact"></el-input>
                         </el-form-item>
@@ -50,8 +60,10 @@ export default {
     data() {
         return {
             loading: false,
+            crmTypes: [],
             form: {
                 name: "",
+                crmTypeIds: [],
                 contact: "",
                 contact_phone: "",
                 contact_address: ""

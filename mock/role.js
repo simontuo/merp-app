@@ -18,7 +18,7 @@ export default [
             }
 
             return {
-                code: 20000,
+                code: 200,
                 data: role
             }
 
@@ -30,7 +30,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: "编辑成功"
             }
         }
@@ -41,7 +41,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: "绑定成功"
             }
         }
@@ -52,7 +52,7 @@ export default [
         type: 'delete',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: "删除成功"
             }
 
@@ -64,7 +64,7 @@ export default [
         type: 'post',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: "新增成功"
             }
 
@@ -93,7 +93,7 @@ export default [
             const items = sortItems.filter((item, index) => index < pageSize * page && index >= pageSize * (page - 1));
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     total: list.items.length,
                     items: items

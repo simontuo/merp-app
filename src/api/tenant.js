@@ -7,3 +7,11 @@ export function tenantUserList(params) {
         params: params
     })
 }
+
+export function tenantSet(params) {
+    return request({
+        url: '/dev/user-services/company/selectUserCompany',
+        method: 'get',
+        params: params
+    })
+}

@@ -30,22 +30,9 @@ export default {
     },
     methods: {
         handelRedirect(tenant) {
-            // todo
-            // 跳转到首页
-            // 暂时用默认登录跳转
-            // this.loading = true;
-            // this.$store
-            //     .dispatch("user/login", this.loginForm)
-            //     .then(() => {
-            //         this.$router.push({ path: this.redirect || "/" });
-            //         this.loading = false;
-            //     })
-            //     .catch(() => {
-            //         this.loading = false;
-            //     });
+            // 设置选择的租户，跳转到首页
             this.loading = true;
             this.$store.dispatch("user/setTenant", tenant).then(() => {
-                this.loading = false;
                 this.$router.push({ path: this.redirect || "/" });
             });
         },

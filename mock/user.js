@@ -57,7 +57,7 @@ export default [
             }
 
             return {
-                code: 20000,
+                code: 200,
                 data: token,
             }
         }
@@ -74,13 +74,13 @@ export default [
             // mock error
             if (!info) {
                 return {
-                    code: 50008,
+                    code: 508,
                     message: 'Login failed, unable to get user details.'
                 }
             }
 
             return {
-                code: 20000,
+                code: 200,
                 data: info
             }
         }
@@ -114,7 +114,7 @@ export default [
             };
 
             return {
-                code: 20000,
+                code: 200,
                 data: data
             }
 
@@ -135,7 +135,7 @@ export default [
             }
 
             return {
-                code: 20000,
+                code: 200,
                 data: data
             }
 
@@ -148,7 +148,7 @@ export default [
         type: 'post',
         response: _ => {
             return {
-                code: 20000,
+                code: 200,
                 data: 'success'
             }
         }
@@ -171,7 +171,7 @@ export default [
             });
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     items: list.items
                 }
@@ -184,7 +184,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '禁用成功'
             }
 
@@ -196,7 +196,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '重置成功'
             }
 
@@ -208,7 +208,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '保存成功'
             }
 
@@ -221,7 +221,7 @@ export default [
         type: 'post',
         response: _ => {
             return {
-                code: 20000,
+                code: 200,
                 message: '用户新增成功'
             }
         }
@@ -251,7 +251,7 @@ export default [
             const items = sortItems.filter((item, index) => index < pageSize * page && index >= pageSize * (page - 1));
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     total: list.items.length,
                     items: items

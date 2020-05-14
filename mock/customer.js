@@ -20,7 +20,7 @@ export default [
             let sortItems = list.items.reverse();
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     items: sortItems
                 }
@@ -36,7 +36,7 @@ export default [
             const { id } = config.query
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     id: id,
                     name: '大力加冰',
@@ -54,7 +54,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '保存成功'
             }
         }
@@ -65,7 +65,7 @@ export default [
         type: 'post',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '保存成功'
             }
         }
@@ -76,7 +76,7 @@ export default [
         type: 'put',
         response: config => {
             return {
-                code: 20000,
+                code: 200,
                 message: '禁用成功'
             }
         }
@@ -107,7 +107,7 @@ export default [
             const items = sortItems.filter((item, index) => index < pageSize * page && index >= pageSize * (page - 1));
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     total: list.items.length,
                     items: items
