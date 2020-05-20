@@ -5,6 +5,7 @@
         :data="search.items"
         element-loading-text="Loading"
         fit
+        :border="border"
         highlight-current-row
         header-cell-class-name="table-header"
         :size="setting.size"
@@ -16,6 +17,12 @@
 
 <script>
 export default {
+    props: {
+        border: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
         setting() {
             return this.$store.state.app.table;

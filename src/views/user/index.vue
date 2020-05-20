@@ -41,7 +41,6 @@
                                 >启用</el-button>
                             </template>
                         </table-operate-bar>
-                        <table-selected-bar selected="50" />
                         <m-table class="mt-1" ref="table">
                             <template slot="columns">
                                 <el-table-column align="center" type="selection" width="55"></el-table-column>
@@ -111,7 +110,6 @@
 <script>
 import Pagination from "@/components/Pagination";
 import TableOperateBar from "@/components/TableOperateBar";
-import TableSelectedBar from "@/components/TableSelectedBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
@@ -125,7 +123,6 @@ export default {
     components: {
         Pagination,
         TableOperateBar,
-        TableSelectedBar,
         MTable,
         SearchForm,
         MCard,

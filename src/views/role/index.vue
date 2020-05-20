@@ -12,7 +12,7 @@
                 </template>
             </search-form>
         </m-card>
-        <m-card class="mt-2">
+        <m-card type="table" class="mt-2">
             <div slot="body" ref="tableData">
                 <table-operate-bar title="角色数据">
                     <template slot="functionButton">
@@ -27,7 +27,6 @@
                         >删除</el-button>
                     </template>
                 </table-operate-bar>
-                <table-selected-bar selected="50" />
                 <m-table class="mt-1" ref="table">
                     <template slot="columns">
                         <el-table-column align="center" type="selection" width="55"></el-table-column>
@@ -74,7 +73,6 @@ import { fetchList, roleDelete } from "@/api/role";
 import Pagination from "@/components/Pagination";
 import SearchForm from "@/components/SearchForm";
 import TableOperateBar from "@/components/TableOperateBar";
-import TableSelectedBar from "@/components/TableSelectedBar";
 import MCard from "@/components/MCard";
 import MTable from "@/components/MTable";
 import BindUser from "./components/BindDrawer";
@@ -84,7 +82,6 @@ export default {
     components: {
         Pagination,
         TableOperateBar,
-        TableSelectedBar,
         MTable,
         SearchForm,
         MCard,

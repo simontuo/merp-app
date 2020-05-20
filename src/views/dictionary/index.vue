@@ -1,5 +1,5 @@
 <template>
-    <div class="app-container">
+    <div>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
             <el-tab-pane label="货物名称" name="goods">
                 <goods ref="goods" v-if="activeName === 'goods'" />
