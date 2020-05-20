@@ -95,19 +95,17 @@ export default {
                 : "el-icon-arrow-up";
         },
         search(page = 1, pageSize = this.$store.state.pagination.pageSize) {
+            // 分页参数
+            this.page = page;
             // 获取搜索项目组件参数
             let query = {};
             query = getQuery(this.$parent.$parent.$parent.$refs);
-            // 分页参数
-            this.page = page;
+            query.pageSize = pageSize;
+            query.currentPage = page;
             // 开启搜索加载
             this.$store.dispatch("search/loadingOn");
             // 执行搜索
-            this.searchFunction({
-                page: page,
-                pageSize: pageSize,
-                query: query
-            })
+            this.searchFunction(query)
                 .then(response => {
                     // 缓存搜索数据
                     this.$store.dispatch("search/getData", { response });

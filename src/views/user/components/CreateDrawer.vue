@@ -11,14 +11,20 @@
                         size="small"
                         label-position="left"
                     >
-                        <el-form-item label="名称" required prop="name">
-                            <el-input v-model="form.name"></el-input>
+                        <el-form-item label="名称" required prop="userName">
+                            <el-input v-model="form.userName"></el-input>
                         </el-form-item>
                         <el-form-item label="手机" required prop="phone">
                             <el-input v-model="form.phone"></el-input>
                         </el-form-item>
                         <el-form-item label="邮箱" prop="email">
                             <el-input v-model="form.email"></el-input>
+                        </el-form-item>
+                        <el-form-item label="密码" prop="loginPwd">
+                            <el-input v-model="form.loginPwd" show-password></el-input>
+                        </el-form-item>
+                        <el-form-item label="确认密码" prop="confirmPassword">
+                            <el-input v-model="form.confirmPassword" show-password></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -50,12 +56,14 @@ export default {
         return {
             loading: false,
             form: {
-                name: "",
+                userName: "",
                 phone: "",
-                email: ""
+                email: "",
+                loginPwd: "",
+                confirmPassword: ""
             },
             rules: {
-                name: [
+                userName: [
                     {
                         required: true,
                         trigger: "blur",
@@ -88,6 +96,20 @@ export default {
                             }
                         }
                     }
+                ],
+                loginPwd: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "密码不能为空"
+                    }
+                ],
+                confirmPassword: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "确认密码不能为空"
+                    }
                 ]
             }
         };
@@ -112,9 +134,6 @@ export default {
                     this.$message.success(response.message);
                     this.$refs.drawer.close();
                     bus.$emit("search");
-                })
-                .catch(error => {
-                    this.$message.error(error.message);
                 })
                 .finally(() => {
                     this.loading = false;

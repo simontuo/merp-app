@@ -72,7 +72,11 @@
                                     @keyup.enter.native="login"
                                 />
                                 <span class="show-pwd">
-                                    <verify-code-button type="text" :phone="form.phone"></verify-code-button>
+                                    <verify-code-button
+                                        type="text"
+                                        :phone="form.phone"
+                                        verifyType="login"
+                                    ></verify-code-button>
                                 </span>
                             </el-form-item>
                         </template>

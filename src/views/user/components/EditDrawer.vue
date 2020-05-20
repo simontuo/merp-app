@@ -11,8 +11,8 @@
                         size="small"
                         label-position="left"
                     >
-                        <el-form-item label="名称" required prop="name">
-                            <el-input v-model="form.name"></el-input>
+                        <el-form-item label="名称" required prop="userName">
+                            <el-input v-model="form.userName"></el-input>
                         </el-form-item>
                         <el-form-item label="手机" required prop="phone">
                             <el-input v-model="form.phone"></el-input>
@@ -52,12 +52,12 @@ export default {
             id: "",
             form: {
                 id: "",
-                name: "",
+                userName: "",
                 phone: "",
                 email: ""
             },
             rules: {
-                name: [
+                userName: [
                     {
                         required: true,
                         trigger: "blur",
@@ -98,6 +98,7 @@ export default {
         show(title) {
             this.$refs.drawer.title = title;
             this.$refs.drawer.show();
+            this.loading = true;
             userProfile({ id: this.id })
                 .then(response => {
                     this.form = response.data;
@@ -115,13 +116,12 @@ export default {
             });
         },
         update() {
+            this.form.id = this.id;
             this.loading = true;
             userUpdate(this.form)
                 .then(response => {
                     this.$message.success(response.message);
-                })
-                .catch(error => {
-                    this.$message.success(error.message);
+                    bus.$emit("search");
                 })
                 .finally(() => {
                     this.loading = false;

@@ -40,7 +40,7 @@ export function userList(query) {
 
 export function userStore(params) {
     return request({
-        url: '/users',
+        url: '/dev/user-services/user/newUser',
         method: 'post',
         params: params
     })
@@ -48,7 +48,7 @@ export function userStore(params) {
 
 export function userProfile(params) {
     return request({
-        url: '/users/' + params.id,
+        url: '/dev/user-services/user/getUser/' + params.id,
         method: 'get',
         params: params
     })
@@ -56,17 +56,17 @@ export function userProfile(params) {
 
 export function userUpdate(params) {
     return request({
-        url: '/users/' + params.id,
+        url: '/dev/user-services/user/updateUser',
         method: 'put',
         params: params
     })
 }
 
-export function userBan(params) {
+export function userBtachBan(data) {
     return request({
-        url: '/users/ban',
+        url: '/dev/user-services/user/batchBan',
         method: 'put',
-        params: params
+        data
     })
 }
 
@@ -81,6 +81,14 @@ export function userResetPassword(params) {
 export function userTenantList(params) {
     return request({
         url: '/dev/user-services/company/getUserCompanys',
+        method: 'get',
+        params: params
+    })
+}
+
+export function userRemoteList(params) {
+    return request({
+        url: '/users/remote_list',
         method: 'get',
         params: params
     })

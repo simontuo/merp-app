@@ -3,9 +3,15 @@
 </template>
 
 <script>
+import { sentVerifyCode } from "@/api/sms";
+
 export default {
     props: {
         type: {
+            type: String,
+            default: ""
+        },
+        verifyType: {
             type: String,
             default: ""
         },
@@ -25,7 +31,7 @@ export default {
         sentVerifyCode() {
             this.timing();
             // TODO 发送验证码
-            console.log("发送成功");
+            sentVerifyCode({ phone: this.phone, type: this.verifyType });
         },
         timing() {
             let that = this;

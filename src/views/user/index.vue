@@ -4,10 +4,13 @@
             <search-form ref="searchForm" slot="body" :searchFunction="searchFunction">
                 <template slot="queryItem">
                     <el-form-item label="名称">
-                        <s-input ref="name" placeholder="名称"></s-input>
+                        <select-remote :remoteFunction="userRemoteList" ref="name"></select-remote>
+                    </el-form-item>
+                    <el-form-item label="创建时间">
+                        <date ref="createdAt"></date>
                     </el-form-item>
                     <el-form-item label="手机">
-                        <s-input ref="phone" placeholder="手机"></s-input>
+                        <s-input ref="phone" placeholder="联系人"></s-input>
                     </el-form-item>
                 </template>
             </search-form>
@@ -24,18 +27,29 @@
                         <table-operate-bar title="用户数据">
                             <template slot="functionButton">
                                 <el-button size="small" @click="create">新增</el-button>
-                                <el-button size="small" type="warning" @click="ban">禁用</el-button>
+                                <el-button
+                                    size="small"
+                                    type="warning"
+                                    @click="banOrEnable('ban')"
+                                    :loading="banLoading"
+                                >禁用</el-button>
+                                <el-button
+                                    size="small"
+                                    type="success"
+                                    @click="banOrEnable('enable')"
+                                    :loading="enableLoading"
+                                >启用</el-button>
                             </template>
                         </table-operate-bar>
                         <table-selected-bar selected="50" />
                         <m-table class="mt-1" ref="table">
                             <template slot="columns">
                                 <el-table-column align="center" type="selection" width="55"></el-table-column>
-                                <el-table-column align="center" label="ID" width="55">
-                                    <template slot-scope="scope">{{ scope.$index }}</template>
+                                <el-table-column align="center" label="#" width="55">
+                                    <template slot-scope="scope">{{ scope.$index + 1 }}</template>
                                 </el-table-column>
                                 <el-table-column label="名称" width="110">
-                                    <template slot-scope="scope">{{ scope.row.name }}</template>
+                                    <template slot-scope="scope">{{ scope.row.userName }}</template>
                                 </el-table-column>
                                 <el-table-column label="手机" width="200" align="center">
                                     <template slot-scope="scope">
@@ -45,27 +59,27 @@
                                 <el-table-column label="邮箱" align="center">
                                     <template slot-scope="scope">{{ scope.row.email }}</template>
                                 </el-table-column>
-                                <!-- <el-table-column
+                                <el-table-column
                                     class-name="status-col"
                                     label="状态"
                                     width="110"
                                     align="center"
                                 >
                                     <template slot-scope="scope">
-                                        <el-tag
-                                            :type="scope.row.status | statusFilter"
-                                        >{{ scope.row.status }}</el-tag>
+                                        <el-tag v-if="scope.row.status === 1" type="warning">禁用</el-tag>
+                                        <el-tag v-else type="success">正常</el-tag>
                                     </template>
-                                </el-table-column>-->
+                                </el-table-column>
                                 <el-table-column
                                     align="center"
                                     prop="created_at"
                                     label="创建于"
                                     width="200"
+                                    show-overflow-tooltip
                                 >
                                     <template slot-scope="scope">
                                         <i class="el-icon-time" />
-                                        <span>{{ scope.row.created_at }}</span>
+                                        <span>{{ scope.row.createTime }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -102,10 +116,10 @@ import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import DepartmemtTree from "./components/DeaprtmemtTree";
-import { userPageList, useuserBan, userBan } from "@/api/user";
+import { userPageList, userBtachBan, userRemoteList } from "@/api/user";
 import CreateDrawer from "./components/CreateDrawer";
 import EditDrawer from "./components/EditDrawer";
-import { SelectRemote, SInput } from "@/components/SearchItem";
+import { SelectRemote, SInput, Date } from "@/components/SearchItem";
 
 export default {
     components: {
@@ -119,10 +133,14 @@ export default {
         CreateDrawer,
         EditDrawer,
         SelectRemote,
-        SInput
+        SInput,
+        Date
     },
     data() {
-        return {};
+        return {
+            enableLoading: false,
+            banLoading: false
+        };
     },
     computed: {
         searchFunction() {
@@ -130,6 +148,9 @@ export default {
         },
         selectedIds() {
             return this.$refs.table.selectedIds();
+        },
+        userRemoteList() {
+            return userRemoteList;
         }
     },
     filters: {
@@ -150,21 +171,37 @@ export default {
             this.$refs.editDrawer.id = id;
             this.$refs.editDrawer.show(title);
         },
-        ban() {
+        banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({
-                    message: "请选择需要禁用的数据",
+                    message:
+                        type === "ban"
+                            ? "请选择需要禁用的数据"
+                            : "请选择需要启用的数据",
                     type: "warning"
                 });
                 return false;
             }
-            userBan(this.selectedIds).then(response => {
-                this.$message({
-                    message: response.message,
-                    type: "success"
+            type === "ban"
+                ? (this.banLoading = true)
+                : (this.enableLoading = true);
+
+            userBtachBan({
+                ids: JSON.stringify(this.selectedIds),
+                type: type
+            })
+                .then(response => {
+                    this.$message({
+                        message: response.message,
+                        type: "success"
+                    });
+                    bus.$emit("search");
+                })
+                .finally(() => {
+                    type === "ban"
+                        ? (this.banLoading = false)
+                        : (this.enableLoading = false);
                 });
-                bus.$emit("search");
-            });
         }
     }
 };

@@ -122,6 +122,34 @@ export default [
     },
 
     {
+        url: '/users/remote_list',
+        type: 'get',
+        response: config => {
+            const { query } = config.query
+
+            const list = Mock.mock({
+                'items|150': [
+                    {
+                        id: '@increment',
+                        name: '@cname',
+                        mnemonicCode: '@name'
+                    }
+                ]
+            });
+
+            let sortItems = list.items.reverse();
+
+            return {
+                code: 200,
+                data: {
+                    items: sortItems
+                }
+            }
+
+        }
+    },
+
+    {
         url: '/users/[0-9]*',
         type: 'get',
         response: config => {
