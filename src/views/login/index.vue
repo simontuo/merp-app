@@ -214,7 +214,7 @@ export default {
         },
         swtichVerifyType() {
             if (this.form.verifyType == "password") {
-                this.form.verifyType = "verify_code";
+                this.form.verifyType = "code";
                 this.verifyTypeText = "密码登录";
             } else {
                 this.form.verifyType = "password";

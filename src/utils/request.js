@@ -2,7 +2,7 @@ import axios from 'axios'
 import Qs from 'qs'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken, getTenantHost } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 const host = process.env.VUE_APP_BASE_HOST ? process.env.VUE_APP_BASE_HOST : ''
 
@@ -27,7 +27,6 @@ service.interceptors.request.use(
             // ['X-Token'] is a custom headers key
             // please modify it according to the actual situation
             config.headers['token'] = getToken()
-            config.headers['hostUrl'] = getTenantHost()
         }
         return config
     },
@@ -82,7 +81,7 @@ service.interceptors.response.use(
     error => {
         console.log('err' + error) // for debug
         Message({
-            message: error.response.data.message,
+            message: error.response.data.message ? error.response.data.message : error.message,
             type: 'error',
             duration: 5 * 1000
         })
