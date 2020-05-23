@@ -89,7 +89,7 @@ export default {
     },
     data() {
         return {
-            title: "服务商类型数据",
+            title: "CRM对象类型数据",
             query: {
                 name: ""
             }
@@ -114,7 +114,7 @@ export default {
     },
     methods: {
         create() {
-            this.$refs.createDrawer.show("货物名称新增");
+            this.$refs.createDrawer.show("CRM对象类型新增");
         },
         showProfile(title, id) {
             this.$refs.editDrawer.id = id;

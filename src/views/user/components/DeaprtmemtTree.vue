@@ -2,6 +2,7 @@
     <div class="department">
         <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
         <el-tree
+            :props="props"
             ref="tree"
             class="tree"
             :data="list"
@@ -44,6 +45,11 @@ export default {
     },
     data() {
         return {
+            props: {
+                id: "id",
+                label: "name",
+                children: "children"
+            },
             list: [],
             filterText: ""
         };

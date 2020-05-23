@@ -7,11 +7,11 @@
             <el-tab-pane label="费用项目" name="costItem">
                 <cost-item ref="costItem" v-if="activeName === 'costItem'" />
             </el-tab-pane>
-            <el-tab-pane label="服务商类型" name="supplierType">
-                <supplier-type ref="costItem" v-if="activeName === 'supplierType'" />
+            <el-tab-pane label="CRM对象类型" name="supplierType">
+                <supplier-type ref="supplierType" v-if="activeName === 'supplierType'" />
             </el-tab-pane>
             <el-tab-pane label="集装箱类型" name="containerType">
-                <container-type ref="costItem" v-if="activeName === 'containerType'" />
+                <container-type ref="containerType" v-if="activeName === 'containerType'" />
             </el-tab-pane>
         </el-tabs>
     </div>

@@ -20,6 +20,21 @@
                         <el-form-item label="邮箱" prop="email">
                             <el-input v-model="form.email"></el-input>
                         </el-form-item>
+                        <el-form-item label="部门" required prop="departmentIds">
+                            <el-select
+                                v-model="form.departmentIds"
+                                multiple
+                                placeholder="请选择"
+                                class="drawer-form-item-width"
+                            >
+                                <el-option
+                                    v-for="item in departments"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                                ></el-option>
+                            </el-select>
+                        </el-form-item>
                         <el-form-item label="密码" prop="loginPwd">
                             <el-input v-model="form.loginPwd" show-password></el-input>
                         </el-form-item>
@@ -45,6 +60,7 @@ import MDrawerFooter from "@/components/MDrawer/components/MDrawerFooter";
 import MDrawerBody from "@/components/MDrawer/components/MDrawerBody";
 import { userStore } from "@/api/user";
 import { phone, email } from "@/utils/validate";
+import { departmentList } from "@/api/department";
 
 export default {
     components: {
@@ -55,10 +71,12 @@ export default {
     data() {
         return {
             loading: false,
+            departments: [],
             form: {
                 userName: "",
                 phone: "",
                 email: "",
+                departmentIds: [],
                 loginPwd: "",
                 confirmPassword: ""
             },
@@ -97,6 +115,13 @@ export default {
                         }
                     }
                 ],
+                departmentIds: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        message: "部门不能为空"
+                    }
+                ],
                 loginPwd: [
                     {
                         required: true,
@@ -117,6 +142,9 @@ export default {
     methods: {
         show(title) {
             this.$refs.drawer.title = title;
+            departmentList().then(response => {
+                this.departments = response.data.items;
+            });
             this.$refs.drawer.show();
         },
         submit() {
@@ -129,6 +157,7 @@ export default {
         },
         store() {
             this.loading = true;
+            this.form.departmentIds = JSON.stringify(this.form.departmentIds);
             userStore(this.form)
                 .then(response => {
                     this.$message.success(response.message);
