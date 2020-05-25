@@ -26,11 +26,11 @@ export function customerStore(params) {
     })
 }
 
-export function customerBan(params) {
+export function customerBatchBan(params) {
     return request({
-        url: '/customers/ban',
+        url: '/customers/batch_ban',
         method: 'put',
-        params: params
+        params
     })
 }
 

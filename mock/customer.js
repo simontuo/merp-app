@@ -72,7 +72,7 @@ export default [
     },
 
     {
-        url: '/customers/ban',
+        url: '/customers/batch_ban',
         type: 'put',
         response: config => {
             return {

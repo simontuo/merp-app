@@ -44,7 +44,7 @@ export default [
     },
 
     {
-        url: '/suppliers/ban',
+        url: '/suppliers/batch_ban',
         type: 'put',
         response: config => {
             return {

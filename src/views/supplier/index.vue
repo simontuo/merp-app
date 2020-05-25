@@ -14,7 +14,16 @@
                 <table-operate-bar title="服务商数据">
                     <template slot="functionButton">
                         <el-button size="small" @click="create">新增</el-button>
-                        <el-button size="small" type="warning" @click="ban">禁用</el-button>
+                        <el-dropdown class="ml-1" @command="banOrEnable">
+                            <el-button size="small">
+                                禁用/启用
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                            </el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item icon="el-icon-close" command="ban">禁用</el-dropdown-item>
+                                <el-dropdown-item icon="el-icon-check" command="enable">启用</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </template>
                 </table-operate-bar>
                 <m-table class="mt-1" ref="table">
@@ -36,7 +45,7 @@
                                 <span>{{ scope.row.contact_phone }}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="联系地址" align="center">
+                        <el-table-column label="联系地址" align="center" show-overflow-tooltip>
                             <template slot-scope="scope">{{ scope.row.contact_address }}</template>
                         </el-table-column>
                         <el-table-column label="类型" align="center">
@@ -106,21 +115,37 @@ export default {
         create() {
             this.$refs.createDrawer.show("服务商新增");
         },
-        ban() {
+        banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({
-                    message: "请选择需要禁用的数据",
+                    message:
+                        type === "ban"
+                            ? "请选择需要禁用的数据"
+                            : "请选择需要启用的数据",
                     type: "warning"
                 });
                 return false;
             }
-            supplierBatchBan(this.selectedIds).then(response => {
-                this.$message({
-                    message: response.message,
-                    type: "success"
+            type === "ban"
+                ? (this.banLoading = true)
+                : (this.enableLoading = true);
+
+            supplierBatchBan({
+                ids: JSON.stringify(this.selectedIds),
+                type: type
+            })
+                .then(response => {
+                    this.$message({
+                        message: response.message,
+                        type: "success"
+                    });
+                    bus.$emit("search");
+                })
+                .finally(() => {
+                    type === "ban"
+                        ? (this.banLoading = false)
+                        : (this.enableLoading = false);
                 });
-                bus.$emit("search");
-            });
         }
     }
 };

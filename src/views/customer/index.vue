@@ -31,7 +31,16 @@
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
                         <el-button size="small" @click="create" v-if="checkPermission(['admin'])">新增</el-button>
-                        <el-button size="small" type="warning" @click="ban">禁用</el-button>
+                        <el-dropdown class="ml-1" @command="banOrEnable">
+                            <el-button size="small">
+                                禁用/启用
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                            </el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item icon="el-icon-close" command="ban">禁用</el-dropdown-item>
+                                <el-dropdown-item icon="el-icon-check" command="enable">启用</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </template>
                 </table-operate-bar>
                 <m-table class="mt-1" ref="table">
@@ -49,7 +58,7 @@
                         <el-table-column label="联系电话" align="center" width="200">
                             <template slot-scope="scope">{{ scope.row.contact_phone }}</template>
                         </el-table-column>
-                        <el-table-column label="联系地址" align="center">
+                        <el-table-column label="联系地址" align="center" show-overflow-tooltip>
                             <template slot-scope="scope">{{ scope.row.contact_address }}</template>
                         </el-table-column>
                         <el-table-column label="创建人" width="110" align="center">
@@ -87,7 +96,11 @@ import TableOperateBar from "@/components/TableOperateBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import { customerPageList, customerBan, customerRemote } from "@/api/customer";
+import {
+    customerPageList,
+    customerBatchBan,
+    customerRemote
+} from "@/api/customer";
 import CreateDrawer from "./components/CreateDrawer";
 import checkPermission from "@/utils/permission";
 import { SelectRemote, Date, SInput } from "@/components/SearchItem";
@@ -122,21 +135,37 @@ export default {
         create() {
             this.$refs.createDrawer.show("客户新增");
         },
-        ban() {
+        banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({
-                    message: "请选择需要禁用的数据",
+                    message:
+                        type === "ban"
+                            ? "请选择需要禁用的数据"
+                            : "请选择需要启用的数据",
                     type: "warning"
                 });
                 return false;
             }
-            customerBan(this.selectedIds).then(response => {
-                this.$message({
-                    message: response.message,
-                    type: "success"
+            type === "ban"
+                ? (this.banLoading = true)
+                : (this.enableLoading = true);
+
+            customerBatchBan({
+                ids: JSON.stringify(this.selectedIds),
+                type: type
+            })
+                .then(response => {
+                    this.$message({
+                        message: response.message,
+                        type: "success"
+                    });
+                    bus.$emit("search");
+                })
+                .finally(() => {
+                    type === "ban"
+                        ? (this.banLoading = false)
+                        : (this.enableLoading = false);
                 });
-                bus.$emit("search");
-            });
         },
         checkPermission
     }
