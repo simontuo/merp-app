@@ -14,7 +14,18 @@
                 <table-operate-bar :title="title">
                     <template slot="functionButton">
                         <el-button size="small" @click="create">新增</el-button>
-                        <el-button size="small" type="danger" @click="deleteRow">删除</el-button>
+                        <el-button
+                            size="small"
+                            type="warning"
+                            @click="banOrEnable('ban')"
+                            :loading="banLoading"
+                        >禁用</el-button>
+                        <el-button
+                            size="small"
+                            type="success"
+                            @click="banOrEnable('enable')"
+                            :loading="enableLoading"
+                        >启用</el-button>
                     </template>
                 </table-operate-bar>
                 <m-table class="mt-1" ref="table">
@@ -69,7 +80,7 @@ import {
     containerTypeProfile,
     containerTypeStore,
     containerTypeUpdate,
-    containerTypeBatchDelete
+    containerTypeBtachBan
 } from "@/api/dictionary";
 import CreateDrawer from "./CreateDrawer";
 import EditDrawer from "./EditDrawer";
@@ -88,7 +99,9 @@ export default {
     },
     data() {
         return {
-            title: "集装箱类型数据"
+            title: "集装箱类型数据",
+            enableLoading: false,
+            banLoading: false
         };
     },
     computed: {
@@ -116,21 +129,37 @@ export default {
             this.$refs.editDrawer.id = id;
             this.$refs.editDrawer.show(title);
         },
-        deleteRow() {
+        banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({
-                    message: "请选择需要删除的数据",
+                    message:
+                        type === "ban"
+                            ? "请选择需要禁用的数据"
+                            : "请选择需要启用的数据",
                     type: "warning"
                 });
                 return false;
             }
-            containerTypeBatchDelete(this.selectedIds).then(response => {
-                this.$message({
-                    message: response.message,
-                    type: "success"
+            type === "ban"
+                ? (this.banLoading = true)
+                : (this.enableLoading = true);
+
+            containerTypeBtachBan({
+                ids: JSON.stringify(this.selectedIds),
+                type: type
+            })
+                .then(response => {
+                    this.$message({
+                        message: response.message,
+                        type: "success"
+                    });
+                    bus.$emit("search");
+                })
+                .finally(() => {
+                    type === "ban"
+                        ? (this.banLoading = false)
+                        : (this.enableLoading = false);
                 });
-                bus.$emit("search");
-            });
         }
     }
 };

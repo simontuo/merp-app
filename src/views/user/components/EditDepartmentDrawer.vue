@@ -14,8 +14,8 @@
                         <el-form-item label="名称" required prop="name">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="助记码" required prop="mnemonic_code">
-                            <el-input v-model="form.mnemonic_code"></el-input>
+                        <el-form-item label="助记码" required prop="mnemonicCode">
+                            <el-input v-model="form.mnemonicCode"></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -49,7 +49,7 @@ export default {
             form: {
                 id: "",
                 name: "",
-                mnemonic_code: ""
+                mnemonicCode: ""
             },
             rules: {
                 name: [
@@ -59,10 +59,10 @@ export default {
                         message: "名称不能为空"
                     }
                 ],
-                mnemonic_code: {
+                mnemonicCode: {
                     required: true,
                     trigger: "blur",
-                    message: "验证码不能为空"
+                    message: "助记码不能为空"
                 }
             }
         };

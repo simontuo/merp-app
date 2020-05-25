@@ -58,6 +58,18 @@ export default [
     },
 
     {
+        url: '/goods/batchBan',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 200,
+                message: "禁用成功"
+            }
+
+        }
+    },
+
+    {
         url: '/goods',
         type: 'get',
         response: config => {
@@ -139,6 +151,18 @@ export default [
             return {
                 code: 200,
                 message: "删除成功"
+            }
+
+        }
+    },
+
+    {
+        url: '/cost_items/batchBan',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 200,
+                message: "禁用成功"
             }
 
         }
@@ -232,6 +256,18 @@ export default [
     },
 
     {
+        url: '/supplier_types/batchBan',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 200,
+                message: "禁用成功"
+            }
+
+        }
+    },
+
+    {
         url: '/supplier_types',
         type: 'get',
         response: config => {
@@ -313,6 +349,18 @@ export default [
             return {
                 code: 200,
                 message: "删除成功"
+            }
+
+        }
+    },
+
+    {
+        url: '/container_types/batchBan',
+        type: 'delete',
+        response: config => {
+            return {
+                code: 200,
+                message: "禁用成功"
             }
 
         }

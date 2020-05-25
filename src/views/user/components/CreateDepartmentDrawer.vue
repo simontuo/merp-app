@@ -75,10 +75,7 @@ export default {
                 .then(response => {
                     this.$message.success(response.message);
                     this.$refs.drawer.close();
-                    bus.$emit("search");
-                })
-                .catch(error => {
-                    this.$message.error(error.message);
+                    bus.$emit("departmentTreeReload");
                 })
                 .finally(() => {
                     this.loading = false;
