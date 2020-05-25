@@ -1,7 +1,7 @@
 export function getQuery(components) {
     let query = {}
     for (let index in components) {
-        if (components[index].hasOwnProperty('searchComponent') && components[index].searchComponent) {
+        if (typeof components[index] === 'object' && components[index].hasOwnProperty('searchComponent') && components[index].searchComponent) {
             query[index] = components[index].value;
         }
     }

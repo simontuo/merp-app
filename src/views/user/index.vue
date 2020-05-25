@@ -27,18 +27,20 @@
                         <table-operate-bar title="用户数据">
                             <template slot="functionButton">
                                 <el-button size="small" @click="create">新增</el-button>
-                                <el-button
-                                    size="small"
-                                    type="warning"
-                                    @click="banOrEnable('ban')"
-                                    :loading="banLoading"
-                                >禁用</el-button>
-                                <el-button
-                                    size="small"
-                                    type="success"
-                                    @click="banOrEnable('enable')"
-                                    :loading="enableLoading"
-                                >启用</el-button>
+                                <el-dropdown class="ml-1" @command="banOrEnable">
+                                    <el-button
+                                        size="small"
+                                        :loading="banLoading"
+                                        :disabled="banLoading"
+                                    >
+                                        禁用/启用
+                                        <i class="el-icon-arrow-down el-icon--right"></i>
+                                    </el-button>
+                                    <el-dropdown-menu slot="dropdown">
+                                        <el-dropdown-item icon="el-icon-close" command="ban">禁用</el-dropdown-item>
+                                        <el-dropdown-item icon="el-icon-check" command="enable">启用</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
                             </template>
                         </table-operate-bar>
                         <m-table class="mt-1" ref="table">
@@ -135,7 +137,6 @@ export default {
     },
     data() {
         return {
-            enableLoading: false,
             banLoading: false
         };
     },
@@ -179,9 +180,8 @@ export default {
                 });
                 return false;
             }
-            type === "ban"
-                ? (this.banLoading = true)
-                : (this.enableLoading = true);
+
+            this.banLoading = true;
 
             userBtachBan({
                 ids: JSON.stringify(this.selectedIds),
@@ -195,9 +195,7 @@ export default {
                     bus.$emit("search");
                 })
                 .finally(() => {
-                    type === "ban"
-                        ? (this.banLoading = false)
-                        : (this.enableLoading = false);
+                    this.banLoading = false;
                 });
         }
     }
