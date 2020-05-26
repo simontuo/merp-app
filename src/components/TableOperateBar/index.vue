@@ -47,15 +47,6 @@
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </el-tooltip>
-                        <!-- <el-tooltip content="列设置" placement="top">
-                            <el-button
-                                type="text"
-                                class="operate-button"
-                                @click="toggleDrawer('列设置')"
-                            >
-                                <svg-icon icon-class="seetings" />
-                            </el-button>
-                        </el-tooltip>-->
                         <el-dropdown
                             class="operate-dropdown"
                             trigger="click"
@@ -78,7 +69,6 @@
 
 <script>
 import Screenfull from "@/components/Screenfull";
-import MDrawer from "@/components/MDrawer";
 import TableOperateSelectedBar from "@/components/TableOperateSelectedBar";
 import ColumnList from "@/components/ColumnList";
 
@@ -97,14 +87,11 @@ export default {
     inject: ["reload"],
     data() {
         return {
-            settingDrawer: false,
             downloadLoading: false
         };
     },
     components: {
         Screenfull,
-        MDrawer,
-        ColumnList,
         TableOperateSelectedBar,
         ColumnList
     },
