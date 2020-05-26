@@ -38,6 +38,16 @@
                             </el-button>
                         </el-tooltip>
                         <el-tooltip content="列设置" placement="top">
+                            <el-dropdown class="operate-dropdown" trigger="click">
+                                <el-button type="text" class="operate-button">
+                                    <svg-icon icon-class="list" />
+                                </el-button>
+                                <el-dropdown-menu slot="dropdown">
+                                    <column-list />
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </el-tooltip>
+                        <!-- <el-tooltip content="列设置" placement="top">
                             <el-button
                                 type="text"
                                 class="operate-button"
@@ -45,7 +55,7 @@
                             >
                                 <svg-icon icon-class="seetings" />
                             </el-button>
-                        </el-tooltip>
+                        </el-tooltip>-->
                         <el-dropdown
                             class="operate-dropdown"
                             trigger="click"
@@ -61,9 +71,6 @@
                         </el-dropdown>
                     </template>
                 </div>
-                <m-drawer ref="drawer" v-if="defaultOperateButton">
-                    <column-list slot="content" />
-                </m-drawer>
             </el-col>
         </el-row>
     </div>
@@ -72,8 +79,8 @@
 <script>
 import Screenfull from "@/components/Screenfull";
 import MDrawer from "@/components/MDrawer";
-import ColumnList from "./components/ColumnList";
 import TableOperateSelectedBar from "@/components/TableOperateSelectedBar";
+import ColumnList from "@/components/ColumnList";
 
 export default {
     name: "TableOperateBar",
@@ -98,7 +105,8 @@ export default {
         Screenfull,
         MDrawer,
         ColumnList,
-        TableOperateSelectedBar
+        TableOperateSelectedBar,
+        ColumnList
     },
     methods: {
         handleCommand(command) {
@@ -117,10 +125,6 @@ export default {
                     });
                     break;
             }
-        },
-        toggleDrawer(title) {
-            this.$refs.drawer.title = title;
-            this.$refs.drawer.show();
         },
         refresh() {
             this.reload();
@@ -147,6 +151,9 @@ export default {
                 font-size: 18px;
                 color: #929292;
             }
+        }
+        .operate-dropdown:nth-last-child(2) {
+            margin-right: 0;
         }
         .operate-dropdown:last-child {
             margin-right: 0;
