@@ -168,7 +168,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.push({ name: "customer_service_order" });
+            this.$router.push({ name: "order" });
         },
         importTemplate() {
             this.$refs.importDrawer.show("导入模板");

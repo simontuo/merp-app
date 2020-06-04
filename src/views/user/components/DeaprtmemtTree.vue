@@ -2,6 +2,7 @@
     <div class="department">
         <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
         <el-tree
+            v-loading="loading"
             ref="tree"
             class="tree"
             :data="list"
@@ -46,7 +47,8 @@ export default {
     data() {
         return {
             list: [],
-            filterText: ""
+            filterText: "",
+            loading: false
         };
     },
     mounted() {
@@ -64,17 +66,23 @@ export default {
     },
     methods: {
         fetchData() {
-            departmentList().then(response => {
-                for (let index in response.data.items) {
-                    let item = response.data.items[index];
-                    this.list.push({
-                        id: item.id,
-                        label: item.name,
-                        children: [],
-                        disabled: item.status === 0 ? false : true
-                    });
-                }
-            });
+            this.list = [];
+            this.loading = true;
+            departmentList()
+                .then(response => {
+                    for (let index in response.data.items) {
+                        let item = response.data.items[index];
+                        this.list.push({
+                            id: item.id,
+                            label: item.name,
+                            children: [],
+                            disabled: item.status === 0 ? false : true
+                        });
+                    }
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
         filterNode(value, data) {
             if (!value) return true;

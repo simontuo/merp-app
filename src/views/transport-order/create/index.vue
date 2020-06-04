@@ -9,8 +9,7 @@
                         </el-col>
                         <el-col :span="6">
                             <div class="header-button">
-                                <el-button type="text" size="small" @click="importTemplate">保存模板</el-button>
-                                <el-button type="text" size="small" @click="importTemplate">选择模板</el-button>
+                                <el-button type="text" size="small" @click="importTemplate">导入模板</el-button>
                                 <el-divider direction="vertical"></el-divider>
                                 <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
                             </div>
@@ -168,7 +167,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.push({ name: "customer_service_order" });
+            this.$router.push({ name: "order" });
         },
         importTemplate() {
             this.$refs.importDrawer.show("导入模板");

@@ -10,7 +10,21 @@
 
         <div class="right-menu">
             <template>
-                <calendar class="right-menu-item hover-effect" />
+                <el-button
+                    type="text"
+                    class="right-menu-item hover-effect"
+                    style="margin-left: 0px;"
+                >
+                    <calendar />
+                </el-button>
+
+                <el-button
+                    type="text"
+                    class="right-menu-item hover-effect"
+                    style="margin-left: 0px;"
+                >
+                    <screenfull />
+                </el-button>
                 <div class="right-menu-item hover-effect">{{ tenant.name }}</div>
             </template>
 
@@ -38,12 +52,14 @@ import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 import Calendar from "@/components/Calendar";
+import Screenfull from "@/components/Screenfull";
 
 export default {
     components: {
         Breadcrumb,
         Hamburger,
-        Calendar
+        Calendar,
+        Screenfull
     },
     computed: {
         ...mapGetters(["sidebar", "avatar", "tenant"])

@@ -80,7 +80,7 @@ export function userResetPassword(params) {
 
 export function userTenantList(params) {
     return request({
-        url: '/dev/user-services/company/getUserCompanys',
+        url: '/dev/user-services/user/getUserCompanys',
         method: 'get',
         params: params
     })

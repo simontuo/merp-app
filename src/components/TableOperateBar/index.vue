@@ -2,18 +2,22 @@
     <div class="table-operate-bar clearfix">
         <el-row>
             <el-col :span="12">
-                <table-operate-selected-bar :title="title" />
+                <table-operate-selected-bar :title="title">
+                    <template slot="tableFunctionButton">
+                        <slot name="tableFunctionButton"></slot>
+                    </template>
+                </table-operate-selected-bar>
             </el-col>
             <el-col :span="12">
                 <div class="operate-button-bar">
                     <!-- 功能按钮 -->
                     <slot name="functionButton"></slot>
                     <template v-if="defaultOperateButton">
-                        <el-divider direction="vertical"></el-divider>
+                        <el-divider direction="vertical" class="ml-2"></el-divider>
                         <!-- 通用按钮 -->
-                        <el-tooltip content="全屏" placement="top">
-                            <el-button type="text" class="operate-button">
-                                <screenfull class="operate-button" />
+                        <el-tooltip content="刷新" placement="top">
+                            <el-button type="text" class="operate-button ml-1" @click="refresh">
+                                <svg-icon icon-class="reload" />
                             </el-button>
                         </el-tooltip>
                         <el-tooltip content="密度" placement="top">
@@ -32,11 +36,7 @@
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </el-tooltip>
-                        <el-tooltip content="刷新" placement="top">
-                            <el-button type="text" class="operate-button" @click="refresh">
-                                <svg-icon icon-class="reload" />
-                            </el-button>
-                        </el-tooltip>
+
                         <el-tooltip content="列设置" placement="top">
                             <el-dropdown class="operate-dropdown" trigger="click">
                                 <el-button type="text" class="operate-button">
@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import Screenfull from "@/components/Screenfull";
 import TableOperateSelectedBar from "@/components/TableOperateSelectedBar";
 import ColumnList from "@/components/ColumnList";
 
@@ -91,7 +90,6 @@ export default {
         };
     },
     components: {
-        Screenfull,
         TableOperateSelectedBar,
         ColumnList
     },
@@ -132,18 +130,11 @@ export default {
         float: right;
         .operate-dropdown {
             margin-left: 10px;
-            margin-right: 10px;
             line-height: 1px;
             .operate-button {
                 font-size: 18px;
                 color: #929292;
             }
-        }
-        .operate-dropdown:nth-last-child(2) {
-            margin-right: 0;
-        }
-        .operate-dropdown:last-child {
-            margin-right: 0;
         }
         .operate-button {
             font-size: 16px;

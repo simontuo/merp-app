@@ -74,7 +74,10 @@ export default {
             this.loading = true;
             departmentProfile({ id: this.id })
                 .then(response => {
-                    this.form = response.data;
+                    let { data } = response;
+                    this.form.id = data.id;
+                    this.form.name = data.name;
+                    this.form.mnemonicCode = data.mnemonicCode;
                 })
                 .finally(() => {
                     this.loading = false;

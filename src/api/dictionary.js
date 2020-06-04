@@ -2,7 +2,7 @@ import request from "@/utils/request"
 
 export function goodsPageList(query) {
     return request({
-        url: '/goods',
+        url: '/dev/dictionary-sevices/goodsControler/goodsrPage',
         method: 'get',
         params: query
     })
@@ -10,39 +10,39 @@ export function goodsPageList(query) {
 
 export function goodsProfile(params) {
     return request({
-        url: '/goods/' + params.id,
+        url: '/dev/dictionary-sevices/goodsControler/getGoods/' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function goodsStore(params) {
+export function goodsStore(data) {
     return request({
-        url: '/goods',
+        url: '/dev/dictionary-sevices/goodsControler/newGoods',
         method: 'post',
-        params: params
+        data
     })
 }
 
-export function goodsUpdate(params) {
+export function goodsUpdate(data) {
     return request({
-        url: '/goods/' + params.id,
+        url: '/dev/dictionary-sevices/goodsControler/updateGoods/' + params.id,
         method: 'put',
-        params: params
+        data
     })
 }
 
-export function goodsBatchDelete(params) {
-    return request({
-        url: '/goods/delete',
-        method: 'delete',
-        params: params
-    })
-}
+// export function goodsBatchDelete(params) {
+//     return request({
+//         url: '/goods/delete',
+//         method: 'delete',
+//         params: params
+//     })
+// }
 
 export function goodsBtachBan(data) {
     return request({
-        url: '/goods/batchBan',
+        url: '/dev/dictionary-sevices/goodsControler/batchBan',
         method: 'put',
         data
     })
@@ -50,47 +50,47 @@ export function goodsBtachBan(data) {
 
 export function cosItemPageList(query) {
     return request({
-        url: '/cost_items',
+        url: '/dev/dictionary-services/costControler/costPage',
         method: 'get',
         params: query
     })
 }
 
-export function costItemProfile(params) {
+export function costItemProfile(data) {
     return request({
-        url: '/cost_items/' + params.id,
+        url: '/dev/dictionary-services/costControler/getCost/' + params.id,
         method: 'get',
-        params: params
+        data
     })
 }
 
-export function costItemUpdate(params) {
+export function costItemUpdate(data) {
     return request({
-        url: '/cost_items/' + params.id,
+        url: '/dev/dictionary-services/costControler/updateCost/' + params.id,
         method: 'put',
-        params: params
+        data
     })
 }
 
-export function costItemStore(params) {
+export function costItemStore(data) {
     return request({
-        url: '/cost_items',
+        url: '/dev/dictionary-services/costControler/newCost',
         method: 'post',
-        params: params
+        data
     })
 }
 
-export function costItemBatchDelete(params) {
-    return request({
-        url: '/cost_items/delete',
-        method: 'delete',
-        params: params
-    })
-}
+// export function costItemBatchDelete(params) {
+//     return request({
+//         url: '/cost_items/delete',
+//         method: 'delete',
+//         params: params
+//     })
+// }
 
 export function costItemsBtachBan(data) {
     return request({
-        url: '/cost_items/batchBan',
+        url: '/dev/dictionary-services/costControler/batchBan',
         method: 'put',
         data
     })
@@ -98,7 +98,7 @@ export function costItemsBtachBan(data) {
 
 export function supplierTypePageList(params) {
     return request({
-        url: '/supplier_types',
+        url: '/dev/dictionary-services/crmObjectControler/crmObjectPage',
         method: 'get',
         params: params
     })
@@ -106,39 +106,39 @@ export function supplierTypePageList(params) {
 
 export function supplierTypeProfile(params) {
     return request({
-        url: '/supplier_types/' + params.id,
+        url: '/dev/dictionary-services/crmObjectControler/getCrmObject/' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function supplierTypeStore(params) {
+export function supplierTypeStore(data) {
     return request({
-        url: '/supplier_types',
+        url: '/dev/dictionary-services/crmObjectControler/newCrmObject',
         method: 'post',
-        params: params
+        data
     })
 }
 
-export function supplierTypeUpdate(params) {
+export function supplierTypeUpdate(data) {
     return request({
-        url: '/supplier_types/' + params.id,
+        url: '/dev/dictionary-services/crmObjectControler/updateCrmObject/' + params.id,
         method: 'put',
-        params: params
+        data
     })
 }
 
-export function supplierTypeBatchDelete(params) {
-    return request({
-        url: '/supplier_types/delete',
-        method: 'delete',
-        params: params
-    })
-}
+// export function supplierTypeBatchDelete(params) {
+//     return request({
+//         url: '/supplier_types/delete',
+//         method: 'delete',
+//         params: params
+//     })
+// }
 
 export function supplierTypeBtachBan(data) {
     return request({
-        url: '/supplier_types/batchBan',
+        url: '/dev/dictionary-services/crmObjectControler/batchBan',
         method: 'put',
         data
     })
@@ -146,7 +146,7 @@ export function supplierTypeBtachBan(data) {
 
 export function containerTypePageList(query) {
     return request({
-        url: '/container_types',
+        url: '/dev/dictionary-services/containerControler/containerPage',
         method: 'get',
         params: query
     })
@@ -154,25 +154,25 @@ export function containerTypePageList(query) {
 
 export function containerTypeProfile(params) {
     return request({
-        url: '/container_types/' + params.id,
+        url: '/dev/dictionary-services/containerControler/getContainer/' + params.id,
         method: 'get',
         params: params
     })
 }
 
-export function containerTypeStore(params) {
+export function containerTypeStore(data) {
     return request({
-        url: '/container_types',
+        url: '/dev/dictionary-services/containerControler/newContainer',
         method: 'post',
-        params: params
+        data
     })
 }
 
-export function containerTypeUpdate(params) {
+export function containerTypeUpdate(data) {
     return request({
-        url: '/container_types/' + params.id,
+        url: '/dev/dictionary-services/containerControler/updateContainer/' + params.id,
         method: 'put',
-        params: params
+        data
     })
 }
 
@@ -186,7 +186,7 @@ export function containerTypeBatchDelete(params) {
 
 export function containerTypeBtachBan(data) {
     return request({
-        url: '/container_types/batchBan',
+        url: '/dev/dictionary-services/containerControler/batchBan',
         method: 'put',
         data
     })

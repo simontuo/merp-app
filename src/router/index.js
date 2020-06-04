@@ -106,6 +106,13 @@ export const asyncRoutes = [
                 meta: { title: '客户管理', icon: 'customer', roles: ['admins'] },
             },
             {
+                path: 'create',
+                name: 'customerCreate',
+                hidden: true,
+                component: () => import('@/views/customer/create/index'),
+                meta: { title: '客户新增', roles: ['admin'] }
+            },
+            {
                 path: 'profile',
                 name: 'customerProfile',
                 hidden: true,
@@ -127,11 +134,18 @@ export const asyncRoutes = [
                 meta: { title: '服务商管理', icon: 'supplier', roles: ['admin'] }
             },
             {
+                path: 'create',
+                name: 'supplierCreate',
+                hidden: true,
+                component: () => import('@/views/supplier/create/index'),
+                meta: { title: '服务商新增', roles: ['admin'] }
+            },
+            {
                 path: 'profile',
                 name: 'supplierProfile',
                 hidden: true,
                 component: () => import('@/views/supplier/profile/index'),
-                meta: { title: '服务商管理', roles: ['admin'] }
+                meta: { title: '服务商详情', roles: ['admin'] }
             }
         ]
     },
@@ -139,13 +153,27 @@ export const asyncRoutes = [
     {
         path: '/order',
         component: Layout,
-        redirect: '/order/index',
+        name: 'order',
+        redirect: '/customer_service_order/index',
+        meta: { title: '订单管理', icon: 'order', roles: ['admin'] },
         children: [
             {
-                path: 'index',
-                name: 'order',
-                component: () => import('@/views/order/index'),
-                meta: { title: '订单管理', icon: 'order', roles: ['admin'] }
+                path: 'customer_service_order/index',
+                name: 'customer_service_order',
+                component: () => import('@/views/customer-service-order/index'),
+                meta: { title: '客服订单', roles: ['admin'] }
+            },
+            {
+                path: 'declare_order/index',
+                name: 'declare_order',
+                component: () => import('@/views/declare-order/index'),
+                meta: { title: '申报订单', roles: ['admin'] }
+            },
+            {
+                path: 'transport_order/index',
+                name: 'transport_order',
+                component: () => import('@/views/transport-order/index'),
+                meta: { title: '运输订单', roles: ['admin'] }
             },
             {
                 path: 'profile',
@@ -154,13 +182,7 @@ export const asyncRoutes = [
                 component: () => import('@/views/order/profile/index'),
                 meta: { title: '订单详情', roles: ['admin'] }
             },
-            // {
-            //     path: 'create',
-            //     name: 'orderCreate',
-            //     hidden: true,
-            //     component: () => import('@/views/order/create/index'),
-            //     meta: { title: '订单新增', roles: ['admin'] }
-            // }
+
         ]
     },
 

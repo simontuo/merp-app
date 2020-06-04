@@ -30,7 +30,12 @@
             <div slot="body">
                 <table-operate-bar title="客户数据">
                     <template slot="functionButton">
-                        <el-button size="small" @click="create" v-if="checkPermission(['admin'])">新增</el-button>
+                        <router-link
+                            :to="{name: 'customerCreate'}"
+                            v-if="checkPermission(['admin'])"
+                        >
+                            <el-button size="small">新增</el-button>
+                        </router-link>
                         <el-dropdown class="ml-1" @command="banOrEnable">
                             <el-button size="small">
                                 禁用/启用
@@ -86,7 +91,6 @@
                 <pagination />
             </div>
         </m-card>
-        <create-drawer ref="createDrawer" />
     </div>
 </template>
 
@@ -101,7 +105,6 @@ import {
     customerBatchBan,
     customerRemote
 } from "@/api/customer";
-import CreateDrawer from "./components/CreateDrawer";
 import checkPermission from "@/utils/permission";
 import { SelectRemote, Date, SInput } from "@/components/SearchItem";
 
@@ -112,7 +115,6 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        CreateDrawer,
         SelectRemote,
         Date,
         SInput
@@ -132,9 +134,6 @@ export default {
         }
     },
     methods: {
-        create() {
-            this.$refs.createDrawer.show("客户新增");
-        },
         banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({

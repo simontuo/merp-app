@@ -13,7 +13,12 @@
             <div slot="body">
                 <table-operate-bar title="服务商数据">
                     <template slot="functionButton">
-                        <el-button size="small" @click="create">新增</el-button>
+                        <router-link
+                            :to="{name: 'supplierCreate'}"
+                            v-if="checkPermission(['admin'])"
+                        >
+                            <el-button size="small">新增</el-button>
+                        </router-link>
                         <el-dropdown class="ml-1" @command="banOrEnable">
                             <el-button size="small">
                                 禁用/启用
@@ -76,7 +81,6 @@
                 <pagination />
             </div>
         </m-card>
-        <create-drawer ref="createDrawer"></create-drawer>
     </div>
 </template>
 
@@ -86,9 +90,9 @@ import TableOperateBar from "@/components/TableOperateBar";
 import MTable from "@/components/MTable";
 import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
-import CreateDrawer from "./components/CreateDrawer";
 import { supplierPageList, supplierBatchBan } from "@/api/supplier";
 import { SInput } from "@/components/SearchItem";
+import checkPermission from "@/utils/permission";
 
 export default {
     components: {
@@ -97,7 +101,6 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        CreateDrawer,
         SInput
     },
     data() {
@@ -112,9 +115,7 @@ export default {
         }
     },
     methods: {
-        create() {
-            this.$refs.createDrawer.show("服务商新增");
-        },
+        checkPermission,
         banOrEnable(type) {
             if (this.selectedIds.length < 1) {
                 this.$message({

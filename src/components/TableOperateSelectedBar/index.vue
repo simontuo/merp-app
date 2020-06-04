@@ -6,7 +6,26 @@
             <span class="selected-number">{{selected}}</span>
             项 {{describe}}
         </span>
-        <el-button type="text" class="selected-button" @click="handelClear" v-show="selected > 0">清除</el-button>
+        <span v-show="selected">
+            <slot name="tableFunctionButton"></slot>
+            <!-- <el-button
+                type="text"
+                class="selected-button"
+                @click="handelClear"
+                v-show="selected > 0"
+            >清除</el-button>-->
+            <el-button
+                type="text"
+                class="operate-button"
+                @click="handelClear"
+                v-show="selected > 0"
+            >
+                <span class="right-icon">
+                    <svg-icon icon-class="clear" />
+                </span>
+                清除
+            </el-button>
+        </span>
     </div>
 </template>
 
@@ -62,6 +81,17 @@ export default {
         float: right;
         font-size: 14px;
         color: rgb(24, 144, 255);
+    }
+    .operate-button {
+        font-size: 14px;
+        color: #929292;
+        margin-left: 10px;
+    }
+    .operate-button:hover {
+        color: #409eff;
+    }
+    .right-icon {
+        margin-right: 0px;
     }
 }
 </style>

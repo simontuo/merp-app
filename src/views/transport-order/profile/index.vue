@@ -5,14 +5,12 @@
                 <template slot="body">
                     <el-row>
                         <el-col :span="18">
-                            <el-page-header @back="goBack" content="订单新增"></el-page-header>
+                            <el-page-header @back="goBack" content="订单详情"></el-page-header>
                         </el-col>
                         <el-col :span="6">
                             <div class="header-button">
-                                <el-button type="text" size="small" @click="importTemplate">保存模板</el-button>
-                                <el-button type="text" size="small" @click="importTemplate">选择模板</el-button>
                                 <el-divider direction="vertical"></el-divider>
-                                <el-button type="primary" @click="onSubmit" size="small">创建订单</el-button>
+                                <el-button type="primary" @click="onSubmit" size="small">保存</el-button>
                             </div>
                         </el-col>
                     </el-row>
@@ -101,8 +99,6 @@
                 </el-row>
             </el-col>
         </el-row>
-        <!-- 导入组件 -->
-        <import-drawer ref="importDrawer"></import-drawer>
     </div>
 </template>
 
@@ -116,7 +112,6 @@ import {
     ImportFormItem,
     ExportFormItem,
     GoodsInfo,
-    ImportDrawer,
     CostCard
 } from "../components";
 
@@ -129,7 +124,6 @@ export default {
         ImportFormItem,
         ExportFormItem,
         GoodsInfo,
-        ImportDrawer,
         CostCard
     },
     data() {
@@ -168,10 +162,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.push({ name: "customer_service_order" });
-        },
-        importTemplate() {
-            this.$refs.importDrawer.show("导入模板");
+            this.$router.push({ name: "order" });
         },
         onSubmit() {
             console.log("submit!");

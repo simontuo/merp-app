@@ -16,11 +16,11 @@ export function departmentUpdate(data) {
     })
 }
 
-export function departmentBatchBan(params) {
+export function departmentBatchBan(data) {
     return request({
-        url: '/dev/user-services/department/deleteDepartment',
+        url: '/dev/user-services/department/updateStatusDepartment',
         method: 'put',
-        params: params
+        data
     })
 }
 
