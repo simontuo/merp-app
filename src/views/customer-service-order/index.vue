@@ -12,7 +12,25 @@
         <m-card type="table" class="mt-2">
             <div slot="body">
                 <table-operate-bar title="订单数据">
-                    <template slot="tableFunctionButton"></template>
+                    <template slot="tableFunctionButton">
+                        <el-dropdown class="selected-operate-dropdown" trigger="click">
+                            <el-button type="text" class="operate-button">
+                                <span class="right-icon">
+                                    <svg-icon icon-class="batch" />
+                                </span>
+                                批量操作
+                            </el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <batch-menu>
+                                    <template slot="item">
+                                        <batch-menu-item label="禁用" icon="ban" />
+                                        <batch-menu-item label="启用" icon="check" />
+                                        <batch-menu-item label="订单号" icon="edit" />
+                                    </template>
+                                </batch-menu>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </template>
                     <template slot="functionButton">
                         <router-link :to="{path: '/order/create'}">
                             <el-button size="small">新增</el-button>
@@ -64,6 +82,8 @@ import SearchForm from "@/components/SearchForm";
 import MCard from "@/components/MCard";
 import { fetchList } from "@/api/order";
 import { SInput } from "@/components/SearchItem";
+import BatchMenu from "@/components/BatchMenu";
+import BatchMenuItem from "@/components/BatchMenu/components/BatchMenuItem";
 
 export default {
     components: {
@@ -72,7 +92,9 @@ export default {
         MTable,
         SearchForm,
         MCard,
-        SInput
+        SInput,
+        BatchMenu,
+        BatchMenuItem
     },
     data() {
         return {

@@ -8,12 +8,6 @@
         </span>
         <span v-show="selected">
             <slot name="tableFunctionButton"></slot>
-            <!-- <el-button
-                type="text"
-                class="selected-button"
-                @click="handelClear"
-                v-show="selected > 0"
-            >清除</el-button>-->
             <el-button
                 type="text"
                 class="operate-button"
@@ -82,6 +76,17 @@ export default {
         font-size: 14px;
         color: rgb(24, 144, 255);
     }
+
+    .operate-dropdown {
+        margin-left: 10px;
+        color: #929292;
+        .operate-button {
+            font-size: 14px;
+            color: #929292;
+            margin-left: 10px;
+        }
+    }
+
     .operate-button {
         font-size: 14px;
         color: #929292;

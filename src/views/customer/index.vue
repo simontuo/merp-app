@@ -29,6 +29,33 @@
         <m-card type="table" class="mt-2">
             <div slot="body">
                 <table-operate-bar title="客户数据">
+                    <template slot="tableFunctionButton">
+                        <el-dropdown class="selected-operate-dropdown" trigger="click">
+                            <el-button type="text" class="operate-button">
+                                <span class="right-icon">
+                                    <svg-icon icon-class="batch" />
+                                </span>
+                                批量操作
+                            </el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <batch-menu>
+                                    <template slot="item">
+                                        <batch-menu-item
+                                            label="禁用"
+                                            icon="ban"
+                                            @click.native="banOrEnable('ban')"
+                                        />
+                                        <batch-menu-item
+                                            label="启用"
+                                            icon="check"
+                                            @click.native="banOrEnable('enable')"
+                                        />
+                                        <batch-menu-item label="订单号" icon="edit" />
+                                    </template>
+                                </batch-menu>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </template>
                     <template slot="functionButton">
                         <router-link
                             :to="{name: 'customerCreate'}"
@@ -36,16 +63,6 @@
                         >
                             <el-button size="small">新增</el-button>
                         </router-link>
-                        <el-dropdown class="ml-1" @command="banOrEnable">
-                            <el-button size="small">
-                                禁用/启用
-                                <i class="el-icon-arrow-down el-icon--right"></i>
-                            </el-button>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item icon="el-icon-close" command="ban">禁用</el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-check" command="enable">启用</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
                     </template>
                 </table-operate-bar>
                 <m-table class="mt-1" ref="table">
@@ -107,6 +124,8 @@ import {
 } from "@/api/customer";
 import checkPermission from "@/utils/permission";
 import { SelectRemote, Date, SInput } from "@/components/SearchItem";
+import BatchMenu from "@/components/BatchMenu";
+import BatchMenuItem from "@/components/BatchMenu/components/BatchMenuItem";
 
 export default {
     components: {
@@ -117,7 +136,9 @@ export default {
         MCard,
         SelectRemote,
         Date,
-        SInput
+        SInput,
+        BatchMenu,
+        BatchMenuItem
     },
     data() {
         return {};

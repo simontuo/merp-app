@@ -65,15 +65,15 @@ export default {
             cursor: pointer;
             position: relative;
             font-size: 14px;
-            color: #909399;
-            padding: 12px;
+            // color: #909399;
+            padding: 14px;
             transition: all 1s;
             .icon {
                 margin-right: 5px;
             }
             .right-icon {
                 float: right;
-                margin-top: -20px;
+                margin-top: -14px;
                 margin-right: 10px;
                 color: #ff4949;
             }

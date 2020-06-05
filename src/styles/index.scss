@@ -133,4 +133,16 @@ div:focus {
 	width: 220px;
 }
 
+.selected-operate-dropdown {
+    color: #929292;
+    .operate-button {
+        font-size: 14px;
+        color: #929292;
+        margin-left: 15px;
+    }
+    .operate-button:hover {
+        color: #409eff;
+    }
+}
+
 
